@@ -1,0 +1,73 @@
+<section>
+  <form
+    action='/back-end/create-product'
+    method='post'
+    enctype='multipart/form-data'
+  >
+    <div>
+      <label for='id'>ID: </label>
+      <input type='number' id='id' name='id' />
+    </div>
+
+    <div>
+      <label for='title'>Title:</label>
+      <input type='text' id='title' name='title' />
+    </div>
+
+    <div>
+      <label for='description'>Description:</label>
+      <input type='text' id='description' name='description' />
+    </div>
+
+    <div>
+      <label for='price'>Price:</label>
+      <input type='number' id='price' name='price' />
+    </div>
+
+    <div>
+      <label for='discountPercentage'>Discount Percentage:</label>
+      <input type='number' id='discountPercentage' name='discountPercentage' />
+    </div>
+
+    <div>
+      <label for='rating'>Rating:</label>
+      <input type='number' id='rating' name='rating' />
+    </div>
+
+    <div>
+      <label for='stock'>Stock:</label>
+      <input type='number' id='stock' name='stock' />
+    </div>
+
+    <div>
+      <label for='brand'>Brand:</label>
+      <input type='text' id='brand' name='brand' />
+    </div>
+
+    <div>
+      <label for='category'>Category:</label>
+      <input type='text' id='category' name='category' />
+    </div>
+
+    <div>
+      <label for='thumbnail'>Thumbnail:</label>
+      <input type='text' id='thumbnail' name='thumbnail' />
+    </div>
+
+    <div>
+      <label for='images'>Images:</label>
+      <textarea
+        rows='10'
+        cols='50'
+        id='images'
+        name='images'
+        placeholder='Comma-separated URLs'
+      ></textarea>
+    </div>
+
+    <button>Submit</button>
+    <div>
+    </div>
+  </form>
+
+</section>

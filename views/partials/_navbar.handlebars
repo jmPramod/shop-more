@@ -1,0 +1,16 @@
+<div class='navbar'>
+  <img src='../images/logo.png' class='logo' />
+  <ul>
+    {{#if token}}
+      <i id='homeLink' class='fa-solid fa-house-chimney'></i>
+
+      <li id='homeLink'><a href='/back-end/home'>Home</a></li>
+
+    {{/if}}
+
+    <i class='fa-solid fa-user'></i>
+    <li><a href='/back-end/logout'>Log Out</a></li>
+    <i class='fa-solid fa-right-to-bracket'></i>
+    <li><a href='http://localhost:5900/register'>Sign up</a></li>
+  </ul>
+</div>

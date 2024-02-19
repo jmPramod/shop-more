@@ -1,0 +1,47 @@
+<section class="loginPage">
+
+  <form
+    action="/back-end/create-user/"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <div class="wrapper">
+      <h1>Log In</h1>
+      <div class="inputBlockContainer">
+        <label for="name">Name</label>
+        <input type="text" name="name" />
+        <span class="icon"><i class="fa-solid fa-user"></i></sapn>
+        
+      </div>
+      <div class="inputBlockContainer">
+        <label for="password">Password</label>
+        <input type="password" name="password" />
+        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+      </div>
+      <div class="inputBlockContainer">
+        <label for="phone">Phone</label>
+        <input type="tel" name="phone" />
+        <span class="icon"><i class="fa-solid fa-mobile-screen"></i></span>
+      </div>
+
+      <div class="inputBlockContainer">
+        <label for="role">Role</label>
+        <select name="role">
+          <option value=""></option>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+
+        </select>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox">Remember me</label>
+             
+      </div>
+      <button>Submit</button>
+      <div class="login-register">
+        <p>New User? <a href="#" class="register-link"></a>Click here to Register</p>
+      </div>
+      
+    </div>
+  </form>
+</section>

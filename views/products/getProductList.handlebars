@@ -1,0 +1,17 @@
+<div>
+
+  {{#each productList}}
+    <div class='product-item' style='display: flex;'>
+      <p>Name: {{title}}</p>
+      <p>Price: ${{price}}</p>
+      <img
+        src='{{thumbnail}}'
+        alt='Image of {{title}}'
+        width='20px'
+        height='20px'
+      />
+      <button>Edit</button>
+      <button>Delete</button>
+    </div>
+  {{/each}}
+</div>
