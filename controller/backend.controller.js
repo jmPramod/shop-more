@@ -9,7 +9,7 @@ const homeController = (req, res) => {
   if (token) {
     res.render('home', { token, style: 'home.css' });
   } else {
-    res.render('users/loginUser');
+    res.render('users/loginUser', { style: 'login.css' });
   }
 };
 
@@ -37,9 +37,9 @@ const createUserControllerGet = async (req, res) => {
 const loginUserGet = async (req, res) => {
   const token = req.cookies.access_token;
   if (token) {
-    res.render('home', { token });
+    res.render('home', { token, style: 'home.css' });
   } else {
-    res.render('users/loginUser');
+    res.render('users/loginUser', { style: 'login.css' });
   }
 };
 const loginUserPost = async (req, res, next) => {
