@@ -10,7 +10,6 @@ const {
 
 const signUpRoute = express.Router();
 const loginRoute = express.Router();
-
 loginRoute.post('/api/login', loginController);
 signUpRoute.post('/api/sign-up', signUpController);
 

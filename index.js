@@ -11,6 +11,8 @@ const cookies = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 var cors = require('cors');
+const swaggerUI=require("swagger-ui-express")
+const swaggerJSDoc=require("swagger-jsdoc")
 //It parses incoming request bodies
 //!Middlewears
 
@@ -18,6 +20,25 @@ const corsOprion = {
   origin: '*',
   credential: true,
 };
+//swagger option
+const swaggerOption={
+definition:{
+  openapi:"3.0.0",
+  info:{
+    title:"sample Api with swagger",
+    version:"1.0.0",
+    description:"A sample doc with swagger test 1"
+  },
+  servers:[{url:`http://localhost:${port}/`},{
+    url:process.env.DEPLOYED_BE_BASE_URL
+  }]
+},
+apis:["./routes/*.js"]
+
+}
+//server swagger ui
+const swaggerSpec=swaggerJSDoc(swaggerOption)
+app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerSpec))
 app.use(cookies());
 app.use(
   session({
