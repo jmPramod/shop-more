@@ -26,12 +26,27 @@ const userFetchController = async (req, res, next) => {
   }
 };
 
-const createUserControllerPost = async (req, res) => {
-  // res.render('');
+const editUserControllerPost = async (req, res,next) => {
+  try{
+    console.log(req.body);
+    const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id },{role:req.body.role}).lean();
+   
+  let AllUserData = await SignUp.find({}).lean();
+  
+    res.render("users/listOfUsers",{AllUserData:AllUserData,style:"listOfUsers.css"});
+  
+  }
+  catch(err){
+    next(err)
+  }
+
 };
 
-const createUserControllerGet = async (req, res) => {
-  res.render("users/createUsers");
+const editUserControllerGet = async (req, res,next) => {
+  
+  const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
+console.log(req.params);
+  res.render("users/createUsers",{userExist:userExist});
 };
 const loginUserGet = async (req, res) => {
   const token = req.cookies.access_token;
@@ -80,17 +95,21 @@ const logout = (req, res, next) => {
   res.redirect(redirectUrl);
 };
 const allUserGet = async (req, res, next) => {
-  let AllUserData = await SignUp.find({});
+  let AllUserData = await SignUp.find({}).lean();
+// console.log("AllUserData",AllUserData);
+if(AllUserData){
 
-  res.render("users/listOfUsers", { AllUserData: AllUserData });
+  res.render("users/listOfUsers", { AllUserData: AllUserData,style:"listOfUsers.css" });
+}
 };
 const allUserPost = () => {};
 module.exports = {
   homeController,
   logout,
   userFetchController,
-  createUserControllerPost,
-  createUserControllerGet,
+ 
+  editUserControllerGet,
+  editUserControllerPost,
   loginUserGet,
   loginUserPost,
   allUserGet,

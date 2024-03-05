@@ -1,14 +1,14 @@
-// require("dotenv").config()
-function navigateToRoute() {
-    // Replace 'your-route' with the actual route you want to navigate to
-// if(process.env.NODE_ENV==="PROD"){
-    console.log("Button clicked 1");
-    // window.location.href = process.env.DEPLOYED_BE_BASE_URL;
-// }
-// else{
-    console.log("Button clicked 2");
-    // window.location.href = process.env.LOCAL_BE_BASE_URL;
-// }
-}
+function toggleSidebar(btn) {
+    // Toggle the 'active' class on the sidebar
+    document.getElementById("sidebar").classList.toggle('active');
 
-document.querySelector('.logo').addEventListener('click', navigateToRoute);
+    // Toggle the icon class between fa-circle-left and fa-circle-right
+    var icon = btn.querySelector('.fa-solid');
+    if (icon.classList.contains('fa-caret-left')) {
+      icon.classList.remove('fa-caret-left');
+      icon.classList.add('fa-caret-right');
+    } else {
+      icon.classList.remove('fa-caret-right');
+      icon.classList.add('fa-caret-left');
+    }
+  }

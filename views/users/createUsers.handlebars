@@ -1,27 +1,29 @@
 <section class="loginPage">
 
   <form
-    action="/back-end/create-user/"
+    action="/back-end/edit-user/{{userExist._id}}"
     method="post"
     {{!-- enctype="multipart/form-data" --}}
   >
     <div class="wrapper">
-      <h1>Create a User</h1>
+      <h1>Update User</h1>
       <div class="inputBlockContainer">
         <label for="name">Name</label>
-        <input type="text" name="name" />
-        <span class="icon"><i class="fa-solid fa-user"></i></sapn>
+        <input type="text" name="name" value="{{userExist.name}}" disabled/>
+      
+        
+      </div>
+    
+      <div class="inputBlockContainer">
+        <label for="name">Email</label>
+        <input type="text" name="name" value="{{userExist.email}}" disabled />
+       
         
       </div>
       <div class="inputBlockContainer">
-        <label for="password">Password</label>
-        <input type="password" name="password" />
-        <span class="icon"><i class="fa-solid fa-lock"></i></span>
-      </div>
-      <div class="inputBlockContainer">
         <label for="phone">Phone</label>
-        <input type="tel" name="phone" />
-        <span class="icon"><i class="fa-solid fa-mobile-screen"></i></span>
+        <input type="tel" name="phone" value="{{userExist.phone}}" disabled/>
+       
       </div>
 
       <div class="inputBlockContainer">
@@ -37,10 +39,8 @@
         <label><input type="checkbox">Remember me</label>
              
       </div>
-      <button>Submit</button>
-      <div class="login-register">
-        <p>New User? <a href="#" class="register-link"></a>Click here to Register</p>
-      </div>
+      <button>Update</button>
+     
       
     </div>
   </form>

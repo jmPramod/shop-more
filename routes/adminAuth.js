@@ -2,8 +2,8 @@ const express = require('express');
 const {
   homeController,
   userFetchController,
-  createUserControllerGet,
-  createUserControllerPost,
+  editUserControllerGet,
+  editUserControllerPost,
   loginUserGet,
   loginUserPost,
   logout,
@@ -17,8 +17,8 @@ adminAuth.get('/back-end/home', verifyAdmin, homeController);
 
 adminAuth.get('/back-end/fetch-user', verifyAdmin, userFetchController);
 
-adminAuth.get('/back-end/create-user', verifyAdmin, createUserControllerGet);
-adminAuth.post('/back-end/create-user', verifyAdmin, createUserControllerPost);
+adminAuth.get('/back-end/edit-user/:id', verifyAdmin, editUserControllerGet);
+adminAuth.post('/back-end/edit-user/:id', verifyAdmin, editUserControllerPost);
 adminAuth.get('/back-end/login', loginUserGet);
 adminAuth.post('/back-end/login', loginUserPost);
 adminAuth.get('/back-end/logout', logout);

@@ -14,7 +14,6 @@ const productRoute = express.Router();
 //REST API for front end
 productRoute.get('/api/product/allproducts', productController);
 productRoute.get('/api/product/:id', getSingleProduct);
-productRoute.post('/api/product/import-products', importProducts);
 
 // for backend using handlebars
 productRoute.get('/back-end/create-product', getProduct);
