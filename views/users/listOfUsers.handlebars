@@ -1,0 +1,31 @@
+<section  id="userTable">
+
+
+<table class="TableContainer">
+
+  <thead class="headList">
+    <tr>
+      
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Role</th>
+     <th>action</th>
+    </tr>
+  </thead>
+    <tbody class="tableBody">
+
+  {{#each AllUserData}}
+  
+    <tr>
+      <td>{{name}}</td>
+      <td>{{email}}</td>
+      <td>{{phone}}</td>
+      <td>{{role}}</td>
+      <td><a href="/back-end/edit-user/{{_id}}">Edit</a></td>
+    </tr>
+  {{/each}}
+    </tbody>
+</table>
+</section>
+

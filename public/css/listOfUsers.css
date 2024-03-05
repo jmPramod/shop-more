@@ -1,0 +1,65 @@
+#userTable{
+ width: 100%;
+ height: 100%;
+ border: 1px solid black;
+}
+.TableContainer{
+    /* display: flex; */
+    width: 100%;
+    margin: 0 auto;
+    margin-right: 0;
+   max-height: 80vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.headList{
+    /* display: ; */
+    position: fixed;
+    width: 100%;
+    gap: 20px;
+    top: 70px;
+    z-index: 10;
+   
+}
+.headList>tr
+{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.headList>tr>th{
+    width: 20%;
+    border: 1px solid black;
+    background-color: gray;
+    color: white;
+    padding: 10px;
+    font-weight: 300;
+    font-size: 20px;
+}
+.tableBody{
+    width: 100%;
+    position: relative;
+    /* top: 70px; */
+    /* top: 14vh; */
+}
+.tableBody>tr>td
+{  width: 16%;
+    border: 1px solid black;
+    /* background-color: gray; */
+    /* color: white; */
+    padding: 10px;
+    font-weight: 300;
+    overflow: auto;
+    font-size: 20px;}
+
+    .tableBody>tr>td>a{
+        width: 100%;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid black;
+        padding: 5px;
+        border-radius: 3px;
+        background-color: rgb(220, 220, 220);
+    }

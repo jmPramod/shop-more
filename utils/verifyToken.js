@@ -5,9 +5,8 @@ require('dotenv').config();
 
 const verifyToken = (req, res, next) => {
   const token = req.cookies.access_token;
-  console.log('token', token);
+
   if (!token) {
-    console.log('if');
     return next(createError(401, 'you are not authorized!'));
   }
 
@@ -23,7 +22,6 @@ const verifyToken = (req, res, next) => {
 
 const verifyUser = (req, res, next) => {
   verifyToken(req, res, () => {
-    console.log('    req.user_info.id', req.user_info, req.params.id);
     if (
       req.user_info.id === (req.user_info && req.params.id) ||
       (req.user_info && req.user_info.role) === 'user'
@@ -36,7 +34,6 @@ const verifyUser = (req, res, next) => {
 };
 const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
-    console.log('req.user_info', req.user_info);
     if (req.user_info && req.user_info.role === 'admin') {
       next();
     } else {
