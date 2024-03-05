@@ -1,63 +1,52 @@
-#loginContainer {
-  font-family: 'Comic Sans MS', cursive;
-  margin: 0;
+#loginPage{
   display: flex;
+  
+  background-color: #f2f2f2;
+  /* flex-direction: ; */
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
-  background: #f5f5f5;
-  color: #333;
-}
+  height: 100%;
 
-.container {
-  width: 100%;
-  max-width: 400px;
 }
-
-.card {
-  width: 100%;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.loginTitle {
-  text-align: center;
-  color: #333;
-  /* margin-bottom: ;  */
-}
-
-.formContainer {
+.demo
+{
   display: flex;
   flex-direction: column;
 }
-
-.loginField {
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  transition: border-color 0.3s ease-in-out;
-  outline: none;
-  color: #333;
+.loginForm{
+  background-color: white;
+  min-width:20%;
+  min-height: 60%;
+  /* border: 1px solid red; */
+  position: absolute;
+  display: flex;
+  /* flex-direction: ; */
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
+.loginInput{
 
-.loginField:focus {
-  border-color: #ff4500;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
+.loginInput>input{
+  padding: 6px;
+  width: 100%;
 
-.loginButton {
-  background-color: #ff4500;
-  color: #fff;
-  padding: 10px;
+}
+.loginButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.loginButton:hover {
-  background-color: #e63900;
+  width: 80%;
+  padding: 10px;
+  background-color: lightblue;
+  color: white;
 }

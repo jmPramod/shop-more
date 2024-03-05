@@ -1,68 +1,67 @@
-* {
-  margin: 0;
-  padding: 0;
+*{
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-
-#navbar {
+#firstParent{
+  height: 85vh;
+}
+#mainBody{
+  position: relative;
+  top: 15vh;
+}
+#navbar{
   width: 100%;
-  /* position: fixed; */
-  z-index: 1000;
-  height: 12vh;
-  padding: 20px;
-  background-color: #ebebff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* margin-bottom: 10p; */
+  background-color:#f5cd79;
+  padding: 0 10px;
+position: fixed;
+  height: 15vh;
+  margin-bottom:30px 
 }
+.logo{
+  font-size: 20px;
+display: flex;
+flex-wrap: wrap;
+background-color: white;
+border-radius:10px ;
+padding: 10px;
+border: none;
+text-decoration: none;
+cursor: pointer;
 
-@media only screen and (max-width: 600px) {
-  /* Styles specific to screens smaller than 600 pixels */
-  #navbar {
-    width: 100%;
-    border-radius: 0px;
-  }
 }
-.menuItems {
+.logo>div{
+  
   display: flex;
-  gap: 10px;
+  gap: 3px;
 }
-.menuItems > li {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 10px;
-  box-shadow: 0 5px 15px rgba(44, 44, 44, 0.5);
-
+.dotcom{
   background-color: black;
   color: white;
-  transition: 0.3s ease-in-out;
-  text-decoration: none;
+  padding:  0 3px;
+  border-radius:4px ;
 }
-.menuItems > li:hover {
-  background: white;
-  color: black;
-  box-shadow: 0 5px 15px rgb(255, 255, 255);
-  cursor: pointer;
+.menuItems{
+  display: flex;
+  gap: 10px;
 }
-.menuItems > li {
+.menuItems>li{
   list-style: none;
-  padding: 10px;
-}
-.menuItems > li > a {
-  text-decoration: none;
-  color: white;
-}
-.menuItems > li > a :hover {
   color: black;
+  padding: 10px;
+  /* background-color: ; */
+  border-radius: 4px;
+  background-color: white;
+}
+.menuItems>li:hover{
+  color: rgb(171, 171, 171);
+}
+.menuItems>li>a{
+  text-decoration: none;
+  color: black;
+
 }
 
-.logoButton {
-  background-color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 20px;
-}

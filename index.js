@@ -10,10 +10,22 @@ const { productRoute } = require('./routes/productRoute');
 const cookies = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+var cors = require('cors');
 //It parses incoming request bodies
 //!Middlewears
 
+const corsOprion = {
+  origin: '*',
+  credential: true,
+};
 app.use(cookies());
+app.use(
+  session({
+    secret: 'your-secret-key', // Replace with a secret key for session encryption
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 //middleware  to parse JSON data sent in req.body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -31,6 +43,8 @@ app.use(express.static(__dirname + '/public')); // to  tell server the static fi
 //   res.locals.Warning_msg = res.flash('Warning_msg');
 // });
 //On PAGE LOAD we get this route
+
+app.use(cors(corsOprion));
 app.use('/', adminAuth);
 
 //1.create a sign-up route(authentication) :URl/api/register
@@ -44,7 +58,6 @@ app.use(function (req, res, next) {
 });
 //! Error handing  middleware
 app.use((err, req, res, next) => {
-  console.log('err', err);
   const statusCode = err.status || 500;
   const errorMessage = err.message || 'Something went wrong!!!!';
 

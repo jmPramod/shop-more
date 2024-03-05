@@ -1,12 +1,13 @@
-const createError = require('../utils/errorHandle');
-const productsSchema = require('../models/ProductSchema');
+const createError = require("../utils/errorHandle");
+const productsSchema = require("../models/ProductSchema");
 
 const productController = async (req, res, next) => {
   try {
     const allprod = await productsSchema.find();
-    if (!allprod) return next(createError(404, 'No Data Found'));
+    if (!allprod) return next(createError(404, "No Data Found"));
     res.status(200).json({
-      message: 'Data retrieved successfully',
+      message: "Data retrieved successfully",
+      count: allprod.length,
       data: allprod,
     });
   } catch (err) {
@@ -49,10 +50,10 @@ const CreateProductController = async (req, res, next) => {
     // if (error.length > 0) {
     //   res.render('products/productCreate', { error, title: req.body.title });
     // } else {
-    //   console.log('pramod');
+
     // }
     res.status(200).json({
-      message: 'Product Added successfully.',
+      message: "Product Added successfully.",
       data: newProduct,
     });
   } catch (err) {
@@ -61,7 +62,7 @@ const CreateProductController = async (req, res, next) => {
 };
 
 const getProduct = async (req, res, next) => {
-  res.render('products/productCreate');
+  res.render("products/productCreate");
 };
 
 const getProductList = async (req, res, next) => {
@@ -70,13 +71,42 @@ const getProductList = async (req, res, next) => {
     // console.log('productList', productList);
     // res.render('products/getProductList', { productList });
   } catch (error) {
-    console.error('Error fetching product list:', error);
+    console.error("Error fetching product list:", error);
     next(err);
   }
 };
+
+const getSingleProduct = async (req, res, next) => {
+  try {
+    const productDetails = await productsSchema.findById({
+      _id: req.params.id,
+    });
+    res.status(200).json({
+      message: "Product fetched successfully.",
+      data: productDetails,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const importProducts = async (req, res, next) => {
+  try {
+    const importData = await productsSchema.insertMany(req.body);
+    res.status(200).json({
+      message: "Products inserted.",
+      data: importData,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
+  getSingleProduct,
   productController,
   CreateProductController,
   getProduct,
   getProductList,
+  importProducts,
 };
