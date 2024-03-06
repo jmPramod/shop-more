@@ -13,8 +13,9 @@ const session = require('express-session');
 var cors = require('cors');
 const swaggerUI=require("swagger-ui-express")
 const swaggerJSDoc=require("swagger-jsdoc")
-//It parses incoming request bodies
-//!Middlewears
+
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
 
 const corsOprion = {
   origin: '*',
@@ -38,7 +39,7 @@ apis:["./routes/*.js"]
 }
 //server swagger ui
 const swaggerSpec=swaggerJSDoc(swaggerOption)
-app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerSpec))
+app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL }))
 app.use(cookies());
 app.use(
   session({
