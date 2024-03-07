@@ -5,14 +5,15 @@ const {
   getProduct,
   getProductList,
   getSingleProduct,
-  importProducts
+  importProducts,
+  searchProduct
 } = require('../controller/productController');
 const { verifyAdmin } = require('../utils/verifyToken');
 
 const productRoute = express.Router();
 /** 
 @swagger
-* /api/product/allproducts:
+* /api/products:
 *   get:
 *     summary: Get Request
 *     description: Get all product.
@@ -21,7 +22,7 @@ const productRoute = express.Router();
 *         description: Successful response
 */
 //REST API for front end
-productRoute.get('/api/product/allproducts', productController);
+productRoute.get('/api/products', productController);
 productRoute.get('/api/product/:id', getSingleProduct);
 
 // for backend using handlebars
@@ -31,6 +32,8 @@ productRoute.post(
   verifyAdmin,
   CreateProductController
 );
+productRoute.post('/api/product/import-products', importProducts);
 productRoute.get('/back-end/get-product-list', getProductList);
 
+productRoute.post('/products/search', searchProduct);
 module.exports = { productRoute };

@@ -68,7 +68,7 @@ const getProduct = async (req, res, next) => {
 const getProductList = async (req, res, next) => {
   try {
     // let productList = await productsSchema.find().lean();
-    // console.log('productList', productList);
+ 
     // res.render('products/getProductList', { productList });
   } catch (error) {
     console.error("Error fetching product list:", error);
@@ -102,6 +102,25 @@ const importProducts = async (req, res, next) => {
   }
 };
 
+const searchProduct=async(req,res,next)=>{
+  try{
+    const searchTerm=req.query
+    const productDetails = await productsSchema.find({title:searchTerm
+    })
+if(!productDetails){
+  return next(createError(404, 'no product found'));
+ 
+}
+    res.status(200).json({
+      message: 'search successful',
+data:productDetails
+    });
+  }
+  catch(err){
+    next(err)
+  }
+}
+
 module.exports = {
   getSingleProduct,
   productController,
@@ -109,4 +128,5 @@ module.exports = {
   getProduct,
   getProductList,
   importProducts,
+  searchProduct
 };

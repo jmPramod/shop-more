@@ -1,0 +1,18 @@
+{{#if Success_msg}}
+  <div class='alert alert-success'>{{this}}</div>
+{{/if}}
+
+{{#if Error_msg}}
+  <div class='alert alert-danger'>{{Error_msg}}</div>
+{{/if}}
+
+{{#if Info_msg}}
+  <div class='alert alert-info'>{{Info_msg}}</div>
+{{/if}}
+{{#if Warning_msg}}
+  <div class='alert alert-info'>{{Warning_msg}}</div>
+{{/if}}
+
+{{#each error}}
+  <div class='alert alert-danger'>{{text}}</div>
+{{/each}}

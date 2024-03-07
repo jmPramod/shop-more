@@ -18,7 +18,6 @@ const forgotPasswordResetLink = async (payload) => {
       pass: process.env.NODE_MAILER_SECRET,
     },
   });
-  //   console.log('transporter', transporter);
   const mailOption = {
     from: { name: 'Customer Support', address: process.env.ACCOUNT_LOGIN },
     to: [payload.email], // list of receivers

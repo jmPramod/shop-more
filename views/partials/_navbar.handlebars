@@ -3,12 +3,14 @@
     <div>PJ<div class="dotcom">.com</div></div>
   </a>
   <ul class="menuItems">
-    {{#if token}}
-
-
+   
+{{#if Success_msg}}
+<div>{{Success_msg}}</div>
+{{/if}}
+<div>ok</div>
       <li id='homeLink'><a href='/back-end/home'>Home</a></li>
 
-    {{/if}}
+    
 
     <li><a href='/back-end/logout'>Log Out</a></li>
    

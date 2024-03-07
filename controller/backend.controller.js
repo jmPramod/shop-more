@@ -7,8 +7,13 @@ const homeController = (req, res) => {
   const token = req.cookies.access_token;
 
   if (token) {
-    res.render("home", { token, style: "home.css" });
+
+    req.flash('message', 'Success!!');
+    res.render("home", { token, style: "home.css", showSideBar: true, msg: req.flash("msg") });
   } else {
+
+
+    req.flash('message', 'Success!!');
     res.render("users/loginUser", { style: "login.css" });
   }
 };
@@ -26,32 +31,32 @@ const userFetchController = async (req, res, next) => {
   }
 };
 
-const editUserControllerPost = async (req, res,next) => {
-  try{
-    console.log(req.body);
-    const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id },{role:req.body.role}).lean();
-   
-  let AllUserData = await SignUp.find({}).lean();
-  
-    res.render("users/listOfUsers",{AllUserData:AllUserData,style:"listOfUsers.css"});
-  
+const editUserControllerPost = async (req, res, next) => {
+  try {
+
+    const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id }, { role: req.body.role }).lean();
+
+    let AllUserData = await SignUp.find({}).lean();
+
+    res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", showSideBar: true });
+
   }
-  catch(err){
+  catch (err) {
     next(err)
   }
 
 };
 
-const editUserControllerGet = async (req, res,next) => {
-  
+const editUserControllerGet = async (req, res, next) => {
+
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-console.log(req.params);
-  res.render("users/createUsers",{userExist:userExist});
+
+  res.render("users/createUsers", { userExist: userExist, showSideBar: true });
 };
 const loginUserGet = async (req, res) => {
   const token = req.cookies.access_token;
   if (token) {
-    res.render("home", { token });
+    res.render("home", { token, showSideBar: true });
   } else {
     res.render("users/loginUser", { style: "login.css" });
   }
@@ -60,12 +65,12 @@ const loginUserPost = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const userExist = await SignUp.findOne({ email: email });
-console.log(userExist);
+
     if (!userExist) {
       return next(createError(404, "Invalid User."));
     }
     const isPassword = await bcrypt.compare(password, userExist.password);
-console.log(password,userExist.password,isPassword);
+
     if (!isPassword) {
       return next(createError(404, "Invalid Password."));
     }
@@ -96,18 +101,18 @@ const logout = (req, res, next) => {
 };
 const allUserGet = async (req, res, next) => {
   let AllUserData = await SignUp.find({}).lean();
-// console.log("AllUserData",AllUserData);
-if(AllUserData){
 
-  res.render("users/listOfUsers", { AllUserData: AllUserData,style:"listOfUsers.css" });
-}
+  if (AllUserData) {
+
+    res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
+  }
 };
-const allUserPost = () => {};
+const allUserPost = () => { };
 module.exports = {
   homeController,
   logout,
   userFetchController,
- 
+
   editUserControllerGet,
   editUserControllerPost,
   loginUserGet,

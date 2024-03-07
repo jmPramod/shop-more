@@ -22,6 +22,6 @@ adminAuth.post('/back-end/edit-user/:id', verifyAdmin, editUserControllerPost);
 adminAuth.get('/back-end/login', loginUserGet);
 adminAuth.post('/back-end/login', loginUserPost);
 adminAuth.get('/back-end/logout', logout);
-adminAuth.post('/back-end/get-all-user', allUserPost);
-adminAuth.get('/back-end/get-all-user', allUserGet);
+adminAuth.post('/back-end/get-all-user', verifyAdmin, allUserPost);
+adminAuth.get('/back-end/get-all-user', verifyAdmin, allUserGet);
 module.exports = { adminAuth };

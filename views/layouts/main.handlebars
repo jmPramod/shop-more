@@ -11,9 +11,17 @@
 <section id="firstParent">
 
   {{>_navbar}}
-  <div id="mainBody">
 
+
+  {{>_message}}
+
+  <div id="mainBody">
+  {{#if showSideBar}}
 {{>_sidebar}}
+   {{/if}}
+{{#if Success_msg}}
+<div>{{Success_msg}}</div>
+{{/if}}
     {{{body}}}
   </div>
   

@@ -52,9 +52,10 @@ const loginController = async (req, res, next) => {
     res.header('token', `${token}`);
     req.session.token = token;
     res.cookie('access_token', token, {
-      maxAge: 7200,
+
       httpOnly: true,
-      sameSite: 'None',
+      sameSite: 'strict',
+      path: "/",
       secure: true,
     });
     const userData = { name: userExist.name, email };
@@ -70,7 +71,6 @@ const loginController = async (req, res, next) => {
 const resetPasswordController = async (req, res, next) => {
   try {
     const { email } = req.body;
-    console.log('email.', email);
     const userExist = await SignUp.findOne({ email: email });
     if (userExist.email !== email) {
       return next(createError(404, 'Email is not registered.')); //user does not exist in database
@@ -95,16 +95,12 @@ const resetPasswordController = async (req, res, next) => {
 const getResetPasswordFromGmail = async (req, res, next) => {
   try {
     const { id, token } = req.params;
-    // console.log('pk1', id, token);
     const payload = jwt.verify(token, process.env.SECRET_KEY);
-    // console.log('mpm', payload);
     const userExist = await SignUp.findById({ _id: id });
-    // console.log('userExist', userExist);
     if (!userExist) {
       return next(createError(404, 'invalid URL')); //user does not exist in database
     }
     if (payload) {
-      // console.log('get hit');
       res.render('users/resetPassword', { id: id, token: token, payload });
     }
   } catch (err) {
@@ -112,21 +108,16 @@ const getResetPasswordFromGmail = async (req, res, next) => {
   }
 };
 const putResetPasswordFromGmail = async (req, res, next) => {
-  console.log('req_body', req.body);
   try {
     const { id, token } = req.params;
-    console.log({ id, token });
-    // console.log('pk1', id, token);
     const payload = jwt.verify(token, process.env.SECRET_KEY);
 
     const saltRounds = 10;
     const hashPass = await bcrypt.hash(req.body.enterPassword, saltRounds);
-    console.log('hashPass', hashPass);
     const userExist = await SignUp.findOneAndUpdate(
       { email: payload.email },
       { password: hashPass.toString() }
     );
-    console.log('userExist', userExist);
     if (!userExist) {
       return next(createError(404, 'invalid URL')); //user does not exist in database
     }
