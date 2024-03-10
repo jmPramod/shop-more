@@ -17,8 +17,10 @@ const swaggerOption = {
 
             }
         },
-        servers: [{ url: `http://localhost:${port}/`, description: "My API Documentation1", }, {
-            url: process.env.DEPLOYED_BE_BASE_URL, description: "My API Documentation2",
+        servers: [{ url: `http://localhost:${port}/`, description: " local host", }, {
+            url: process.env.DEPLOYED_BE_BASE_URL, description: "base url for group ",
+        }, , {
+            url: "https://mern1-wine.vercel.app", description: "base url of this project-MERN",
         }]
     },
     apis: ["./routes/REST/*.js"]
