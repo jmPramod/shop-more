@@ -17,8 +17,8 @@ const swaggerOption = {
 
             }
         },
-        servers: [{ url: `http://localhost:${port}/` }, {
-            url: process.env.DEPLOYED_BE_BASE_URL
+        servers: [{ url: `http://localhost:${port}/`, description: "My API Documentation1", }, {
+            url: process.env.DEPLOYED_BE_BASE_URL, description: "My API Documentation2",
         }]
     },
     apis: ["./routes/REST/*.js"]
