@@ -13,7 +13,7 @@ var cors = require('cors');
 const swaggerUI = require("swagger-ui-express")
 const { swaggerSpec, CSS_URL } = require('./config/swaggerFiles');
 const { globalStorage, corsOption, sessionOption } = require('./config/optionsHelper');
-
+const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
 
 
 app.use(cors(corsOption));
