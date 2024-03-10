@@ -26,6 +26,7 @@ const signUpController = async (req, res, next) => {
     res.status(200).json({
       message: 'User Created Successfully.',
       data: signUpData,
+      statusCode: 200,
     });
   } catch (err) {
     next(err);
@@ -125,11 +126,36 @@ const putResetPasswordFromGmail = async (req, res, next) => {
     next(err);
   }
 };
+const profileUpdateController = async (req, res, next) => {
+  try {
+
+    let signUpData;
+    const saltRounds = 10;
+    const hashPass = await bcrypt.hash(req.body.password, saltRounds);
+    const { name, email, password, phone, role } = req.body;
+    const data = {
+      name,
+      email,
+      password: hashPass,
+      phone,
+    };
+
+    const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: data }, { new: true })
+    res.status(200).json({
+      message: 'User update Successfully.',
+      data: userToUpdate,
+      statusCode: 200,
+    });
+
+  } catch (error) {
+
+  }
+}
 module.exports = {
   signUpController,
   loginController,
   resetPasswordController,
-
+  profileUpdateController,
   putResetPasswordFromGmail,
   getResetPasswordFromGmail,
 };

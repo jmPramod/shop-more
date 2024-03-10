@@ -5,7 +5,7 @@ const port = process.env.PORT;
 const { engine } = require('express-handlebars');
 const { adminAuthHB } = require('./routes/HB/adminAuthHB');
 const { connectMongooseDB } = require('./config/db.connect');
-const { signUpRoute, loginRoute } = require('./routes/REST/userAuth');
+const { authRoute } = require('./routes/REST/userAuth');
 const { productRoute } = require('./routes/REST/productRoute');
 const cookies = require('cookie-parser');
 const flash = require('connect-flash');
@@ -33,8 +33,8 @@ app.use('/', adminAuthHB);
 
 //REST API routes
 
-app.use('/', signUpRoute);
-app.use('/', loginRoute);
+
+app.use('/', authRoute);
 app.use('/', productRoute);
 //404 page for handlebars
 app.get('*', function (req, res) {

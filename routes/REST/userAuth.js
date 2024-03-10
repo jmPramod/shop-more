@@ -6,10 +6,12 @@ const {
   putResetPasswordFromGmail,
   getResetPasswordFromGmail,
   resetPasswordController,
+  profileUpdateController
 } = require('../../controller/REST_Controller/REST.controller');
+const { verifyUser, verifyAdmin } = require('../../utils/verifyToken');
 
-const signUpRoute = express.Router();
-const loginRoute = express.Router();
+
+const authRoute = express.Router();
 /**
  * @swagger
  * components:
@@ -119,12 +121,13 @@ const loginRoute = express.Router();
  
  */
 
-loginRoute.post('/api/login', loginController);
-signUpRoute.post('/api/register', signUpController);
+authRoute.post('/api/login', loginController);
+authRoute.post('/api/register', signUpController);
+authRoute.put('/api/update-profile/:id', verifyUser, profileUpdateController);
 
-signUpRoute.get('/api/reset-password/:id/:token', getResetPasswordFromGmail);
+authRoute.get('/api/reset-password/:id/:token', getResetPasswordFromGmail);
 
-signUpRoute.post('/api/reset-password/:id/:token', putResetPasswordFromGmail);
+authRoute.post('/api/reset-password/:id/:token', putResetPasswordFromGmail);
 
-signUpRoute.post('/api/reset-password', resetPasswordController);
-module.exports = { signUpRoute, loginRoute };
+authRoute.post('/api/reset-password', verifyUser, resetPasswordController);
+module.exports = { authRoute };
