@@ -99,6 +99,32 @@ const authRoute = express.Router();
  *               $ref: '#/components/schemas/Register'
  *       500:
  *         description: Some server error
+ * /api/update-profile/{id}:
+ *   put:
+ *     summary: Update user profile
+ *     tags: [Authentication]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the user profile to update
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Register'  
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Register'
+ *       500:
+ *         description: Some server error
  * /api/reset-password:
  *   post:
  *     summary: forget password
