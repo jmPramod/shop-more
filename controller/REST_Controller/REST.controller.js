@@ -1,11 +1,11 @@
-const SignUp = require('../models/AuthSchema');
-const createError = require('../utils/errorHandle');
+const SignUp = require('../../models/AuthSchema');
+const createError = require('../../utils/errorHandle');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 const bcrypt = require('bcryptjs');
-const { forgotPasswordResetLink } = require('../utils/nodeMailer');
+const { forgotPasswordResetLink } = require('../../utils/nodeMailer');
 
 const signUpController = async (req, res, next) => {
   try {

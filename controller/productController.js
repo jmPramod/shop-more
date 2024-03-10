@@ -61,14 +61,11 @@ const CreateProductController = async (req, res, next) => {
   }
 };
 
-const getProduct = async (req, res, next) => {
-  res.render("products/productCreate");
-};
 
 const getProductList = async (req, res, next) => {
   try {
     // let productList = await productsSchema.find().lean();
- 
+
     // res.render('products/getProductList', { productList });
   } catch (error) {
     console.error("Error fetching product list:", error);
@@ -102,21 +99,22 @@ const importProducts = async (req, res, next) => {
   }
 };
 
-const searchProduct=async(req,res,next)=>{
-  try{
-    const searchTerm=req.query
-    const productDetails = await productsSchema.find({title:searchTerm
+const searchProduct = async (req, res, next) => {
+  try {
+    const searchTerm = req.query
+    const productDetails = await productsSchema.find({
+      title: searchTerm
     })
-if(!productDetails){
-  return next(createError(404, 'no product found'));
- 
-}
+    if (!productDetails) {
+      return next(createError(404, 'no product found'));
+
+    }
     res.status(200).json({
       message: 'search successful',
-data:productDetails
+      data: productDetails
     });
   }
-  catch(err){
+  catch (err) {
     next(err)
   }
 }
@@ -125,7 +123,7 @@ module.exports = {
   getSingleProduct,
   productController,
   CreateProductController,
-  getProduct,
+
   getProductList,
   importProducts,
   searchProduct

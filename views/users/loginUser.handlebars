@@ -1,7 +1,7 @@
 <section id="loginPage">
   <div class="wave-background"></div>
   <form
-    action="/back-end/login/"
+    action="/login/"
     method="post"
     class="loginForm"
     {{!-- enctype="multipart/form-data" --}}
@@ -9,9 +9,9 @@
         <h1>Log In</h1>
       <div class="loginInput">
        
-        <input type="text" name="email" placeholder="Email"/>
+        <input type="text" name="email" placeholder="Email" required/>
              
-        <input type="password" name="password" placeholder="Password"/>
+        <input type="password" name="password" placeholder="Password" required/>
       </div>
 
       
@@ -20,9 +20,11 @@
     
      
     <div class="demo">
+<div class="testData">
 
-    <h6>demo login:pramodjm4@gmail.com</h6>
-    <h6>demo password:Pramod@123</h6>
+    <h4>Test login: <b> pramodjm4@gmail.com</b> </h4>
+    <h4>Test password: <b>Pramod@123</b></h4>
+</div>
     </div> 
       <button class="loginButton">Submit</button>
   </form>

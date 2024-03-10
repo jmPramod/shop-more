@@ -1,14 +1,10 @@
-// let alert = document.querySelector('.alert');
-// setTimeout(() => {
-//   alert.style.transform = `translate(500px)`;
-//   alert.style.transition = "ease all 0.5s";
-//   alert.style.position = "fixed";
-// }, 5000);
+let alert = document.querySelector('.alert');
+setTimeout(() => {
+  alert.style.transform = `translate(500px)`;
+  alert.style.transition = "ease all 0.5s";
+  alert.style.position = "fixed";
+}, 5000);
 
-// {
-//   alert.style.transform = `translate(0px)`;
-//   alert.style.transition = "ease all 0.7ms";
-// }
 
 function toggleSidebar(btn) {
   // Toggle the 'active' class on the sidebar
@@ -24,7 +20,5 @@ function toggleSidebar(btn) {
     icon.classList.add('fa-caret-left');
   }
 }
-
-
 
 
