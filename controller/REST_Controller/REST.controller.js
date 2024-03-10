@@ -129,8 +129,7 @@ const putResetPasswordFromGmail = async (req, res, next) => {
 const profileUpdateController = async (req, res, next) => {
   try {
     let { name, email, password, phone, role } = req.body;
-    // let hashPass = password;
-    console.log(password);
+
     if (password) {
 
       const saltRounds = 10;
@@ -144,7 +143,7 @@ const profileUpdateController = async (req, res, next) => {
       password,
       phone,
     };
-    console.log("req.body", password);
+
     const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: data }, { new: true })
     res.status(200).json({
       message: 'User update Successfully.',

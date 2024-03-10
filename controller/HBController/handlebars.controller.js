@@ -86,7 +86,7 @@ const loginUserPost = async (req, res, next) => {
     );
     res.cookie("access_token", token);
     const userData = { name: userExist.name, email };
-    console.log("req.user_info", req.user_info);
+
     res.render("home", { token });
     // res.status(200).json({
     //   message: 'Admin logged in successfully.',
