@@ -2,7 +2,7 @@ const express = require('express');
 const {
   productController,
   CreateProductController,
-
+  getCategories,
   getProductList,
   getSingleProduct,
   importProducts,
@@ -118,7 +118,7 @@ const productRoute = express.Router();
 //REST API for front end
 productRoute.get('/api/products', productController);
 productRoute.get('/api/product/:id', getSingleProduct);
-
+productRoute.get("/products/categories", getCategories)
 // for backend using handlebars
 productRoute.get('/create-product', getProduct);
 

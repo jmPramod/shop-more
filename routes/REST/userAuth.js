@@ -37,6 +37,9 @@ const authRoute = express.Router();
  *         name:
  *           type: string
  *           description: The name id for registration
+ *         secondName:
+ *           type: string
+ *           description: The secondName id for registration
  *         email:
  *           type: string
  *           description: The email for registration

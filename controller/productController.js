@@ -118,12 +118,18 @@ const searchProduct = async (req, res, next) => {
     next(err)
   }
 }
+const getCategories = (req, res, next) => {
+  try {
 
+  } catch (error) {
+    next(err)
+  }
+}
 module.exports = {
   getSingleProduct,
   productController,
   CreateProductController,
-
+  getCategories,
   getProductList,
   importProducts,
   searchProduct

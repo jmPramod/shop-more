@@ -13,7 +13,7 @@ const signUpController = async (req, res, next) => {
     const saltRounds = 10;
     const hashPass = await bcrypt.hash(req.body.password, saltRounds);
 
-    const { name, email, password, phone, role } = req.body;
+    const { name, email, password, phone, role, secondName } = req.body;
 
     const data = new SignUp({
       name,
@@ -128,7 +128,7 @@ const putResetPasswordFromGmail = async (req, res, next) => {
 };
 const profileUpdateController = async (req, res, next) => {
   try {
-    let { name, email, password, phone, role } = req.body;
+    let { name, email, password, phone, role, secondName } = req.body;
 
     if (password) {
 
