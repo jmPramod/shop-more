@@ -1,5 +1,5 @@
-const createError = require("../utils/errorHandle");
-const productsSchema = require("../models/ProductSchema");
+const createError = require("../../utils/errorHandle");
+const productsSchema = require("../../models/ProductSchema");
 
 const productControllerHB = async (req, res, next) => {
     try {
@@ -140,5 +140,5 @@ module.exports = {
     getCategoriesHB,
     getProductListHB,
 
-    searchProduct
+    searchProductHB
 };

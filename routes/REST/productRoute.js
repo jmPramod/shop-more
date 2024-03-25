@@ -12,7 +12,7 @@ const { verifyAdmin } = require('../../utils/verifyToken');
 const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController } = require('../../controller/REST_Controller/productController');
 // const { getProduct } = require('../../controller/HBController/handlebars.product');
 
-const productRoute = express.Router();
+const productRouteRest = express.Router();
 /**
  * @swagger
  * components:
@@ -117,13 +117,13 @@ const productRoute = express.Router();
  */
 
 //REST API for front end
-productRoute.get('/api/products', productController);
+productRouteRest.get('/api/products', productController);
 
-productRoute.get('/api/product/:id', getSingleProduct);
-productRoute.get("/products/categories", getCategories)
-
-
+productRouteRest.get('/api/product/:id', getSingleProduct);
+productRouteRest.get("/products/categories", getCategories)
 
 
-productRoute.post('/products/search', searchProduct);
+
+
+productRouteRest.post('/products/search', searchProduct);
 module.exports = { productRouteRest };

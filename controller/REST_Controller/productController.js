@@ -1,5 +1,6 @@
-const createError = require("../utils/errorHandle");
-const productsSchema = require("../models/ProductSchema");
+// const createError = require("../utils/errorHandle");
+const createError = require("../../utils/errorHandle");
+const productsSchema = require("../..//models/ProductSchema");
 
 const productController = async (req, res, next) => {
   try {
