@@ -1,15 +1,16 @@
 const express = require('express');
-const {
-  productController,
-  CreateProductController,
-  getCategories,
-  getProductList,
-  getSingleProduct,
-  importProducts,
-  searchProduct
-} = require('../../controller/productController');
+// const {
+//   productController,
+//   CreateProductController,
+//   getCategories,
+//   getProductList,
+//   getSingleProduct,
+//   importProducts,
+//   searchProduct
+// } = require('../../controller/productController');
 const { verifyAdmin } = require('../../utils/verifyToken');
-const { getProduct } = require('../../controller/HBController/handlebars.product');
+const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController } = require('../../controller/REST_Controller/productController');
+// const { getProduct } = require('../../controller/HBController/handlebars.product');
 
 const productRoute = express.Router();
 /**
@@ -117,18 +118,12 @@ const productRoute = express.Router();
 
 //REST API for front end
 productRoute.get('/api/products', productController);
+
 productRoute.get('/api/product/:id', getSingleProduct);
 productRoute.get("/products/categories", getCategories)
-// for backend using handlebars
-productRoute.get('/create-product', getProduct);
 
-productRoute.post(
-  '/create-product',
-  verifyAdmin,
-  CreateProductController
-);
-// productRoute.post('/api/product/import-products', importProducts);
-productRoute.get('/get-product-list', getProductList);
+
+
 
 productRoute.post('/products/search', searchProduct);
-module.exports = { productRoute };
+module.exports = { productRouteRest };

@@ -1,4 +1,5 @@
 const express = require('express');
+const { verifyAdminHB } = require('../../utils/verifyToken');
 const {
   homeController,
   userFetchController,
@@ -10,7 +11,6 @@ const {
   allUserGet,
   allUserPost,
 } = require('../../controller/HBController/handlebars.controller');
-const { verifyAdminHB } = require('../../utils/verifyToken');
 const { Router } = express;
 const adminAuthHB = Router();
 adminAuthHB.get('/', homeController);

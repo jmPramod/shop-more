@@ -44,14 +44,7 @@ const CreateProductController = async (req, res, next) => {
       thumbnail,
       images,
     }).save();
-    // if (!req.body.title) {
-    //   error.push({ text: 'product title s required' });
-    // }
-    // if (error.length > 0) {
-    //   res.render('products/productCreate', { error, title: req.body.title });
-    // } else {
 
-    // }
     res.status(200).json({
       message: "Product Added successfully.",
       data: newProduct,
@@ -118,8 +111,25 @@ const searchProduct = async (req, res, next) => {
     next(err)
   }
 }
-const getCategories = (req, res, next) => {
+const getCategories = async (req, res, next) => {
   try {
+    const productDetails = await productsSchema.aggregate([
+      {
+        "$group": {
+          "_id": "$category",
+          "product": { "$first": "$$ROOT" }
+        }
+      },
+      { "$replaceRoot": { "newRoot": "$product" } }
+    ])
+    // if (!productDetails) {
+    //   return next(createError(404, 'no product found'));
+
+    // }
+    res.status(200).json({
+      message: 'search successful',
+      data: productDetails
+    });
 
   } catch (error) {
     next(err)

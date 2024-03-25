@@ -4,11 +4,11 @@ require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const homeController = (req, res) => {
   const token = req.cookies.access_token;
-  // if (token) {
-  res.render("home", { style: "home.css", showSideBar: true });
-  // } else {
-  // res.render("users/loginUser", { style: "login.css" });
-  // }
+  if (token) {
+    res.render("home", { style: "home.css", showSideBar: true });
+  } else {
+    res.render("users/loginUser", { style: "login.css" });
+  }
 };
 
 const userFetchController = async (req, res, next) => {

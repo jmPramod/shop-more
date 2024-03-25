@@ -4,26 +4,33 @@ const createError = require('./errorHandle');
 require('dotenv').config();
 //for REST API
 const verifyToken = (req, res, next) => {
-  const token = req.cookies.access_token;
+  const bearerToken = req.headers['authorization']
 
-  if (!token) {
-    return next(createError(401, 'you are not authorized!'));
+  console.log("bearerToken", bearerToken);
+  if (typeof bearerToken !== "undefined") {
+    const bearer = bearerToken.split(" ")
+    req.token = token
+    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+      if (err) {
+
+        return next(createError(401, 'Token is not Valid'));
+      }
+      req.user_info = user;
+      next();
+    });
   }
+  else {
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
-    if (err) {
-      return next(createError(401, 'Token is not Valid'));
-    }
+    return next(createError(401, 'Token Required!'));
 
-    req.user_info = user;
-    next();
-  });
+  }
 };
 
 const verifyUser = (req, res, next) => {
   verifyToken(req, res, () => {
+
     if (
-      req.user_info.id === (req.user_info && req.params.id) ||
+      req.user_info && req.user_info?.id === (req.user_info && req.params?.id) ||
       (req.user_info && req.user_info.role) === 'user'
     ) {
       next();
@@ -37,7 +44,7 @@ const verifyAdmin = (req, res, next) => {
     if (req.user_info && req.user_info.role === 'admin') {
       next();
     } else {
-      return next(createError(403, 'You are not authorized!!'));
+      return next(createError(403, 'You are not Admin!!'));
     }
   });
 };
@@ -76,7 +83,7 @@ const verifyAdminHB = (req, res, next) => {
     if (req.user_info && req.user_info.role === 'admin') {
       next();
     } else {
-      req.flash('Error_msg', 'You are not Authorized.');
+      req.flash('Error_msg', 'You are not Admin.');
     }
   });
 };
