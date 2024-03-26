@@ -6,7 +6,6 @@ require('dotenv').config();
 const verifyToken = (req, res, next) => {
   const bearerToken = req.headers['authorization']
 
-  console.log("bearerToken", bearerToken);
   if (typeof bearerToken !== "undefined") {
     const bearer = bearerToken.split(" ")
     req.token = token
@@ -67,7 +66,7 @@ const verifyTokenHB = (req, res, next) => {
 };
 
 const verifyUserHB = (req, res, next) => {
-  verifyToken(req, res, () => {
+  verifyTokenHB(req, res, () => {
     if (
       req.user_info.id === (req.user_info && req.params.id) ||
       (req.user_info && req.user_info.role) === 'user'
@@ -79,8 +78,9 @@ const verifyUserHB = (req, res, next) => {
   });
 };
 const verifyAdminHB = (req, res, next) => {
-  verifyToken(req, res, () => {
+  verifyTokenHB(req, res, () => {
     if (req.user_info && req.user_info.role === 'admin') {
+
       next();
     } else {
       req.flash('Error_msg', 'You are not Admin.');

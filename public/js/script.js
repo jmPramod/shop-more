@@ -5,6 +5,12 @@ setTimeout(() => {
   alert.style.position = "fixed";
 }, 5000);
 
+let loading = document.querySelector('.loadingStart');
+setTimeout(() => {
+  loading.style.display = "none";
+}, 250);
+
+
 
 function toggleSidebar(btn) {
   // Toggle the 'active' class on the sidebar

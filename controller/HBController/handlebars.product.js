@@ -1,19 +1,7 @@
 const createError = require("../../utils/errorHandle");
 const productsSchema = require("../../models/ProductSchema");
 
-const productControllerHB = async (req, res, next) => {
-    try {
-        const allprod = await productsSchema.find();
-        if (!allprod) return next(createError(404, "No Data Found"));
-        res.status(200).json({
-            message: "Data retrieved successfully",
-            count: allprod.length,
-            data: allprod,
-        });
-    } catch (err) {
-        next(err);
-    }
-};
+
 
 const CreateProductHB = async (req, res, next) => {
     try {
@@ -52,24 +40,25 @@ const CreateProductHB = async (req, res, next) => {
         // } else {
 
         // }
-        res.status(200).json({
-            message: "Product Added successfully.",
-            data: newProduct,
-        });
+        // res.status(200).json({
+        //     message: "Product Added successfully.",
+        //     data: newProduct,
+        // });
     } catch (err) {
-        next(err);
+
+        req.flash('Error_msg', err);
     }
 };
 
 
 const getProductListHB = async (req, res, next) => {
     try {
-        // let productList = await productsSchema.find().lean();
+        let productList = await productsSchema.find().lean();
 
-        // res.render('products/getProductList', { productList });
+        res.render('products/getProductList', { productList, style: "getProductList.css" });
     } catch (error) {
-        console.error("Error fetching product list:", error);
-        next(err);
+
+        req.flash('Error_msg', error);
     }
 };
 
@@ -83,7 +72,8 @@ const getSingleProductHB = async (req, res, next) => {
         //     data: productDetails,
         // });
     } catch (err) {
-        next(err);
+
+        req.flash('Error_msg', err);
     }
 };
 
@@ -105,7 +95,8 @@ const searchProductHB = async (req, res, next) => {
         // });
     }
     catch (err) {
-        next(err)
+
+        req.flash('Error_msg', err);
     }
 }
 const getCategoriesHB = async (req, res, next) => {
@@ -119,26 +110,44 @@ const getCategoriesHB = async (req, res, next) => {
             },
             { "$replaceRoot": { "newRoot": "$product" } }
         ])
-        // if (!productDetails) {
-        //   return next(createError(404, 'no product found'));
 
-        // }
-        // res.status(200).json({
-        //     message: 'search successful',
-        //     data: productDetails
-        // });
 
     } catch (error) {
-        next(err)
+
+        req.flash('Error_msg', error);
     }
+}
+const getCreateProductHB = async (req, res, next) => {
+    try {
+
+        res.render('products/productCreate', { style: "createProduct.css" });
+    }
+    catch (err) {
+
+        req.flash('Error_msg', err);
+    }
+}
+const editProductGetHB = async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const data = await productsSchema.findById(id).lean()
+        res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css" });
+
+
+    } catch (error) {
+
+        req.flash('Error_msg', error);
+    }
+
+
 }
 module.exports = {
 
     getSingleProductHB,
-    productControllerHB,
     CreateProductHB,
     getCategoriesHB,
     getProductListHB,
-
-    searchProductHB
+    getCreateProductHB,
+    searchProductHB,
+    editProductGetHB
 };

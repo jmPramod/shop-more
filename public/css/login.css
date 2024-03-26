@@ -1,45 +1,58 @@
-#loginPage{
+#loginPage {
   display: flex;
-  
-  background-color:rgb(237 241 243);
-  /* flex-direction: ; */
+  /* flex-direction: column; */
+  /* background-color: rgb(237 241 243); */
+  align-items: center;
+  justify-content: space-between;
   align-items: center;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
   height: 100%;
-
 }
-.demo
-{
+.loginImage {
+  width: 50%;
+  /* border: 1px solid red; */
+  /* height: 100%; */
+}
+.demo {
   display: flex;
   flex-direction: column;
 }
-.loginForm{
+.loginFormContainer {
   background-color: white;
-  min-width:20%;
-  min-height: 60%;
+  width: 50%;
+  height: 100%;
   /* border: 1px solid red; */
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   /* flex-direction: ; */
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
 }
-.loginInput{
-
+.loginForm {
+  width: 80%;
+  height: 50%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.loginInput {
+  display: flex;
+  width: 80%;
   flex-direction: column;
   gap: 20px;
   align-items: center;
   justify-content: center;
 }
-.loginInput>input{
+.loginInput > input {
   padding: 6px;
   width: 100%;
-
 }
-.loginButton{
+.loginButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,4 +62,42 @@
   padding: 10px;
   background-color: lightblue;
   color: white;
+}
+.loginButton:hover {
+  background-color: #838383;
+}
+.demoCredential {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  border: 1px solid black;
+  opacity: 0.2;
+  font-weight: lighter;
+}
+.demoCredential > h6 {
+  font-size: 15px;
+}
+.mobileIcon > i {
+  font-size: 30px;
+}
+@media (100px<width<900px) {
+  .loginForm {
+    /* min-width: 90%;
+    min-height: 70%; */
+    width: 90%;
+  }
+  .loginImage {
+    display: none;
+  }
+  .loginInput,
+  .loginButton,
+  .demoCredential {
+    width: 100%;
+  }
+  .loginFormContainer {
+    width: 90%;
+  }
 }

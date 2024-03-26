@@ -1,31 +1,34 @@
-<section id="loginPage">
-  <div class="wave-background"></div>
-  <form
-    action="/login/"
-    method="post"
-    class="loginForm"
-    {{!-- enctype="multipart/form-data" --}}
-  >
-        <h1>Log In</h1>
-      <div class="loginInput">
-       
-        <input type="text" name="email" placeholder="Email" required/>
-             
-        <input type="password" name="password" placeholder="Password" required/>
+<section id='loginPage'>
+  <img src='../images/login1.png' alt='' class='loginImage' />
+  <div class='loginFormContainer'>
+
+    <h1>Log In</h1>
+    <form
+      class='loginForm'
+      action='/login/'
+      method='post'
+      {{! enctype="multipart/form-data" }}
+    >
+      <div class='loginInput'>
+
+        <input type='text' name='email' placeholder='Email' required />
+
+        <input
+          type='password'
+          name='password'
+          placeholder='Password'
+          required
+        />
       </div>
 
-      
-    
-    
-    
-     
-    <div class="demo">
-<div class="testData">
+      <button class='loginButton'>Submit</button>
+      <div class='demoCredential'>
 
-    <h4>Test login: <b> pramodjm4@gmail.com</b> </h4>
-    <h4>Test password: <b>Pramod@123</b></h4>
-</div>
-    </div> 
-      <button class="loginButton">Submit</button>
-  </form>
+        <h6> Email: <b> test@test.com</b> </h6>
+
+        <h6> Password: <b>test@test.com</b></h6>
+
+      </div>
+    </form>
+  </div>
 </section>

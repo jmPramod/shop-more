@@ -10,7 +10,7 @@ const {
   logout,
   allUserGet,
   allUserPost,
-} = require('../../controller/HBController/handlebars.controller');
+} = require('../../controller/HBController/handlebars.auth.controller');
 const { Router } = express;
 const adminAuthHB = Router();
 adminAuthHB.get('/', homeController);

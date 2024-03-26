@@ -1,0 +1,48 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  margin: 0 auto;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 15px;
+  /* font-size: 20px; */
+  width: 25%;
+}
+td {
+  /* border-radius: 200px; */
+  border: 1px solid black;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+tr:hover {
+  transform: scale(1.03);
+}
+.editButtonProduct {
+  padding: 5px;
+  width: 100px;
+}
+img {
+  width: 80%;
+  /* height: 10%; */
+}
+.actionButton {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actionButton > button > a {
+  text-decoration: none;
+}
+.editButtonProduct {
+  width: 100px;
+}

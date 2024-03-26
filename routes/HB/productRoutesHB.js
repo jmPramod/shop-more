@@ -1,17 +1,23 @@
 const express = require('express');
 // const { CreateProductHB, getProductListHB } = require('../../controller/HBController/handlebars.product');
 const { verifyAdminHB } = require('../../utils/verifyToken');
-const { getProductListHB, CreateProductHB } = require('../../controller/HBController/handlebars.product');
+const { getProductListHB, CreateProductHB, getCreateProductHB, editProductGetHB } = require('../../controller/HBController/handlebars.product');
 
 const productRouteHB = express.Router();
 
-productRouteHB.get('/back-end/create-product', getProductListHB);
+productRouteHB.get('/create-product', getCreateProductHB);
 productRouteHB.post(
-    '/back-end/create-product',
+    '/create-product',
     verifyAdminHB,
     CreateProductHB
 );
-productRouteHB.get('/back-end/get-product-list', getProductListHB);
+
+productRouteHB.get(
+    '/edit-product/:id',
+    verifyAdminHB,
+    editProductGetHB
+);
+productRouteHB.get('/get-product-list', getProductListHB);
 
 
 module.exports = { productRouteHB }

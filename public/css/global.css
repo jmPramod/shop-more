@@ -17,7 +17,7 @@
   z-index: 101;
   align-items: center;
   justify-content: space-between;
-  background-color: #f8f9fa;
+  background-color: burlywood;
   padding: 0 10px;
   position: fixed;
   height: 70px;
@@ -32,6 +32,8 @@
   border: none;
   text-decoration: none;
   cursor: pointer;
+
+  border: 1px solid black;
 }
 .logo > div {
   display: flex;
@@ -50,21 +52,23 @@
   gap: 10px;
   margin-bottom: 0;
 }
-
+.menuItems > li:hover {
+  background-color: #838383;
+}
 .menuItems > li {
   list-style: none;
   color: black;
   padding: 10px;
   /* background-color: ; */
   border-radius: 4px;
-  background-color: white;
+  background-color: lightblue;
 }
 .menuItems > li:hover {
   color: rgb(171, 171, 171);
 }
 .menuItems > li > a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 /*======================
@@ -118,7 +122,7 @@
 /* Side bar css start */
 #sidebar {
   position: fixed;
-  z-index: 1000;
+  z-index: 5;
   top: 70px;
   left: 0px;
   width: 200px;
@@ -163,7 +167,7 @@
   border-radius: 5px;
   padding: 10px;
   position: absolute;
-  z-index: 1000;
+  z-index: 10;
   right: 0;
   color: white;
   top: 80px;
@@ -178,7 +182,7 @@
 }
 
 .alert-danger {
-  background-color: rgb(255, 109, 109);
+  background-color: red;
   border: 1px solid red;
   color: white !important;
   font-weight: 600 !important;

@@ -1,17 +1,37 @@
-<div>
+<section>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        
+        <th>Price</th>
+        
+        <th>Image</th>
+        
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
 
   {{#each productList}}
-    <div class='product-item' style='display: flex;'>
-      <p>Name: {{title}}</p>
-      <p>Price: ${{price}}</p>
-      <img
+    <tr>
+      <td>{{title}}</td>
+      <td>{{price}} $</td>
+      <td> <img
         src='{{thumbnail}}'
         alt='Image of {{title}}'
-        width='20px'
-        height='20px'
-      />
-      <button>Edit</button>
-      <button>Delete</button>
-    </div>
+       
+      /></td>
+
+      <td class="actionButton" style=""> <button class="editButtonProduct"><a href='/edit-product/{{_id}}'>Edit</a></button>
+      <button  class="editButtonProduct"> <a href=''>Delete</a> </button>
+  </td>
+
   {{/each}}
-</div>
+
+    </tbody>
+  </table>
+</section>

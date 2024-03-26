@@ -20,6 +20,8 @@ const signUpController = async (req, res, next) => {
       email,
       password: hashPass,
       phone,
+      secondName,
+      role
     });
 
     signUpData = await data.save();

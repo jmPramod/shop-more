@@ -1,73 +1,175 @@
-<section>
-  <form
-    action='/create-product'
-    method='post'
-    enctype='multipart/form-data'
-  >
-    <div>
-      <label for='id'>ID: </label>
-      <input type='number' id='id' name='id' />
-    </div>
+<div
+  style='display: flex;align-items: center; justify-content: center; width: 100%; height: 100%;'
+>
 
-    <div>
-      <label for='title'>Title:</label>
-      <input type='text' id='title' name='title' />
-    </div>
+  <section id='createProductContainer'>
+    <h1>
+      {{#if mode}}
 
-    <div>
-      <label for='description'>Description:</label>
-      <input type='text' id='description' name='description' />
-    </div>
+        Edit Product
+      {{else}}
+        Create Product
+      {{/if}}
 
-    <div>
-      <label for='price'>Price:</label>
-      <input type='number' id='price' name='price' />
-    </div>
+    </h1>
+    <form
+      class='formContainer'
+      action='/create-product'
+      method='post'
+      enctype='multipart/form-data'
+    >
+      <div>
+        <div>
+          <label for='id'>ID</label>
+          <input
+            class='inputField'
+            required
+            type='number'
+            id='id'
+            name='id'
+            placeholder='Id'
+            value='{{data.id}}'
+          />
+        </div>
+        <div>
+          <label for='title'>Title</label>
+          <input
+            class='inputField'
+            required
+            type='text'
+            id='title'
+            name='title'
+            value='{{data.title}}'
+            placeholder='Enter Product Title'
+          />
+        </div>
+        <div>
+          <label for='description'>Description</label>
 
-    <div>
-      <label for='discountPercentage'>Discount Percentage:</label>
-      <input type='number' id='discountPercentage' name='discountPercentage' />
-    </div>
+          <input
+            class='inputField'
+            required
+            type='text'
+            id='description'
+            value='{{data.description}}'
+            name='description'
+            placeholder='Enter Product description'
+          />
+        </div>
+        <div>
+          <label for='price'>Price</label>
 
-    <div>
-      <label for='rating'>Rating:</label>
-      <input type='number' id='rating' name='rating' />
-    </div>
+          <input
+            class='inputField'
+            required
+            type='number'
+            id='price'
+            name='price'
+            value='{{data.price}}'
+            placeholder='Enter Product price'
+          />
+        </div>
+        <div>
+          <label for='discountPercentage'>Discount Percentage</label>
+          <input
+            class='inputField'
+            required
+            type='number'
+            id='discountPercentage'
+            value='{{data.discountPercentage}}'
+            name='discountPercentage'
+            placeholder='Enter Product discountPercentage'
+          />
+        </div>
+        <div>
+          <label for='rating'>Rating</label>
+          <input
+            class='inputField'
+            required
+            type='number'
+            id='rating'
+            name='rating'
+            value='{{data.rating}}'
+            placeholder='Enter Product rating'
+          />
+        </div>
+        <div>
+          <label for='stock'>Stock</label>
+          <input
+            class='inputField'
+            required
+            type='number'
+            id='stock'
+            value='{{data.stock}}'
+            name='stock'
+            placeholder='Enter Product stock'
+          />
+        </div>
+        <div>
+          <label for='brand'>Brand</label>
+          <input
+            class='inputField'
+            required
+            type='text'
+            id='brand'
+            value='{{data.brand}}'
+            name='brand'
+            placeholder='Enter Product brand'
+          />
+        </div>
+        <div>
+          <label for='category'>Category</label>
+          <input
+            class='inputField'
+            required
+            type='text'
+            id='category'
+            name='category'
+            id='brand'
+            value='{{data.category}}'
+            placeholder='Enter Product category'
+          />
+        </div>
+        <div>
+          <label for='thumbnail'>Thumbnail</label>
+          <input
+            class='inputField'
+            required
+            value='{{data.thumbnail}}'
+            type='text'
+            id='thumbnail'
+            name='thumbnail'
+            placeholder='Enter Product Title'
+          />
+        </div>
+        <div>
+          <label for='imagesArray'>Images</label>
+          <textarea
+            class='inputField'
+            required
+            rows='2'
+            cols='40'
+            id='imagesArray'
+            name='images'
+            {{!-- value='{{data.images}}' --}}
+            placeholder='Comma-separated URLs for images'
+          ></textarea>
+        </div>
 
-    <div>
-      <label for='stock'>Stock:</label>
-      <input type='number' id='stock' name='stock' />
-    </div>
+        <button class='createProductButton'>Create Product</button>
+      </div>
 
-    <div>
-      <label for='brand'>Brand:</label>
-      <input type='text' id='brand' name='brand' />
-    </div>
+    </form>
 
-    <div>
-      <label for='category'>Category:</label>
-      <input type='text' id='category' name='category' />
-    </div>
+  </section>
+</div>
 
-    <div>
-      <label for='thumbnail'>Thumbnail:</label>
-      <input type='text' id='thumbnail' name='thumbnail' />
-    </div>
-
-    <div>
-      <label for='images'>Images:</label>
-      <textarea
-        rows='10'
-        cols='50'
-        id='images'
-        name='images'
-        placeholder='Comma-separated URLs'
-      ></textarea>
-    </div>
-
-    <button>Submit</button>
-    <div>
-    </div>
-  </form>
-
-</section>
+<script>
+  // Function to populate the textarea with an array of strings function
+  populateImages() { const imageArray = ["one", "two"]; // Convert the array
+  into a JSON string const jsonString = JSON.stringify(imageArray); // Get the
+  textarea element const textarea = document.getElementById('imagesArray'); //
+  Set the value of the textarea to the JSON string textarea.value = jsonString;
+  } // Call the function to populate images when the page loads window.onload =
+  populateImages;
+</script>
