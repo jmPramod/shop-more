@@ -14,7 +14,8 @@
     </h1>
     <form
       class='formContainer'
-      action='/create-product'
+      {{!-- action='/create-product' --}}
+      action="{{#if mode}}/edit-product/{{data._id}}{{else}}/create-product{{/if}}"
       method='post'
       enctype='multipart/form-data'
     >
@@ -24,7 +25,7 @@
           <input
             class='inputField'
             required
-            type='number'
+            type='tel'
             id='id'
             name='id'
             placeholder='Id'
@@ -62,7 +63,7 @@
           <input
             class='inputField'
             required
-            type='number'
+            type='tel'
             id='price'
             name='price'
             value='{{data.price}}'
@@ -74,7 +75,7 @@
           <input
             class='inputField'
             required
-            type='number'
+            type='tel'
             id='discountPercentage'
             value='{{data.discountPercentage}}'
             name='discountPercentage'
@@ -86,7 +87,7 @@
           <input
             class='inputField'
             required
-            type='number'
+            type='tel'
             id='rating'
             name='rating'
             value='{{data.rating}}'
@@ -98,7 +99,7 @@
           <input
             class='inputField'
             required
-            type='number'
+            type='tel'
             id='stock'
             value='{{data.stock}}'
             name='stock'
@@ -146,7 +147,7 @@
           <label for='imagesArray'>Images</label>
           <textarea
             class='inputField'
-            required
+            {{!-- required --}}
             rows='2'
             cols='40'
             id='imagesArray'
@@ -156,7 +157,14 @@
           ></textarea>
         </div>
 
-        <button class='createProductButton'>Create Product</button>
+        <button class='createProductButton'>
+            {{#if mode}}
+
+       Update Product
+      {{else}}
+        Create Product
+      {{/if}} 
+        </button>
       </div>
 
     </form>
@@ -164,12 +172,3 @@
   </section>
 </div>
 
-<script>
-  // Function to populate the textarea with an array of strings function
-  populateImages() { const imageArray = ["one", "two"]; // Convert the array
-  into a JSON string const jsonString = JSON.stringify(imageArray); // Get the
-  textarea element const textarea = document.getElementById('imagesArray'); //
-  Set the value of the textarea to the JSON string textarea.value = jsonString;
-  } // Call the function to populate images when the page loads window.onload =
-  populateImages;
-</script>

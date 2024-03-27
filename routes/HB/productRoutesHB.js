@@ -1,7 +1,7 @@
 const express = require('express');
 // const { CreateProductHB, getProductListHB } = require('../../controller/HBController/handlebars.product');
 const { verifyAdminHB } = require('../../utils/verifyToken');
-const { getProductListHB, CreateProductHB, getCreateProductHB, editProductGetHB } = require('../../controller/HBController/handlebars.product');
+const { getProductListHB, CreateProductHB, getCreateProductHB, editProductGetHB, editProductPostHB } = require('../../controller/HBController/handlebars.product');
 
 const productRouteHB = express.Router();
 
@@ -11,11 +11,15 @@ productRouteHB.post(
     verifyAdminHB,
     CreateProductHB
 );
-
 productRouteHB.get(
     '/edit-product/:id',
     verifyAdminHB,
     editProductGetHB
+);
+productRouteHB.post(
+    '/edit-product/:id',
+    verifyAdminHB,
+    editProductPostHB
 );
 productRouteHB.get('/get-product-list', getProductListHB);
 

@@ -32,18 +32,12 @@ const CreateProductHB = async (req, res, next) => {
             thumbnail,
             images,
         }).save();
-        // if (!req.body.title) {
-        //   error.push({ text: 'product title s required' });
-        // }
-        // if (error.length > 0) {
-        //   res.render('products/productCreate', { error, title: req.body.title });
-        // } else {
 
-        // }
-        // res.status(200).json({
-        //     message: "Product Added successfully.",
-        //     data: newProduct,
-        // });
+
+        // let productList = await productsSchema.find().lean();
+
+        // res.render('products/getProductList', { productList, style: "getProductList.css" });
+
     } catch (err) {
 
         req.flash('Error_msg', err);
@@ -67,10 +61,6 @@ const getSingleProductHB = async (req, res, next) => {
         const productDetails = await productsSchema.findById({
             _id: req.params.id,
         });
-        // res.status(200).json({
-        //     message: "Product fetched successfully.",
-        //     data: productDetails,
-        // });
     } catch (err) {
 
         req.flash('Error_msg', err);
@@ -89,34 +79,13 @@ const searchProductHB = async (req, res, next) => {
             return next(createError(404, 'no product found'));
 
         }
-        // res.status(200).json({
-        //     message: 'search successful',
-        //     data: productDetails
-        // });
     }
     catch (err) {
 
         req.flash('Error_msg', err);
     }
 }
-const getCategoriesHB = async (req, res, next) => {
-    try {
-        const productDetails = await productsSchema.aggregate([
-            {
-                "$group": {
-                    "_id": "$category",
-                    "product": { "$first": "$$ROOT" }
-                }
-            },
-            { "$replaceRoot": { "newRoot": "$product" } }
-        ])
 
-
-    } catch (error) {
-
-        req.flash('Error_msg', error);
-    }
-}
 const getCreateProductHB = async (req, res, next) => {
     try {
 
@@ -141,13 +110,28 @@ const editProductGetHB = async (req, res, next) => {
 
 
 }
+const editProductPostHB = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        const { id } = req.params;
+        // const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true })
+        // console.log("updateData", updateData);
+        // let productList = await productsSchema.find().lean();
+
+        // res.render('products/getProductList', { productList, style: "getProductList.css" });
+
+    } catch (error) {
+        next(error)
+    }
+
+}
 module.exports = {
 
     getSingleProductHB,
     CreateProductHB,
-    getCategoriesHB,
     getProductListHB,
     getCreateProductHB,
     searchProductHB,
-    editProductGetHB
+    editProductGetHB,
+    editProductPostHB
 };

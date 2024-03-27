@@ -1,9 +1,7 @@
-<section>
-
-
+<section> 
   <table>
     <thead>
-      <tr>
+      <tr class="tableHead">
         <th>Title</th>
         
         <th>Price</th>
@@ -17,7 +15,7 @@
     <tbody>
 
   {{#each productList}}
-    <tr>
+    <tr class="tableDataRow">
       <td>{{title}}</td>
       <td>{{price}} $</td>
       <td> <img
@@ -26,8 +24,8 @@
        
       /></td>
 
-      <td class="actionButton" style=""> <button class="editButtonProduct"><a href='/edit-product/{{_id}}'>Edit</a></button>
-      <button  class="editButtonProduct"> <a href=''>Delete</a> </button>
+      <td class="actionButton" style=""> <a href='/edit-product/{{_id}}'>Edit</a>
+       <a href=''>Delete</a>
   </td>
 
   {{/each}}
