@@ -14,7 +14,7 @@
   width: 100%;
   display: flex;
   position: relative;
-  z-index: 101;
+  z-index: 30;
   align-items: center;
   justify-content: space-between;
   background-color: burlywood;
@@ -217,5 +217,35 @@
   }
   .mobileIcon {
     display: block;
+  }
+}
+/* Spinner loading css */
+
+.loadingStart {
+  background-color: rgb(207, 207, 207);
+  height: 100vh;
+  opacity: 0.6;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 100;
+}
+.box {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: black transparent;
+  animation: spin 1s infinite ease-out;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

@@ -8,7 +8,7 @@ setTimeout(() => {
 let loading = document.querySelector('.loadingStart');
 setTimeout(() => {
   loading.style.display = "none";
-}, 250);
+}, 2000);
 
 
 
@@ -27,4 +27,6 @@ function toggleSidebar(btn) {
   }
 }
 
+
+//!Spinner test 1
 

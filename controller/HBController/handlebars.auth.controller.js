@@ -6,11 +6,12 @@ const cloudinaryImage = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 const homeController = async (req, res) => {
 
-  req.flash('Loading', '');
+  // req.flash('Loading', '');
   const token = req.cookies.access_token;
   const email = "test@test.com"
   if (token) {
-    res.render("home", { style: "home.css", showSideBar: true });
+    // await res.render("loading")
+    res.render("home", { style: "home.css", showSideBar: true, user_info_1: req.session.user_info_1 });
   } else {
     res.render("users/loginUser", { style: "login.css" });
   }
@@ -62,18 +63,22 @@ const loginUserGet = async (req, res) => {
 };
 const loginUserPost = async (req, res, next) => {
   try {
-
-    req.flash('Loading', 'Loading is enabled!');
+    req.flash('Loading', 'true');
     const { email, password } = req.body;
     const userExist = await SignUp.findOne({ email: email });
     if (!email) {
+
+      req.flash('Loading', 'false');
       req.flash('Error_msg', 'Email is Required');
       return res.redirect("/login")
     } if (!password) {
+      req.flash('Loading', 'false');
+
       req.flash('Error_msg', 'Password  is Required');
       return res.redirect("/login")
     }
     if (!userExist) {
+      req.flash('Loading', 'false');
       req.flash('Error_msg', 'User does not Exist');
 
       return res.redirect("/login")
@@ -82,44 +87,47 @@ const loginUserPost = async (req, res, next) => {
     const isPassword = await bcrypt.compare(password, userExist.password);
 
     if (!isPassword) {
+
       req.flash('Error_msg', 'Invalid password');
 
       req.flash('Loading', '');
       return res.redirect("/login")
     }
-    if (userExist.role != "admin") {
-      // return next(createError(404, "You are not admin"));
-    }
+
     const token = jwt.sign(
       { email: userExist.email, role: userExist.role, id: userExist._id },
       process.env.SECRET_KEY
     );
+
     res.cookie("access_token", token);
     const userData = { name: userExist.name, email };
+    req.session.user_info_1 = userExist
+    // res.render("home", { user_info_1: req.session.user_info_1, token, showSideBar: true });
 
-    res.redirect("/");
-    req.flash('Loading', '');
+
+    res.redirect("/home")
+
+    // req.flash('Loading', '');
 
   } catch (err) {
+    hideSpinner();
     req.flash('Error_msg', err);
   }
 };
 
 const logout = (req, res, next) => {
 
-  req.flash('Loading', 'Loading is enabled!');
+  // req.flash('Loading', 'Loading is enabled!');
   res.clearCookie("access_token");
+  req.session.user_info_1 = null
   const redirectUrl =
-    process.env.DEPLOYED_BE_BASE_URL1 || "http://localhost:5900/login";
-  res.redirect(redirectUrl);
+    process.env.DEPLOYED_BE_BASE_URL1 || "/login";
+  res.redirect("/login");
 };
 const allUserGet = async (req, res, next) => {
 
   try {
-
     let AllUserData = await SignUp.find({}).lean();
-
-    // console.log("AllUserData", AllUserData);
     await AllUserData.map(async (val) => {
       console.log("val", val);
       if (val.image.length === 20) {
@@ -142,14 +150,14 @@ const allUserGet = async (req, res, next) => {
 const allUserPost = () => { };
 const editProfileGet = async (req, res, next) => {
   try {
+    console.log("res.locals.user_info_11 ", req.session.user_info_1, res.locals.user_info_1);
+
     const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
     if (userExist.image.length === 20) {
 
       userExist.image = await cloudinaryImage.url(userExist.image)
-      // console.log(" userExist.image ", userExist.image);
 
     }
-    // console.log("userExist", userExist);
     res.render("users/profile", { userExist: userExist });
   } catch (error) {
     req.flash('Error_msg', error);
@@ -175,7 +183,7 @@ const editProfilePost = async (req, res, next) => {
       async function (err, result) {
         if (err) {
           req.flash('Error_msg', err);
-          res.redirect("users/profile/${req.params.id }", { userExist: oldData });
+          res.redirect(`users/profile/${req.params.id}`);
           // res.redirect(`/get-all-user`)
         }
         if (result.public_id) {
@@ -205,7 +213,8 @@ const editProfilePost = async (req, res, next) => {
 
     if (AllUserData) {
 
-      res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
+      // res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
+      res.redirect("/get-all-user")
     }
   } catch (error) {
     console.log(error);
@@ -214,6 +223,8 @@ const editProfilePost = async (req, res, next) => {
 
 
 }
+
+
 module.exports = {
   homeController,
   logout,

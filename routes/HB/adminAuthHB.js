@@ -16,7 +16,7 @@ const {
 const upload = require('../../utils/multer');
 const { Router } = express;
 const adminAuthHB = Router();
-adminAuthHB.get('/', homeController);
+adminAuthHB.get('/home', homeController);
 
 adminAuthHB.get('/fetch-user', verifyAdminHB, userFetchController);
 
@@ -27,8 +27,21 @@ adminAuthHB.post('/login', loginUserPost);
 adminAuthHB.get('/logout', logout);
 adminAuthHB.post('/get-all-user', verifyAdminHB, allUserPost);
 adminAuthHB.get('/get-all-user', verifyAdminHB, allUserGet);
-// adminAuthHB.put("/profile/:id", verifyOriginalUser, upload.single("image"), editProfilePost)
 adminAuthHB.post("/profile/:id", verifyOriginalUser, upload.any(["image"]), editProfilePost)
 
 adminAuthHB.get("/profile/:id", editProfileGet)
 module.exports = { adminAuthHB };
+
+
+
+
+
+
+//! Mongo Query to update a new key-value if not present
+// adminAuthHB.post("/ok", async (req, res, next) => {
+//   const users = await SignUp.updateMany(
+//     { cloudinaryPublicId: { $exists: false } }, // Condition to find documents without the newKey
+//     { $set: { cloudinaryPublicId: null } }      // Set newKey to null for matching documents
+//   );
+//   console.log("ooooi", users);
+// })

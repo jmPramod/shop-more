@@ -1,15 +1,23 @@
 <div id='navbar'>
-  <a class='logo' href='/'>
+  <a class='logo' href='/home'>
     <div>Admin<div class='dotcom'>.com</div></div>
   </a>
   <ul class='menuItems'>
-    <li id='homeLink'><a href='/'>Home</a></li>
+
+    {{#if user_info_1}}
+      <h4 style='text-transform: capitalize;'>Hi {{user_info_1.name}}</h4>
+    {{/if}}
+    <li id='homeLink'><a href='/home'>Home</a></li>
     <li><a href='/logout'>Log Out</a></li>
-    <div><a href='/profile/{{req.params.id}}'><img
-          src='../images/profileImage.png'
-          width='50px'
-          height='50px'
-        /></a></div>
+
+    {{#if user_info_1}}
+
+      <div><a href='/profile/{{user_info_1._id}}'><img
+            src='../images/profileImage.png'
+            width='50px'
+            height='50px'
+          /></a></div>
+    {{/if}}
   </ul>
 
   <ul class='mobileIcon'>
