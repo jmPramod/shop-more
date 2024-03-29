@@ -60,6 +60,7 @@ const verifyTokenHB = (req, res, next) => {
       req.flash('Error_msg', 'Your Token is invalid.');
     }
 
+    console.log("user", user);
     req.user_info = user;
     next();
   });
@@ -79,7 +80,7 @@ const verifyUserHB = (req, res, next) => {
 };
 const verifyAdminHB = (req, res, next) => {
   verifyTokenHB(req, res, () => {
-    if (req.user_info && req.user_info.role === 'admin') {
+    if (req.user_info && (req.user_info.role === 'admin' || req.user_info.role === 'Super-Admin')) {
 
       next();
     } else {
@@ -87,5 +88,27 @@ const verifyAdminHB = (req, res, next) => {
     }
   });
 };
+const verifySuperAdminHB = (req, res, next) => {
+  verifyTokenHB(req, res, () => {
+    if (req.user_info && req.user_info.role === 'Super-Admin') {
 
-module.exports = { verifyUser, verifyAdmin, verifyToken, verifyUserHB, verifyAdminHB, verifyTokenHB };
+      next();
+    } else {
+      req.flash('Error_msg', 'only Super Admin can change roles');
+      res.redirect(`/edit-user/${req.params.id}`)
+    }
+  });
+};
+const verifyOriginalUser = (req, res, next) => {
+  verifyTokenHB(req, res, () => {
+    if (req.user_info && req.params.id === req.user_info.id) {
+
+      next();
+    } else {
+      req.flash('Error_msg', 'You cannot edit others Profile');
+      res.redirect(`/profile/${req.params.id}`)
+    }
+  });
+};
+
+module.exports = { verifyUser, verifyOriginalUser, verifyAdmin, verifyToken, verifyUserHB, verifyAdminHB, verifyTokenHB, verifySuperAdminHB };

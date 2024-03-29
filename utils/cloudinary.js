@@ -1,10 +1,12 @@
 require('dotenv').config();
-const fs = require('fs');
-const cloudinary = require('cloudinary').v2;
+const cloudinaryImage = require('cloudinary').v2;
 
-cloudinary.config({
+cloudinaryImage.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 
-  api_key: CLOUDINARY_API_KEY,
-  api_secret: CLOUDINARY_API_SECREAT,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECREAT,
 });
+
+
+module.exports = cloudinaryImage

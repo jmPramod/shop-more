@@ -1,31 +1,33 @@
-<section  id="userTable">
+<section id='userTable'>
 
+  <table class='TableContainer'>
 
-<table class="TableContainer">
+    <thead class='headList'>
+      <tr>
 
-  <thead class="headList">
-    <tr>
-      
-    <th>Name</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Role</th>
-     <th>action</th>
-    </tr>
-  </thead>
-    <tbody class="tableBody">
+        <th>Image</th>
 
-  {{#each AllUserData}}
-  
-    <tr>
-      <td>{{name}}</td>
-      <td>{{email}}</td>
-      <td>{{phone}}</td>
-      <td>{{role}}</td>
-      <td><a href="/edit-user/{{_id}}">Edit</a></td>
-    </tr>
-  {{/each}}
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>action</th>
+
+      </tr>
+    </thead>
+    <tbody class='tableBody'>
+
+      {{#each AllUserData}}
+
+        <tr>
+          <td><img src={{image}} alt='' height='100px' width='100px' /> </td>
+          <td>{{name}}</td>
+          <td>{{email}}</td>
+          <td>{{phone}}</td>
+          <td>{{role}}</td>
+          <td><a href='/edit-user/{{_id}}'>Edit</a></td>
+        </tr>
+      {{/each}}
     </tbody>
-</table>
+  </table>
 </section>
-

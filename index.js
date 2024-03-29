@@ -22,11 +22,11 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, { customCssUr
 app.use(cookies());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(sessionOption);
 app.engine('handlebars', engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
-app.use(sessionOption);
 app.use(flash())
 app.use(globalStorage);
 //Handlebars route
