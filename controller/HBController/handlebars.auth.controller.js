@@ -30,11 +30,12 @@ const userFetchController = async (req, res, next) => {
 const editUserControllerPost = async (req, res, next) => {
   try {
 
-    const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id }, { role: req.body.role }).lean();
+    const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id }, { role: req.body.role });
 
     let AllUserData = await SignUp.find({}).lean();
 
-    res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
+
+    res.redirect("/get-all-user");
 
   }
   catch (err) {
@@ -44,9 +45,9 @@ const editUserControllerPost = async (req, res, next) => {
 };
 
 const editUserControllerGet = async (req, res, next) => {
-
+  console.log("req.params.id", req.params.id);
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-
+  console.log("userExist", userExist);
   res.render("users/createUsers", { userExist: userExist });
 };
 const loginUserGet = async (req, res) => {
