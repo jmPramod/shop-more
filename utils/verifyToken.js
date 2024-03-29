@@ -95,8 +95,8 @@ const verifySuperAdminHB = (req, res, next) => {
       next();
     } else {
       console.log("else");
-      req.flash('Error_msg', 'only Super Admin can change roles');
-      // res.redirect(`/edit-user/${req.params.id}`)
+      req.flash('Error_msg', 'Only Super Admin can change roles');
+      res.redirect(`/edit-user/${req.params.id}`)
     }
   });
 };
