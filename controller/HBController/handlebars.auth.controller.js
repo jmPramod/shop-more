@@ -98,9 +98,11 @@ const loginUserPost = async (req, res, next) => {
       { email: userExist.email, role: userExist.role, id: userExist._id },
       process.env.SECRET_KEY
     );
-
+    // delete res.locals[user_info_1];
     res.cookie("access_token", token);
-    const userData = { name: userExist.name, email };
+    userExist.image = await cloudinaryImage.url(userExist.image)
+    console.log("yyyyyyyyyyyyyyyyyyy", userExist.image);
+    console.log("userExist_xxxxxxxxxxxx", userExist);
     req.session.user_info_1 = userExist
     // res.render("home", { user_info_1: req.session.user_info_1, token, showSideBar: true });
 
@@ -110,7 +112,6 @@ const loginUserPost = async (req, res, next) => {
     // req.flash('Loading', '');
 
   } catch (err) {
-    hideSpinner();
     req.flash('Error_msg', err);
   }
 };
@@ -156,8 +157,12 @@ const editProfileGet = async (req, res, next) => {
     if (userExist.image.length === 20) {
 
       userExist.image = await cloudinaryImage.url(userExist.image)
+      userExist.cloudinaryPublicId = ""
 
     }
+
+
+
     res.render("users/profile", { userExist: userExist });
   } catch (error) {
     req.flash('Error_msg', error);
@@ -170,31 +175,34 @@ const editProfilePost = async (req, res, next) => {
   try {
     const oldData = await SignUp.findOne({ _id: req.params.id }).lean();
     let newImageUploaded;
-    await cloudinaryImage.uploader.upload(req.files[0].path,
-      {
-        transformation: [
-          { width: 800, height: 600, crop: 'limit' },
-          { quality: 'auto' }, // Automatically adjust the quality
-          { fetch_format: 'auto' }, // Automatically select the format
-          { progressive: true }, // Use progressive JPEGs
-          { strip: true } // Strip metadata
-        ]
-      },
-      async function (err, result) {
-        if (err) {
-          req.flash('Error_msg', err);
-          res.redirect(`users/profile/${req.params.id}`);
-          // res.redirect(`/get-all-user`)
-        }
-        if (result.public_id) {
-          req.body.image = result.public_id
-          newImageUploaded = result.public_id
+    if (req.files[0]) {
+      await cloudinaryImage.uploader.upload(req.files[0].path,
+        {
+          transformation: [
+            { width: 800, height: 600, crop: 'limit' },
+            { quality: 'auto' }, // Automatically adjust the quality
+            { fetch_format: 'auto' }, // Automatically select the format
+            { progressive: true }, // Use progressive JPEGs
+            { strip: true } // Strip metadata
+          ]
+        },
+        async function (err, result) {
+          if (err) {
+            req.flash('Error_msg', err);
+            res.redirect(`users/profile/${req.params.id}`);
+            // res.redirect(`/get-all-user`)
+          }
+          if (result.public_id) {
+            req.body.image = result.public_id
+            newImageUploaded = result.public_id
+
+          }
+
 
         }
+      )
+    }
 
-
-      }
-    )
     if (newImageUploaded) {
       if (oldData.image.length === 20) {
 
@@ -212,9 +220,13 @@ const editProfilePost = async (req, res, next) => {
     let AllUserData = await SignUp.find({}).lean();
 
     if (AllUserData) {
-
+      req.session.user_info_1 = null
       // res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
-      res.redirect("/get-all-user")
+      userExist.image = await cloudinaryImage.url(userExist.image)
+      req.session.user_info_1 = userExist
+
+      req.flash('Success_msg', "User Update Successfully!");
+      res.redirect("/home")
     }
   } catch (error) {
     console.log(error);

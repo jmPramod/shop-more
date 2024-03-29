@@ -31,7 +31,7 @@ tr:hover {
   padding: 5px;
   width: 100px;
 }
-img {
+.productImage {
   width: 80%;
   /* height: 10%; */
 }
