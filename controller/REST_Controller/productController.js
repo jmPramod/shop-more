@@ -10,6 +10,7 @@ const productController = async (req, res, next) => {
       message: "Data retrieved successfully",
       count: allprod.length,
       data: allprod,
+      statusCode: 200
     });
   } catch (err) {
     next(err);
@@ -49,6 +50,7 @@ const CreateProductController = async (req, res, next) => {
     res.status(200).json({
       message: "Product Added successfully.",
       data: newProduct,
+      statusCode: 200
     });
   } catch (err) {
     next(err);
@@ -75,6 +77,7 @@ const getSingleProduct = async (req, res, next) => {
     res.status(200).json({
       message: "Product fetched successfully.",
       data: productDetails,
+      statusCode: 200
     });
   } catch (err) {
     next(err);
@@ -87,6 +90,7 @@ const importProducts = async (req, res, next) => {
     res.status(200).json({
       message: "Products inserted.",
       data: importData,
+      statusCode: 200
     });
   } catch (err) {
     next(err);
@@ -95,17 +99,27 @@ const importProducts = async (req, res, next) => {
 
 const searchProduct = async (req, res, next) => {
   try {
-    const searchTerm = req.query
-    const productDetails = await productsSchema.find({
-      title: searchTerm
-    })
-    if (!productDetails) {
-      return next(createError(404, 'no product found'));
-
+    const term = req.query.term;
+    if (!term) {
+      return next(createError(404, "Please enter the product to search!"));
     }
+    const productDetails = await productsSchema.find({
+      $or: [
+        { title: new RegExp(term, 'i') },
+        { brand: new RegExp(term, 'i') },
+        { description: new RegExp(term, 'i') },
+        { category: new RegExp(term, 'i') }
+      ]
+    });
+    if (productDetails.length === 0) {
+      return next(createError(404, "No Product Found."));
+    }
+
+
     res.status(200).json({
-      message: 'search successful',
-      data: productDetails
+      message: `Product related to ${term}`,
+      data: productDetails,
+      statusCode: 200
     });
   }
   catch (err) {
@@ -123,17 +137,66 @@ const getCategories = async (req, res, next) => {
       },
       { "$replaceRoot": { "newRoot": "$product" } }
     ])
-    // if (!productDetails) {
-    //   return next(createError(404, 'no product found'));
 
-    // }
     res.status(200).json({
-      message: 'search successful',
-      data: productDetails
+      message: 'All category fetched.',
+      count: productDetails.length,
+      data: productDetails,
+      statusCode: 200
     });
 
   } catch (error) {
     next(err)
+  }
+}
+
+const sortProducts = async (req, res, next) => {
+  try {
+    const { sortBy, minNmax } = req.query;
+    if (!sortBy) {
+      return next(createError(404, "Incomplete data to sort. missing either sortBy or minMax "));
+
+    }
+    let allProducts = await productsSchema.aggregate([
+      { $sort: { [sortBy]: parseInt(minNmax) } },
+    ]);
+
+    if (!allProducts) {
+      return next(createError(404, "The sortBy product does't exist."));
+
+    }
+    res.status(200).json({
+      message: `Your ${sortBy} is sorted.`,
+      data: allProducts,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+const filterProducts = async (req, res, next) => {
+  try {
+    const { minPrice, maxPrice, category, minRating, discountPercentage, brand } = req.query;
+    const filter = {};
+
+    if (minPrice !== undefined) filter.price = { $gt: parseFloat(minPrice) };
+    if (maxPrice !== undefined) {
+      filter.price = { ...filter.price, $lt: parseFloat(maxPrice) };
+    }
+    if (category !== undefined) filter.category = { $regex: new RegExp(category, 'i') }; if (minRating !== undefined) filter.rating = { $gte: parseInt(minRating) };
+    if (discountPercentage !== undefined) filter.discountPercentage = { $gte: parseInt(discountPercentage) };
+    if (brand !== undefined) {
+      filter.brand = Array.isArray(brand) ? { $in: brand.map(b => new RegExp(b, 'i')) } : { $regex: new RegExp(brand, 'i') };
+    }
+
+    const allProducts = await productsSchema.find(filter);
+    res.status(200).json({
+      message: `Your Filtered list.`,
+      data: allProducts,
+      statusCode: 200
+    });
+
+  } catch (error) {
+    next(error)
   }
 }
 module.exports = {
@@ -143,5 +206,5 @@ module.exports = {
   getCategories,
   getProductList,
   importProducts,
-  searchProduct
+  searchProduct, sortProducts, filterProducts
 };
