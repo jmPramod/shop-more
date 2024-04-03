@@ -47,14 +47,8 @@ const productRouteRest = express.Router();
  *           type: number
  *           description: Discount percentage for the product
  *         rating:
- *           type: object
- *           properties:
- *             rate:
  *               type: number
  *               description: Average rating for the product
- *             count:
- *               type: number
- *               description: Number of ratings for the product
  *         stock:
  *           type: number
  *           description: Stock quantity of the product
