@@ -28,7 +28,7 @@ const swaggerOption = {
 }
 
 const CSS_URL =
-    "https://unpkg.com/swagger-ui-dist/swagger-ui.css";;
+    "https://unpkg.com/swagger-ui-dist/swagger-ui.css"; s
 
 const swaggerSpec = swaggerJSDoc(swaggerOption)
 
