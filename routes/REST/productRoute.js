@@ -1,6 +1,6 @@
 const express = require('express');
 const { verifyAdmin } = require('../../utils/verifyToken');
-const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController, sortProducts, filterProducts } = require('../../controller/REST_Controller/productController');
+const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController, sortProducts, filterProducts, updateProducts } = require('../../controller/REST_Controller/productController');
 
 const productRouteRest = express.Router();
 /**
@@ -244,7 +244,6 @@ productRouteRest.get('/products/search', searchProduct);
  */
 
 productRouteRest.get("/products/filter", filterProducts);
-
 /**
  * @swagger
  * /products/sort:
@@ -264,6 +263,14 @@ productRouteRest.get("/products/filter", filterProducts);
  *         description: Sort order (1 for ascending, -1 for descending)
  *         schema:
  *           type: number
+ *       - name: limit
+ *         in: query
+ *         required: false
+ *         description: Maximum number of products to return (default is 20)
+ *         schema:
+ *           type: integer
+ *           default: 20
+ *           minimum: 1
  *     responses:
  *       200:
  *         description: Products sorted successfully.
@@ -287,4 +294,7 @@ productRouteRest.get("/products/filter", filterProducts);
  */
 
 productRouteRest.get("/products/sort", sortProducts);
+
+
+productRouteRest.get("/products/update", updateProducts);
 module.exports = { productRouteRest };

@@ -152,13 +152,14 @@ const getCategories = async (req, res, next) => {
 
 const sortProducts = async (req, res, next) => {
   try {
-    const { sortBy, minNmax } = req.query;
+    const { sortBy, minNmax, limit } = req.query;
     if (!sortBy) {
       return next(createError(404, "Incomplete data to sort. missing either sortBy or minMax "));
 
     }
     let allProducts = await productsSchema.aggregate([
       { $sort: { [sortBy]: parseInt(minNmax) } },
+      { $limit: parseInt(limit) }
     ]);
 
     if (!allProducts) {
@@ -199,6 +200,19 @@ const filterProducts = async (req, res, next) => {
     next(error)
   }
 }
+
+const updateProducts = async (req, res, next) => {
+  try {
+    const documents = await productsSchema.find({})
+    for (const doc of documents) {
+      const randomRating = (Math.random() * 5).toFixed(2); // Generate a random rating between 0 and 5
+      await productsSchema.updateOne({ _id: doc._id }, { $set: { rating: randomRating } });
+    }
+    res.send("success");
+  } catch (error) {
+    console.log("error", error);
+  }
+}
 module.exports = {
   getSingleProduct,
   productController,
@@ -206,5 +220,5 @@ module.exports = {
   getCategories,
   getProductList,
   importProducts,
-  searchProduct, sortProducts, filterProducts
+  searchProduct, sortProducts, filterProducts, updateProducts
 };
