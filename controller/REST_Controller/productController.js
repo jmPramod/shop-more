@@ -178,14 +178,15 @@ const filterProducts = async (req, res, next) => {
   try {
     const { minPrice, maxPrice, category, minRating, discountPercentage, brand } = req.query;
     const filter = {};
-
-    if (minPrice !== undefined) filter.price = { $gt: parseFloat(minPrice) };
-    if (maxPrice !== undefined) {
+    console.log(" minPrice, maxPrice, category, minRating, discountPercentage, brand", typeof minPrice, typeof maxPrice, typeof category, typeof minRating, typeof discountPercentage, typeof brand);
+    if (minPrice.length > 0) filter.price = { $gt: parseFloat(minPrice) };
+    if (maxPrice.length > 0) {
       filter.price = { ...filter.price, $lt: parseFloat(maxPrice) };
     }
-    if (category !== undefined) filter.category = { $regex: new RegExp(category, 'i') }; if (minRating !== undefined) filter.rating = { $gte: parseInt(minRating) };
-    if (discountPercentage !== undefined) filter.discountPercentage = { $gte: parseInt(discountPercentage) };
-    if (brand !== undefined) {
+    if (category.length > 0) filter.category = { $regex: new RegExp(category, 'i') };
+    if (minRating.length > 0) filter.rating = { $gte: parseInt(minRating) };
+    if (discountPercentage.length > 0) filter.discountPercentage = { $gte: parseInt(discountPercentage) };
+    if (brand.length > 0) {
       filter.brand = Array.isArray(brand) ? { $in: brand.map(b => new RegExp(b, 'i')) } : { $regex: new RegExp(brand, 'i') };
     }
 
