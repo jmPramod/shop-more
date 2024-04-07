@@ -179,14 +179,14 @@ const filterProducts = async (req, res, next) => {
     const { minPrice, maxPrice, category, minRating, discountPercentage, brand } = req.query;
     const filter = {};
     console.log(" minPrice, maxPrice, category, minRating, discountPercentage, brand", typeof minPrice, typeof maxPrice, typeof category, typeof minRating, typeof discountPercentage, typeof brand);
-    if (minPrice.length > 0) filter.price = { $gt: parseFloat(minPrice) };
-    if (maxPrice.length > 0) {
+    if (minPrice && minPrice.length > 0) filter.price = { $gt: parseFloat(minPrice) };
+    if (maxPrice && maxPrice.length > 0) {
       filter.price = { ...filter.price, $lt: parseFloat(maxPrice) };
     }
-    if (category.length > 0) filter.category = { $regex: new RegExp(category, 'i') };
+    if (category && category.length > 0) filter.category = { $regex: new RegExp(category, 'i') };
     if (minRating && !isNaN(parseInt(minRating))) filter.rating = { $gte: parseInt(minRating) };
     if (discountPercentage && !isNaN(parseInt(discountPercentage))) filter.discountPercentage = { $gte: parseInt(discountPercentage) };
-    if (brand.length > 0) {
+    if (brand && brand.length > 0) {
       filter.brand = Array.isArray(brand) ? { $in: brand.map(b => new RegExp(b, 'i')) } : { $regex: new RegExp(brand, 'i') };
     }
 
