@@ -184,7 +184,7 @@ const filterProducts = async (req, res, next) => {
       filter.price = { ...filter.price, $lt: parseFloat(maxPrice) };
     }
     if (category.length > 0) filter.category = { $regex: new RegExp(category, 'i') };
-    if (minRating.length > 0) filter.rating = { $gte: parseInt(minRating) };
+    if (minRating && !isNaN(parseInt(minRating))) filter.rating = { $gte: parseInt(minRating) };
     if (discountPercentage && !isNaN(parseInt(discountPercentage))) filter.discountPercentage = { $gte: parseInt(discountPercentage) };
     if (brand.length > 0) {
       filter.brand = Array.isArray(brand) ? { $in: brand.map(b => new RegExp(b, 'i')) } : { $regex: new RegExp(brand, 'i') };
