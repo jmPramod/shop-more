@@ -100,8 +100,22 @@ const importProducts = async (req, res, next) => {
 const searchProduct = async (req, res, next) => {
   try {
     const term = req.query.term;
-    if (!term) {
+    const productId = req.query.id;
+
+    if (productId) {
+      const productDetails = await productsSchema.findById(productId);
+      if (!productDetails) {
+        return next(createError(404, "Product not found."));
+      }
+      return res.status(200).json({
+        message: `Product with ID ${productId}`,
+        data: productDetails,
+        statusCode: 200
+      });
+    }
+    else if (!term) {
       return next(createError(404, "Please enter the product to search!"));
+
     }
     const productDetails = await productsSchema.find({
       $or: [
