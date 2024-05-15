@@ -16,7 +16,7 @@ const globalStorage = function (req, res, next) {
     next()
 }
 const corsOption = {
-    origin: ['http://localhost:3000', 'https://mern1-wine.vercel.app', 'https://shopmore-nextjs.netlify.app/'],
+    origin: "*",
     credentials: true,
 }
 Handlebars.registerHelper('isLoadingEnabled', function (loadingValue) {
