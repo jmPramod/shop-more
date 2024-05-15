@@ -18,6 +18,7 @@ const { productRouteHB } = require('./routes/HB/productRoutesHB');
 
 // handelbarIfHelper
 app.use(cors(corsOption));
+app.options('*', cors())
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL }))
 app.use(cookies());
 app.use(express.urlencoded({ extended: true }));
