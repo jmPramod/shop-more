@@ -17,8 +17,7 @@ const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist'
 const { productRouteHB } = require('./routes/HB/productRoutesHB');
 
 // handelbarIfHelper
-app.use(cors(corsOption));
-// app.options('*', cors())
+// app.use(cors(corsOption));
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL }))
 app.use(cookies());
 app.use(express.urlencoded({ extended: true }));
@@ -31,14 +30,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(flash())
 app.use(globalStorage);
 //Handlebars route
+app.options('*', cors())
 app.use('/', adminAuthHB);
 
 //REST API routes
-
-
 app.use('/', authRoute);
 app.use('/', productRouteRest);
-
 app.use('/', productRouteHB);
 //404 page for handlebars
 app.get('*', function (req, res) {
