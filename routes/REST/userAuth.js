@@ -147,7 +147,6 @@ const authRoute = express.Router();
  *               $ref: '#/components/schemas/ForgetPassword'
  *       500:
  *         description: Some server error
- 
  */
 
 authRoute.post('/api/login', loginController);
