@@ -18,6 +18,7 @@ const globalStorage = function (req, res, next) {
 const corsOption = {
     origin: 'https://shopmore-nextjs.netlify.app/',
 
+    credentials: true,
 }
 Handlebars.registerHelper('isLoadingEnabled', function (loadingValue) {
     if (loadingValue[0] === 'true') {
