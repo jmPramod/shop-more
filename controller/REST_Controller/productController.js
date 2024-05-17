@@ -58,16 +58,7 @@ const CreateProductController = async (req, res, next) => {
 };
 
 
-const getProductList = async (req, res, next) => {
-  try {
-    // let productList = await productsSchema.find().lean();
 
-    // res.render('products/getProductList', { productList });
-  } catch (error) {
-    console.error("Error fetching product list:", error);
-    next(err);
-  }
-};
 
 const getSingleProduct = async (req, res, next) => {
   try {
@@ -233,7 +224,6 @@ module.exports = {
   productController,
   CreateProductController,
   getCategories,
-  getProductList,
   importProducts,
   searchProduct, sortProducts, filterProducts, updateProducts
 };

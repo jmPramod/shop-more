@@ -56,8 +56,9 @@ app.use((err, req, res, next) => {
   const errorMessage = err.message || 'Something went wrong!!!!';
 
   return res.status(500).json({
+    data: null,
     Success: false,
-    status: statusCode,
+    statusCode: statusCode,
     message: errorMessage,
     stacks: err.stack,
   });
