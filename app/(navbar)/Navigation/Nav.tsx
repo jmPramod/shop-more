@@ -10,6 +10,7 @@ import { BsCart4 } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../app/redux/store';
 import { userAction } from '../../../app/redux/slice/loginSlice';
+import { SearchProducts } from '../../../services/Api.Servicer';
 interface PropsType {
   openMobView: () => void;
 }
@@ -17,6 +18,7 @@ const Nav = (props: PropsType) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const products = useAppSelector((state) => state.userList);
+  const [searchData, setSearchData] = useState('');
   const { openMobView } = props;
   const [showProfile, setShowProfile] = useState(false);
   useEffect(() => {
@@ -29,27 +31,38 @@ const Nav = (props: PropsType) => {
     dispatch(userAction.logout());
     localStorage.removeItem('User');
   };
+  const onSearchClick = async () => {
+    let response = await SearchProducts(searchData);
+    if (response) {
+      console.log('mpm', response);
+      setSearchData(response.data);
+    }
+  };
   return (
     <div className="h-[80px] bg-[#212121] text-white z-40 w-full">
       <div className="sm:w-[90%] w-[95%] mx-auto flex h-[100%] items-center justify-between">
         {/* logo div */}
         <div
-          className="flex items-center space-x-2 cursor-pointer"
+          className="flex items-center space-x-2 cursor-pointer sm-[30%]"
           onClick={() => router.push('/')}
         >
           <FaBattleNet className="w-5 h-5 sm:w-10 sm:h-10 text-orange-300 " />
           <h1 className="text-sm sm:text-2xl font-bold">Shop More</h1>
         </div>
         {/* search menu here */}
-        <div className="flex items-center justify-center space-x-2 border w-[40%] rounded-[4px] ">
-          <input
-            type="text"
-            placeholder="Search Items..."
-            className="outline-none flex p-1 w-full   px-1  border-none  text-black"
-          />
-          <button className="w-[25px]">
-            <FaSearch />
-          </button>
+        <div className="flex flex-col items-center justify-center space-x-2  w-[100%] relative ">
+          <div className="flex items-center justify-center space-x-2 border w-[40%] rounded-[4px] ">
+            <input
+              type="text"
+              placeholder="Search Items..."
+              className="outline-none flex p-1 w-full   px-1  border-none  text-black"
+              onChange={(e) => setSearchData(e.target.value)}
+            />
+            <button className="w-[25px]" onClick={() => onSearchClick()}>
+              <FaSearch />
+            </button>
+          </div>
+          <div className="w-[40%] bg-white h-[100px] absolute top-[40px]"></div>
         </div>
         {/* nav link */}
         <ul className="hidden md:flex items-center  justify-center space-x-2">
@@ -69,7 +82,7 @@ const Nav = (props: PropsType) => {
                 <img
                   src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
                   alt=""
-                  width={'50px'}
+                  width={'100px'}
                   height={'50px'}
                 />
               </li>

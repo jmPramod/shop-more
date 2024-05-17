@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-// import LoginNavBar from '../../components/Navigation/LoginNavBar';
 
 export default function LoginLayout({
   children,
@@ -8,7 +7,6 @@ export default function LoginLayout({
 }>) {
   return (
     <div>
-      {/* <LoginNavBar /> */}
       {children}
     </div>
   );

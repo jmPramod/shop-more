@@ -4,7 +4,6 @@ import Nav from './Nav';
 import MobileNav from './MobileNav';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import LoginNavBar from './LoginNavBar';
 const ResponsiveNav = () => {
   const pathname = usePathname();
   const router = useRouter();

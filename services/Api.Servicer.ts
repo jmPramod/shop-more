@@ -9,7 +9,6 @@ export const getProductsCategory = async () => {
     return {
       message: response.data.message,
       data: response.data.data,
-      // statusCode: response.data.statusCode,
     };
   } catch (error: any) {
     if (error) {
@@ -106,6 +105,27 @@ export const getSingleProducts = async (id?: string) => {
       return {
         message: error,
         data: {},
+      };
+    }
+  }
+};
+
+export const SearchProducts = async (searchTerm?: string) => {
+  try {
+    const response = await axios.get(
+      `${baseUrl}/products/search?term=${searchTerm}`
+    );
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        message: error?.response?.data.message,
+        data: error?.response?.data.data,
+        statusCode: error?.response?.data.statusCode,
       };
     }
   }

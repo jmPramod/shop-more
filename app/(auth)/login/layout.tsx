@@ -7,7 +7,6 @@ export default function LoginLayout({
 }>) {
   return (
     <div>
-      {/* <LoginNavBar /> */}
       {children}
     </div>
   );
