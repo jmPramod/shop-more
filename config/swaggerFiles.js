@@ -18,7 +18,7 @@ const swaggerOption = {
             }
         },
         servers: [{ url: `http://localhost:${port}/`, description: " local host", }, {
-            url: "https://mern1-wine.vercel.app", description: "base url of this project",
+            url: "https://shopmore-theta.vercel.app", description: "base url of this project",
         }]
     },
     apis: ["./routes/REST/*.js"]
