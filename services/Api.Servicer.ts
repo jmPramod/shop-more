@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const baseUrl = process.env.NEXT_PUBLIC_Base_url;
-const baseUrl = 'https://shopmore-theta.vercel.app';
+const baseUrl = 'https://shop-more.vercel.app';
 export const getProductsCategory = async () => {
   try {
     console.log('baseUrl', baseUrl);

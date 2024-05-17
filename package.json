@@ -2,7 +2,7 @@
   "name": "ecom",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://shopmore-theta.vercel.app",
+  "proxy": "https://shop-more.vercel.app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
