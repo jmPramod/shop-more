@@ -3,7 +3,6 @@ import { Barlow_Condensed } from 'next/font/google';
 import './globals.css';
 import ResponsiveNav from './(navbar)/Navigation/ResponsiveNav';
 import { ReduxProvider } from './redux/provider';
-
 const Barlow = Barlow_Condensed({
   weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
