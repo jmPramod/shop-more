@@ -21,6 +21,7 @@ const { productRouteHB } = require('./routes/HB/productRoutesHB');
 // handelbarIfHelper
 // app.use(cors(corsOption));
 
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL }))
 app.use(cookies());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -38,7 +39,6 @@ app.use(cors({
   credentials: true,
 }))
 //---------------------------------------------------
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL }))
 app.use('/', adminAuthHB);
 
 //REST API routes

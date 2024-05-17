@@ -18,7 +18,7 @@ const swaggerOption = {
             }
         },
         servers: [{ url: `http://localhost:${port}/`, description: " local host", }, {
-            url: "https://shopmore-theta.vercel.app", description: "base url of this project",
+            url: "https://shop-more-fe.netlify.app", description: "base url of this project",
         }]
     },
     apis: ["./routes/REST/*.js"]
