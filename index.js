@@ -36,7 +36,7 @@ app.use(globalStorage);
 // app.options('*', cors())
 //----------------------------------------------------
 app.use(cors({
-  origin: ['https://shopmore-nextjs.netlify.app', "https://mern1-wine.vercel.app"],
+  origin: ['https://shopmore-nextjs.netlify.app', "https://mern1-wine.vercel.app", "http://localhost:3000"],
   credentials: true,
 }))
 //---------------------------------------------------
