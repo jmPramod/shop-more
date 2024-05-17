@@ -3,6 +3,14 @@ const app = express();
 var cors = require('cors');
 
 //----------------------------------------------------
+app.use((req, res, next) => {
+
+  res.setHeader("Access-Control-Allow-Origin", "*")
+
+  res.setHeader("Access-Control-Allow-Methods", "*")
+
+  res.setHeader("Access-Control-Allow-Headers", "*")
+})
 app.use(cors({
   origin: ['https://shopmore-nextjs.netlify.app', "https://mern1-wine.vercel.app"],
   credentials: true,
