@@ -32,8 +32,6 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 app.use(flash())
 app.use(globalStorage);
-//Handlebars route
-// app.options('*', cors())
 //----------------------------------------------------
 app.use(cors({
   origin: ['https://shopmore-nextjs.netlify.app', "https://mern1-wine.vercel.app", "http://localhost:3000"],
