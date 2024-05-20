@@ -21,14 +21,10 @@ export const getProductsCategory = async () => {
   }
 };
 
-export const sortProducts = async (
-  sortName: string,
-  minMax: number,
-  limit: number
-) => {
+export const sortProducts = async (sortName: string, minMax: number) => {
   try {
     const response = await axios.get(
-      `${baseUrl}/products/sort?sortBy=${sortName}&minNmax=${minMax}&limit=${limit}`
+      `${baseUrl}/products/sort?sortBy=${sortName}&minNmax=${minMax}`
     );
     return {
       message: response.data.message,

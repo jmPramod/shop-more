@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     const fetch = async () => {
       const [response1, response2] = await Promise.all([
-        sortProducts('discountPercentage', -1, 10),
+        sortProducts('rating', -1),
         filterProducts('', '', 'smartphones', '', '', ''),
       ]);
       if (response1) {
