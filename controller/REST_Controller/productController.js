@@ -157,14 +157,13 @@ const getCategories = async (req, res, next) => {
 
 const sortProducts = async (req, res, next) => {
   try {
-    const { sortBy, minNmax, limit } = req.query;
+    const { sortBy, minNmax } = req.query;
     if (!sortBy) {
       return next(createError(404, "Incomplete data to sort. missing either sortBy or minMax "));
 
     }
     let allProducts = await productsSchema.aggregate([
-      { $sort: { [sortBy]: parseInt(minNmax) } },
-      { $limit: parseInt(limit) }
+      { $sort: { [sortBy]: parseInt(minNmax) } }
     ]);
 
     if (!allProducts) {
