@@ -8,12 +8,13 @@ const swaggerOption = {
         openapi: "3.0.0",
         info: {
             title: "Documentation of E-commerce API",
+
             version: "1.0.0",
-            description: "A sample doc with swagger test 1",
+            description: "E-com product API with authentication ",
             contact: {
-                name: "Pramod",
-                url: "pramod.com",
-                email: "pramodjm4@gmail.com"
+                name: "Shop More",
+                url: "https://shop-more-fe.netlify.app/",
+
 
             }
         },
@@ -33,6 +34,7 @@ const swaggerOption = {
             url: "https://shop-more.vercel.app", description: "base url of this project",
         }]
     },
+
     apis: ["./routes/REST/*.js"]
 
 }
