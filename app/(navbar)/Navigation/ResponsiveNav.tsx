@@ -11,7 +11,12 @@ const ResponsiveNav = () => {
   const openMobView = () => setMobileView(!mobileView);
   const closeMobView = () => setMobileView(!mobileView);
   const renderNavbar = () => {
-    if (pathname === '/login' || pathname === '/register') {
+    console.log('pathname', pathname);
+    if (
+      pathname === '/login' ||
+      pathname === '/register' ||
+      pathname.includes('reset-password')
+    ) {
       return <></>;
     } else {
       return (
