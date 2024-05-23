@@ -205,5 +205,5 @@ authRoute.get('/api/reset-password/:id/:token', getResetPasswordFromGmail);
 
 authRoute.post('/api/reset-password/:id/:token', putResetPasswordFromGmail);
 
-authRoute.post('/api/forgot-password', verifyUser, resetPasswordController);
+authRoute.post('/api/forgot-password', resetPasswordController);
 module.exports = { authRoute };
