@@ -59,7 +59,28 @@ export const login = async (payload: any) => {
     }
   }
 };
-
+export const resetPassword = async (payload: any) => {
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/forget-password`,
+      payload
+    );
+    console.log('response', response);
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        statusCode: error.response.data?.status,
+        message: error,
+        data: null,
+      };
+    }
+  }
+};
 export const filterProducts = async (
   minPrice?: string,
   maxPrice?: number | string,
