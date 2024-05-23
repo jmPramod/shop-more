@@ -17,6 +17,18 @@ const swaggerOption = {
 
             }
         },
+        components: {
+            securitySchemes: {
+                JWTAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                }
+            }
+        },
+        security: [{
+            JWTAuth: []
+        }],
         servers: [{ url: `http://localhost:${port}/`, description: " local host", }, {
             url: "https://shop-more.vercel.app", description: "base url of this project",
         }]

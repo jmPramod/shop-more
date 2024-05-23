@@ -182,7 +182,6 @@ const filterProducts = async (req, res, next) => {
   try {
     const { minPrice, maxPrice, category, minRating, discountPercentage, brand } = req.query;
     const filter = {};
-    console.log(" minPrice, maxPrice, category, minRating, discountPercentage, brand", typeof minPrice, typeof maxPrice, typeof category, typeof minRating, typeof discountPercentage, typeof brand);
     if (minPrice && minPrice.length > 0) filter.price = { $gt: parseFloat(minPrice) };
     if (maxPrice && maxPrice.length > 0) {
       filter.price = { ...filter.price, $lt: parseFloat(maxPrice) };

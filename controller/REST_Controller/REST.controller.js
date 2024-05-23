@@ -65,6 +65,7 @@ const loginController = async (req, res, next) => {
     res.status(200).json({
       message: 'User logged in successfully.',
       data: userData,
+      token: token
     });
   } catch (err) {
     next(err);
@@ -75,7 +76,7 @@ const resetPasswordController = async (req, res, next) => {
   try {
     const { email } = req.body;
     const userExist = await SignUp.findOne({ email: email });
-    if (userExist.email !== email) {
+    if (userExist === null) {
       return next(createError(404, 'Email is not registered.')); //user does not exist in database
     }
     //create one time link

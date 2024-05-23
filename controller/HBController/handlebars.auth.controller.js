@@ -46,9 +46,7 @@ const editUserControllerPost = async (req, res, next) => {
 };
 
 const editUserControllerGet = async (req, res, next) => {
-  console.log("req.params.id", req.params.id);
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-  console.log("userExist", userExist);
   res.render("users/createUsers", { userExist: userExist });
 };
 const loginUserGet = async (req, res) => {
@@ -101,8 +99,6 @@ const loginUserPost = async (req, res, next) => {
     // delete res.locals[user_info_1];
     res.cookie("access_token", token);
     userExist.image = await cloudinaryImage.url(userExist.image)
-    console.log("yyyyyyyyyyyyyyyyyyy", userExist.image);
-    console.log("userExist_xxxxxxxxxxxx", userExist);
     req.session.user_info_1 = userExist
     // res.render("home", { user_info_1: req.session.user_info_1, token, showSideBar: true });
 
@@ -130,12 +126,10 @@ const allUserGet = async (req, res, next) => {
   try {
     let AllUserData = await SignUp.find({}).lean();
     await AllUserData.map(async (val) => {
-      console.log("val", val);
       if (val.image.length === 20) {
         val.image = await cloudinaryImage.url(val.image)
       }
     })
-    console.log("pooo", req.user_info);
     if (AllUserData) {
       let superAdmin = false
       if (req.user_info.role === "Super-Admin") {
@@ -151,7 +145,6 @@ const allUserGet = async (req, res, next) => {
 const allUserPost = () => { };
 const editProfileGet = async (req, res, next) => {
   try {
-    console.log("res.locals.user_info_11 ", req.session.user_info_1, res.locals.user_info_1);
 
     const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
     if (userExist.image.length === 20) {
@@ -215,7 +208,6 @@ const editProfilePost = async (req, res, next) => {
       req.body.password = oldData.password
     }
 
-    // console.log("req.body", req.body, newImageUploaded);
     const userExist = await SignUp.findByIdAndUpdate({ _id: req.params.id }, req.body).lean();
     let AllUserData = await SignUp.find({}).lean();
 

@@ -4,10 +4,17 @@ const createError = require('./errorHandle');
 require('dotenv').config();
 //for REST API
 const verifyToken = (req, res, next) => {
-  const bearerToken = req.headers['authorization']
+  // const bearerToken = req.headers['authorization']
+  const authorizationHeader = req.header('Authorization');
+  if (!authorizationHeader) return next(createError(401, 'Access denied. No token provided.'));
+  const tokenArray = authorizationHeader.split(' ');
+  if (tokenArray.length !== 2 || tokenArray[0] !== 'Bearer') {
+    return next(createError(401, 'Invalid authorization header format.'));
+  }
+  const token = tokenArray[1];
+  if (!token) return next(createError(401, 'Access denied. No token provided.'))
 
-  if (typeof bearerToken !== "undefined") {
-    const bearer = bearerToken.split(" ")
+  try {
     req.token = token
     jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
       if (err) {
@@ -18,7 +25,7 @@ const verifyToken = (req, res, next) => {
       next();
     });
   }
-  else {
+  catch (err) {
 
     return next(createError(401, 'Token Required!'));
 
@@ -60,7 +67,6 @@ const verifyTokenHB = (req, res, next) => {
       req.flash('Error_msg', 'Your Token is invalid.');
     }
 
-    console.log("user", user);
     req.user_info = user;
     next();
   });
@@ -94,7 +100,6 @@ const verifySuperAdminHB = (req, res, next) => {
 
       next();
     } else {
-      console.log("else");
       req.flash('Error_msg', 'Only Super Admin can change roles');
       res.redirect(`/edit-user/${req.params.id}`)
     }

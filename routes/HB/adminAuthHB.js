@@ -43,5 +43,4 @@ module.exports = { adminAuthHB };
 //     { cloudinaryPublicId: { $exists: false } }, // Condition to find documents without the newKey
 //     { $set: { cloudinaryPublicId: null } }      // Set newKey to null for matching documents
 //   );
-//   console.log("ooooi", users);
 // })

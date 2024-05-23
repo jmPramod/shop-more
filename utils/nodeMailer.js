@@ -27,7 +27,6 @@ const forgotPasswordResetLink = async (payload) => {
   };
   try {
     transporter.sendMail(mailOption);
-    console.log('email sent to gmail', mailOption);
   } catch (err) {
     console.log('error in sending email', err);
   }

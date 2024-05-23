@@ -112,10 +112,9 @@ const editProductGetHB = async (req, res, next) => {
 }
 const editProductPostHB = async (req, res, next) => {
     try {
-        console.log(req.body);
         const { id } = req.params;
         // const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true })
-        // console.log("updateData", updateData);
+
         // let productList = await productsSchema.find().lean();
 
         // res.render('products/getProductList', { productList, style: "getProductList.css" });
