@@ -5,7 +5,7 @@ const forgotPasswordResetLink = async (payload) => {
   const { _id } = payload;
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '15m' });
 
-  const resetLink = `${process.env.Front_end_base_url}/api/reset-password/${_id}/${token}`;
+  const resetLink = `${process.env.Front_end_base_url}/reset-password/${_id}/${token}`;
   // const resetLink = ` http://localhost:5900/api/reset-password/${_id}/${token}`;
 
   const transporter = nodemailer.createTransport({

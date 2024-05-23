@@ -149,6 +149,54 @@ const authRoute = express.Router();
  *         description: Some server error
  */
 
+/**
+ * @swagger
+ * /api/reset-password/{id}/{token}:
+ *   post:
+ *     summary: Reset Password
+ *     tags: [Authentication]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the user
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: token
+ *         in: path
+ *         description: The token for password reset
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - enterPassword
+ *             properties:
+ *               enterPassword:
+ *                 type: string
+ *                 description: The new password entered by the user
+ *     responses:
+ *       200:
+ *         description: Password reset successful.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ForgetPassword'
+ *       400:
+ *         description: Invalid request format or missing required fields.
+ *       401:
+ *         description: Unauthorized - User not authenticated or invalid token.
+ *       404:
+ *         description: User or token not found.
+ *       500:
+ *         description: Internal server error.
+ */
+
 authRoute.post('/api/login', loginController);
 authRoute.post('/api/register', signUpController);
 authRoute.put('/api/update-profile/:id', verifyUser, profileUpdateController);
