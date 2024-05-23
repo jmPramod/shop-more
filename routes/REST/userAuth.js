@@ -128,7 +128,7 @@ const authRoute = express.Router();
  *               $ref: '#/components/schemas/Register'
  *       500:
  *         description: Some server error
- * /api/reset-password:
+ * /api/forget-password:
  *   post:
  *     summary: forget password
  *     tags: [Authentication]
@@ -205,5 +205,5 @@ authRoute.get('/api/reset-password/:id/:token', getResetPasswordFromGmail);
 
 authRoute.post('/api/reset-password/:id/:token', putResetPasswordFromGmail);
 
-authRoute.post('/api/reset-password', verifyUser, resetPasswordController);
+authRoute.post('/api/forgot-password', verifyUser, resetPasswordController);
 module.exports = { authRoute };
