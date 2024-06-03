@@ -12,21 +12,38 @@ import SlideMenu from '../(navbar)/slider/SlideMenu';
 const Home = () => {
   const [popularProduct, setPopularProduct] = useState();
   const [smartPhone, setSmartPhone] = useState();
+  const [homeDecorativeProduct, setHomeDecorativeProduct] = useState();
+  const [laptopProduct, setLaptopProduct] = useState();
   const [topDeal, setTopDeal] = useState(); //most discounted product
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
-      const [response1, response2] = await Promise.all([
+      const [
+        response1,
+        smartphoneResponse,
+        laptopResponse,
+        homeDecorativeResponse,
+      ] = await Promise.all([
         sortProducts('rating', -1),
         filterProducts('', '', 'smartphones', '', '', ''),
+
+        filterProducts('', '', 'laptops', '', '', ''),
+
+        filterProducts('', '', 'home-decoration', '', '', ''),
       ]);
       if (response1) {
         setPopularProduct(response1.data);
       }
-      if (response2) {
-        setSmartPhone(response2.data);
+      if (smartphoneResponse) {
+        setSmartPhone(smartphoneResponse.data);
+      }
+      if (laptopResponse) {
+        setLaptopProduct(laptopResponse.data);
+      }
+      if (homeDecorativeResponse) {
+        setHomeDecorativeProduct(homeDecorativeResponse.data);
       }
       setLoading(false);
     };
@@ -39,6 +56,13 @@ const Home = () => {
       <ProductCard
         data={popularProduct}
         title="Most Popular Product"
+        loading={loading}
+      />
+      <ProductCard data={smartPhone} title="SmartPhones" loading={loading} />
+      <ProductCard data={laptopProduct} title="Laptops" loading={loading} />
+      <ProductCard
+        data={homeDecorativeProduct}
+        title="Home Decoration"
         loading={loading}
       />
       <Footer />

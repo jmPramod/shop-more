@@ -48,4 +48,3 @@ export default function RootLayout({
   );
 }
 
-// https://www.youtube.com/watch?v=Yokjzp91A4o

@@ -5,7 +5,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { getProductsCategory } from './../../../services/Api.Servicer';
 import { ProductType } from './../../utils/types';
-
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 const responsive = {
   superLargeDesktop: {
@@ -42,7 +42,7 @@ const SlideMenu = () => {
   }, []);
   return (
     <div>
-      {loading? (
+      {loading ? (
         <div
           role="status"
           className="h-[62vh] md:h-[78vh] w-full space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center  bg-blue-950  mt-[70px] "
@@ -99,7 +99,10 @@ const SlideMenu = () => {
         >
           {category?.length > 0 &&
             category.map((val: any, index: any) => (
-              <div
+              <motion.div
+                // animate={{ scale: 1 }}
+                // initial={{ scale: 0 }}
+                // transition={{ delay: 5 }}
                 key={index}
                 className="w-full h-[62vh] md:h-[70vh] flex items-center justify-center gap-5  bg-blue-950 mt-[80px] p-7"
               >
@@ -127,7 +130,7 @@ const SlideMenu = () => {
                     Take me there
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
         </Carousel>
       )}

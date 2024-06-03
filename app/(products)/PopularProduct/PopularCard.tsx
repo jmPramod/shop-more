@@ -1,13 +1,18 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Card from './Card';
 import CardSkeliton from './CardSkeliton';
 import { ProductType } from './../../utils/types';
-
+import { useScroll, motion } from 'framer-motion';
 const ProductCard = (props: any) => {
   const { data, title, loading } = props;
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['0 1', '1.33 1'],
+  });
   // State to hold the number of items to display in the skeleton
   const [skeletonItems, setSkeletonItems] = useState<number>(5);
   useEffect(() => {
@@ -53,9 +58,15 @@ const ProductCard = (props: any) => {
   useEffect(() => {
     console.log('props:', data);
   }, [data]);
-
   return (
-    <div className="w-[97%] px-5 mx-auto bg-[#f1f4f9]">
+    <motion.div
+      style={{
+        // scale:scrollYProgress,
+        opacity: scrollYProgress,
+      }}
+      ref={ref}
+      className="w-[97%] px-5 mx-auto bg-[#f1f4f9]"
+    >
       <h1 className="my-5 text-3xl font-bold">{title}</h1>
       {loading ? (
         <>
@@ -92,7 +103,7 @@ const ProductCard = (props: any) => {
           ))}
         </Carousel>
       )}
-    </div>
+    </motion.div>
   );
 };
 
