@@ -42,7 +42,7 @@ const SlideMenu = () => {
   }, []);
   return (
     <div>
-      {loading ? (
+      {loading? (
         <div
           role="status"
           className="h-[62vh] md:h-[78vh] w-full space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center  bg-blue-950  mt-[70px] "
