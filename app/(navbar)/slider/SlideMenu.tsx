@@ -101,19 +101,27 @@ const SlideMenu = () => {
             category.map((val: any, index: any) => (
               <motion.div
                 // animate={{ scale: 1 }}
-                // initial={{ scale: 0 }}
-                // transition={{ delay: 5 }}
+                // initial={{ scale: 0.9 }}
+                // transition={{ delay: 1 }}
                 key={index}
                 className="w-full h-[62vh] md:h-[70vh] flex items-center justify-center gap-5  bg-blue-950 mt-[80px] p-7"
               >
                 {/* image */}
-                <img
+                <motion.img
                   src={val.images[1]}
+                  animate={{ scale: 1 }}
+                  initial={{ scale: 0.8 }}
+                  transition={{ delay: 1 }}
                   alt=""
                   className="hidden md:block w-[50%] h-full "
                 />
                 {/* information */}
-                <div className="w-full h-auto md:w-[50%] md:h-full flex flex-col  items-start justify-start md:justify-between">
+                <motion.div
+                  animate={{ scale: 1 }}
+                  initial={{ scale: 0.8 }}
+                  transition={{ delay: 1 }}
+                  className="w-full h-auto md:w-[50%] md:h-full flex flex-col  items-start justify-start md:justify-between"
+                >
                   <h1 className="text-[30px] md:text-[40px] font-semibold text-yellow-400 capitalize">
                     {val.title}
                   </h1>
@@ -129,7 +137,7 @@ const SlideMenu = () => {
                   >
                     Take me there
                   </button>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
         </Carousel>

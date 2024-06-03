@@ -6,10 +6,10 @@ import { BiSolidStarHalf } from 'react-icons/bi';
 import { BiStar } from 'react-icons/bi';
 import { ProductType } from './../../utils/types';
 import { getProductsCategory } from './../../../services/Api.Servicer';
-
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 const Card = (props: any) => {
-  const router=useRouter()
+  const router = useRouter();
   const { product } = props;
   const [highRatedProduct, setHighRatingProduct] = useState(
     [] as ProductType[]
@@ -39,15 +39,20 @@ const Card = (props: any) => {
   };
 
   return (
-    <div className=" p-6 rounded-lg m-3  border border-gray-300 cursor-pointer bg-white"
-    onClick={()=>router.push(`/product/${product._id}`)}
+    <div
+      className=" p-6 rounded-lg m-3  border border-gray-300 cursor-pointer bg-white"
+      onClick={() => router.push(`/product/${product._id}`)}
     >
       {/* image div*/}
       <div className="w-[100%] h-[200px] mx-auto">
-        <img
+        <motion.img
+          whileHover={{ scale: 1.1 }}
+          onHoverStart={(e) => {}}
+          onHoverEnd={(e) => {}}
+          whileTap={{ scale: 0.8 }}
           src={product.thumbnail}
           alt=""
-          className="w-full h-full  object-cover hover:transform hover:scale-105"
+          className="w-full h-full  object-cover "
         />
       </div>
       {/* title div*/}

@@ -11,31 +11,10 @@ const ProductCard = (props: any) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['0 1', '1.33 1'],
+    offset: ['0 1', '1.2 1'],
   });
   // State to hold the number of items to display in the skeleton
-  const [skeletonItems, setSkeletonItems] = useState<number>(5);
-  useEffect(() => {
-    // Update the number of skeleton items based on screen size
-    const updateSkeletonItems = () => {
-      if (window.innerWidth < 1024) {
-        setSkeletonItems(2); // Change to 2 for medium screens
-      } else {
-        setSkeletonItems(5); // Default to 5 for other screen sizes
-      }
-    };
 
-    // Initial update
-    updateSkeletonItems();
-
-    // Event listener to update on screen resize
-    window.addEventListener('resize', updateSkeletonItems);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', updateSkeletonItems);
-    };
-  }, []);
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -60,6 +39,9 @@ const ProductCard = (props: any) => {
   }, [data]);
   return (
     <motion.div
+      animate={{ scale: 1 }}
+      transition={{ delay: 1 }}
+      initial={{ scale: 0.5 }}
       style={{
         // scale:scrollYProgress,
         opacity: scrollYProgress,
