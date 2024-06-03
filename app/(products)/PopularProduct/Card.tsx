@@ -39,17 +39,17 @@ const Card = (props: any) => {
   };
 
   return (
-    <div
+    <motion.div
       className=" p-6 rounded-lg m-3  border border-gray-300 cursor-pointer bg-white"
       onClick={() => router.push(`/product/${product._id}`)}
+      whileHover={{ scale: 1.1 }}
+      onHoverStart={(e) => {}}
+      onHoverEnd={(e) => {}}
+      whileTap={{ scale: 0.8 }}
     >
       {/* image div*/}
       <div className="w-[100%] h-[200px] mx-auto">
         <motion.img
-          whileHover={{ scale: 1.1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
-          whileTap={{ scale: 0.8 }}
           src={product.thumbnail}
           alt=""
           className="w-full h-full  object-cover "
@@ -73,7 +73,7 @@ const Card = (props: any) => {
       <div>
         <button>{product?.price}$</button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
