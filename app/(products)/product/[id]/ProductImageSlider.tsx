@@ -32,9 +32,9 @@ const ProductImageSlider = (props: any) => {
       {props.loading ? (
         <div
           role="status"
-          className="h-[62vh] md:h-[78vh] w-full space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center   ml-[20px] "
+          className="h-full md:h-[78vh] w-full space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center ml-0    md:ml-[20px] "
         >
-          <div className="h-[80vh] md:h-[70vh] hidden md:flex items-center justify-center w-[100%]  bg-gray-300 rounded  dark:bg-gray-700">
+          <div className="h-[40vh] md:h-[70vh]  md:flex items-center justify-center w-[90%] m-auto md:w-full bg-gray-300 rounded  dark:bg-gray-700">
             <svg
               className="w-10 h-10 text-gray-200 dark:text-gray-600"
               aria-hidden="true"
@@ -79,7 +79,7 @@ const ProductImageSlider = (props: any) => {
                   className="w-full  flex items-center justify-center gap-5   mt-2 p-5"
                 >
                   {/* image */}
-                  <img src={val} alt="" className="hidden md:block w-[90%]" />
+                  <img src={val} alt="" className=" md:block w-[90%]" />
                 </div>
               ))}
           </Carousel>

@@ -21,9 +21,9 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
   }, [params?.id]);
   return (
     <>
-      <div className="w-full flex   gap-5  mt-[80px] ">
+      <div className="w-full flex   gap-5 mt-[100px] md:mt-[80px] items-center justify-center flex-col md:flex-row">
         {/* for photo slide */}
-        <div className="w-[40%] ">
+        <div className="md:w-[40%] w-full">
           <ProductImageSlider
             images={productData?.images && productData?.images}
             loading={loading}
@@ -32,7 +32,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
         {loading ? (
           <>
             {/* information */}
-            <div className="p-5 w-full md:w-[50%] flex flex-col  justify-center  md:items-start gap-[2%] md:gap-[10%]  ">
+            <div className="p-5 w-full md:w-[50%] flex flex-col  justify-center  md:items-start gap-[10px] md:gap-[7vh]  ">
               <div className="h-[30px] md:h-[40px] font-semibold w-[30%] bg-gray-200 "></div>
               <div className="h-2 bg-gray-200 w-full rounded-full dark:bg-gray-700 max-w-[200px] mb-2.5"></div>
               <div className="h-2 bg-gray-200 w-full rounded-full dark:bg-gray-700 max-w-[150px] mb-2.5"></div>
@@ -46,7 +46,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
             </div>
           </>
         ) : (
-          <div className="w-[60%]  flex flex-col  gap-5 p-5   justify-center">
+          <div className="md:w-[60%] w-full  flex flex-col  gap-5 p-5   justify-center">
             <h1 className="text-2xl text-left">{productData?.title}</h1>
             <div className="text-left flex gap-5">
               <div>{productData?.price} RS</div>
