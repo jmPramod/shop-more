@@ -39,9 +39,9 @@ const ProductCard = (props: any) => {
   }, [data]);
   return (
     <motion.div
-      animate={{ scale: 1 }}
-      transition={{ delay: 1 }}
-      initial={{ scale: 0.5 }}
+      // animate={{ scale: 1 }}
+      // transition={{ delay: 1 }}
+      // initial={{ scale: 0.5 }}
       style={{
         // scale:scrollYProgress,
         opacity: scrollYProgress,
