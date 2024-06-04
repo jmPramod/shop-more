@@ -17,8 +17,8 @@ export default function HomePage() {
   }, [dispatch]); // Make sure to include dispatch in the dependency array
 
   return (
-    <h1 className="bg-[#f4f1ea]">
+    <div className="bg-[#f4f1ea]">
       <Home />
-    </h1>
+    </div>
   );
 }

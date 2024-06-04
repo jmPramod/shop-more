@@ -5,10 +5,36 @@ import ProductImageSlider from './ProductImageSlider';
 import { getSingleProducts } from './../../../../services/Api.Servicer';
 // import Footer from './../../../components/Footer/Footer';
 import Footer from './../../../(navbar)/Footer/Footer';
+import { BiSolidStar } from 'react-icons/bi';
+import { BiSolidStarHalf } from 'react-icons/bi';
+import { BiStar } from 'react-icons/bi';
 
 const SingleProduct = ({ params }: { params: { id: string } }) => {
   const [productData, setProductData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<BiSolidStar key={i} className="text-red-600" />);
+    }
+
+    if (hasHalfStar) {
+      stars.push(
+        <BiSolidStarHalf key={stars.length} className="text-red-600" />
+      );
+    }
+
+    const emptyStars = 5 - stars.length;
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<BiStar key={stars.length + i} className="text-red-600" />);
+    }
+
+    return stars;
+  };
   useEffect(() => {
     const fetchSingleProduct = async () => {
       if (params?.id) {
@@ -47,17 +73,35 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
           </>
         ) : (
           <div className="md:w-[60%] w-full  flex flex-col  gap-5 p-5   justify-center">
-            <h1 className="text-2xl text-left">{productData?.title}</h1>
-            <div className="text-left flex gap-5">
-              <div>{productData?.price} RS</div>
-              <div>{productData?.rating}star</div>
-
-              <div>{productData?.discountPercentage}% off </div>
+            <h1 className="text-3xl text-left font-bold">
+              {productData?.title}
+            </h1>
+            <div className="text-left flex gap-1 items-center justify-start">
+              <div className="text-2xl">{productData?.price} $</div>
+              <sub className="text-md">
+                {' '}
+                {'('}
+                {productData?.discountPercentage}% off{')'}
+              </sub>
             </div>
 
-            <div>{productData?.brand} </div>
-            <div>{productData?.description} </div>
-            <div>{productData?.stock}items left </div>
+            <div className="text-left flex text-2xl gap-1 items-center justify-start">
+              {productData?.rating}
+
+              {renderStars(productData?.rating)}
+            </div>
+
+            <div>
+              <b>Brand:</b> {productData?.brand}{' '}
+            </div>
+            <div>
+              <b>Description: </b>
+              {productData?.description}{' '}
+            </div>
+            <div>
+              <b>Number of Product left: </b>
+              {productData?.stock} items left{' '}
+            </div>
             <div className="flex gap-5 ">
               <button className="w-[50%]  p-2 border bg-[#ff9f00] text-white text-2xl">
                 {' '}
