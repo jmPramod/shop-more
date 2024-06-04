@@ -42,11 +42,11 @@ const ProductCard = (props: any) => {
       // animate={{ scale: 1 }}
       // transition={{ delay: 1 }}
       // initial={{ scale: 0.5 }}
-      style={{
-        // scale:scrollYProgress,
-        opacity: scrollYProgress,
-      }}
-      ref={ref}
+      // style={{
+      //   // scale:scrollYProgress,
+      //   opacity: scrollYProgress,
+      // }}
+      // ref={ref}
       className="w-[97%] px-5 mx-auto bg-[#f1f4f9]"
     >
       <h1 className="my-5 text-3xl font-bold">{title}</h1>
