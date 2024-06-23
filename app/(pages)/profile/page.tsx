@@ -18,7 +18,8 @@ const page = () => {
   const [checkLogin, setCheckLogin] = useState(false);
   const products = useSelector((state: any) => state.userList.user);
   useEffect(() => {
-    if (Object?.keys(products)?.length === 0) {
+    console.log('products', products);
+    if (products && Object?.keys(products)?.length === 0) {
       setCheckLogin(true);
     } else {
       setCheckLogin(false);

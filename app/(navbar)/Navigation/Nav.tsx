@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { FaHamburger } from 'react-icons/fa';
 import { FaBattleNet } from 'react-icons/fa';
 import { FaBars } from 'react-icons/fa';
 import { FaSearch } from 'react-icons/fa';
@@ -203,7 +202,10 @@ const Nav = (props: PropsType) => {
               )}
             </div>
           ) : (
-            <li className="text-sm sm:text-xl font-medium hover:text-red-600 border px-2 hover:border-red-600 p-[4px]">
+            <li
+              className="text-sm sm:text-xl font-medium hover:text-red-600 border px-2 hover:border-red-600 p-[4px] cursor-pointer"
+              onClick={() => router.push('/login')}
+            >
               <Link href={'/login'}>Login</Link>
             </li>
           )}
