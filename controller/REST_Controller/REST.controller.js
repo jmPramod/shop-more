@@ -167,6 +167,25 @@ const profileUpdateController = async (req, res, next) => {
     next(error)
   }
 }
+
+const addNewKeyValue = async (req, res, next) => {
+  try {
+    const result = await SignUp.updateMany({}, {
+      $set: {
+        pinCode: null
+      }
+    });
+    res.json({
+      message: 'New key Added success.',
+      data: null,
+      statusCode: 200, updated: result
+    }); // Return the number of documents updated
+
+
+  } catch (error) {
+    next(error)
+  }
+}
 module.exports = {
   signUpController,
   loginController,
@@ -174,4 +193,5 @@ module.exports = {
   profileUpdateController,
   putResetPasswordFromGmail,
   getResetPasswordFromGmail,
+  addNewKeyValue
 };

@@ -9,7 +9,9 @@ const SignUpSchema = new mongoose.Schema(
     password: { type: String, required: true, },
     role: { type: String, default: 'user', enum: ['user', 'admin', 'Super-Admin'] },
     image: { type: String, default: "https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png" },
-    cloudinaryPublicId: { type: String }
+    cloudinaryPublicId: { type: String },
+    address: { type: String },
+    pinCode: { type: Number }
 
   },
   { timestamps: true }
