@@ -13,16 +13,17 @@ const signUpController = async (req, res, next) => {
     const saltRounds = 10;
     const hashPass = await bcrypt.hash(req.body.password, saltRounds);
 
-    const { name, email, password, phone, role, secondName } = req.body;
-
-    const data = new SignUp({
-      name,
-      email,
-      password: hashPass,
-      phone,
-      secondName,
-      role
-    });
+    // const { name, email, password, phone, role, secondName, pinCode, address } = req.body;
+    req.body.password = hashPass
+    const data = new SignUp(req.body);
+    const userEmailExist = await SignUp.findOne({ email: req.body.email });
+    if (userEmailExist) {
+      return next(createError(404, 'Email Already User'));
+    }
+    const userPhoneExist = await SignUp.findOne({ phone: req.body.phone });
+    if (userPhoneExist) {
+      return next(createError(404, 'Account Exist for this Phone Number'));
+    }
 
     signUpData = await data.save();
     res.status(200).json({
@@ -76,7 +77,7 @@ const resetPasswordController = async (req, res, next) => {
   try {
     const { email } = req.body;
     const userExist = await SignUp.findOne({ email: email });
-    if (userExist === null) {
+    if (!userExist) {
       return next(createError(404, 'Email is not registered.')); //user does not exist in database
     }
     //create one time link
@@ -140,23 +141,22 @@ const putResetPasswordFromGmail = async (req, res, next) => {
 };
 const profileUpdateController = async (req, res, next) => {
   try {
-    let { name, email, password, phone, role, secondName } = req.body;
-
-    if (password) {
+    const userId = req.params.id;
+    const userEmailExist = await SignUp.findById(userId)
+    const isPassword = await bcrypt.compare(req.body.password, userEmailExist.password);
+    if (!isPassword) {
+      return next(createError(404, 'Your previous Password is incorrect '));
+    }
+    if (isPassword) {
 
       const saltRounds = 10;
-      password = await bcrypt.hash(req.body.password, saltRounds);
-
+      const password = await bcrypt.hash(req.body.password, saltRounds);
+      req.body.password = password
 
     }
-    const data = {
-      name,
-      email,
-      password,
-      phone,
-    };
 
-    const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: data }, { new: true })
+
+    const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     res.status(200).json({
       message: 'User update Successfully.',
       data: userToUpdate,

@@ -45,26 +45,29 @@ const authRoute = express.Router();
  *           type: string
  *           description: The email for registration
  *         phone:
- *           type: string
+ *           type: number
  *           description: The phone id for registration
+ *         pinCode:
+ *           type: number
+ *           description: The Pin code for registration
+ *         address:
+ *           type: string
+ *           description: The address for registration
  *         password:
  *           type: string
  *           description: The password for registration
 *     ForgetPassword:
- *       type: object
- *       required:
- *         - email
- *       properties:
- *         email:
- *           type: string
- *           description: Email for resetting password
+*       type: object
+*       required:
+*         - email
+*       properties:
+*         email:
+*           type: string
+*           description: Email for resetting password
 */
 
 /**
  * @swagger
- * tags:
- *   name: Authentication
- *   description: User authentication APIs
  * /api/login:
  *   post:
  *     summary: User Login
@@ -119,7 +122,7 @@ const authRoute = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Register'  
+ *             $ref: '#/components/schemas/Register'
  *     responses:
  *       200:
  *         description: Profile updated successfully.
@@ -131,7 +134,7 @@ const authRoute = express.Router();
  *         description: Some server error
  * /api/forget-password:
  *   post:
- *     summary: forget password
+ *     summary: Forget password
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -148,6 +151,38 @@ const authRoute = express.Router();
  *               $ref: '#/components/schemas/ForgetPassword'
  *       500:
  *         description: Some server error
+ * components:
+ *   schemas:
+ *     SignUp:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *         password:
+ *           type: string
+ *     Register:
+ *       type: object
+ *       required:
+ *         - password
+ *         - pinCode
+ *         - address
+ *       properties:
+ *         password:
+ *           type: string
+ *         pinCode:
+ *           type: number
+ *         address:
+ *           type: string
+ *     ForgetPassword:
+ *       type: object
+ *       required:
+ *         - email
+ *       properties:
+ *         email:
+ *           type: string
  */
 
 /**
