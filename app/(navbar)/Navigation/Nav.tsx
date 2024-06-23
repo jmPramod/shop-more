@@ -32,6 +32,7 @@ const Nav = (props: PropsType) => {
     setShowProfile(!showProfile);
   };
   const handleLogout = () => {
+    setShowProfile(false);
     dispatch(userAction.logout());
     localStorage.removeItem('User');
   };
@@ -172,7 +173,7 @@ const Nav = (props: PropsType) => {
           products.user != undefined &&
           typeof products.user === 'object' &&
           Object.keys(products.user).length > 0 ? (
-            <div className="flex flex-col items-center relative">
+            <div className="flex flex-col items-center relative w-[65px]">
               <li onClick={handleProfile}>
                 <img
                   src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
@@ -183,7 +184,11 @@ const Nav = (props: PropsType) => {
               </li>
               {showProfile && (
                 <div className="w-[100px] top-[57px] absolute bg-white flex flex-col items-center justify-center gap-1">
-                  <Link className="text-black p-3 hover:underline " href={'/ '}>
+                  <Link
+                    className="text-black p-3 hover:underline "
+                    href={'/profile '}
+                    onClick={() => setShowProfile(false)}
+                  >
                     Profile
                   </Link>
 
@@ -198,8 +203,8 @@ const Nav = (props: PropsType) => {
               )}
             </div>
           ) : (
-            <li className="text-sm sm:text-xl font-medium hover:text-red-600 border px-2 hover:border-red-600">
-              <Link href={'/login'}>login</Link>
+            <li className="text-sm sm:text-xl font-medium hover:text-red-600 border px-2 hover:border-red-600 p-[4px]">
+              <Link href={'/login'}>Login</Link>
             </li>
           )}
         </ul>

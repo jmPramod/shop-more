@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+
+import { FaBattleNet } from 'react-icons/fa';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
@@ -19,6 +21,8 @@ const Register = () => {
     phone: '',
     password: '',
     reEnterPassword: '',
+    pinCode: '',
+    address: '',
   };
 
   const validationSchemaForRegister = Yup.object({
@@ -37,6 +41,9 @@ const Register = () => {
   });
 
   const handleSubmitForRegiter = (values: any) => {
+    let { reEnterPassword, ...a } = values;
+    console.log('values', values, a);
+
     const payload = {
       name: 'string',
       secondName: 'string',
@@ -50,6 +57,16 @@ const Register = () => {
     <>
       <div className="h-screen md:flex ">
         <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
+          <div className="absolute z-100 text-white border rounded-md p-1 top-[6%] left-[7%]">
+            {' '}
+            <div
+              className="flex items-center space-x-2 cursor-pointer"
+              onClick={() => router.push('/')}
+            >
+              <FaBattleNet className="w-5 h-5 sm:w-10 sm:h-10 text-orange-300 " />
+              <h1 className="text-sm sm:text-2xl font-bold">Shop More</h1>
+            </div>
+          </div>
           <div>
             <Image
               src="/images/login1.jpg"
@@ -69,7 +86,7 @@ const Register = () => {
             validationSchema={validationSchemaForRegister}
             onSubmit={handleSubmitForRegiter}
           >
-            <Form className="bg-white w-[50%]">
+            <Form className="bg-white w-[70%]">
               <h1 className="text-gray-800 font-bold text-2xl mb-1 w-full">
                 Looks like you're new here!
               </h1>
@@ -165,6 +182,52 @@ const Register = () => {
                 name="phone"
                 component="div"
               />
+              <div className="flex items-center border-2 py-2 px-3 rounded-2xl mt-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                  />
+                </svg>
+                <Field
+                  type="text"
+                  id="Address"
+                  className="pl-2  w-full outline-none border-none  "
+                  placeholder="Address"
+                  name="address"
+                />
+              </div>
+              <div className="flex items-center border-2 py-2 px-3 rounded-2xl mt-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                  />
+                </svg>
+                <Field
+                  type="text"
+                  id="PinCode"
+                  className="pl-2  w-full outline-none border-none  "
+                  placeholder="Pin Code"
+                  name="pinCode"
+                />
+              </div>
               <div className="flex items-center border-2 py-2 px-3 rounded-2xl  mt-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

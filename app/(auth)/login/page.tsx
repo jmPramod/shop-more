@@ -15,6 +15,7 @@ import { useAppSelector, AppDispatch } from '../../../app/redux/store';
 
 const baseUrl = process.env.NEXT_PUBLIC_Base_url;
 const Login = () => {
+  const [erroMsg, setErrorMsg] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const products = useAppSelector((state) => state.userList);
@@ -47,12 +48,17 @@ const Login = () => {
   const handleSubmitForLogin = async (values: any) => {
     setLoadingButton(true);
     let user = await login(values);
-    if (user && Object.keys(user).length !== 0) {
+    console.log(' user?.data 1', user);
+
+    if (user && Object.keys(user?.data).length !== 0) {
       console.log('user?.data', user?.data);
 
       dispatch(userAction.setUser(user?.data));
       localStorage.setItem('User', JSON.stringify(user?.data));
       router.push('/');
+    } else {
+      setErrorMsg(user?.message?.response?.data?.message);
+      console.log('user?.data 2', user?.message?.response?.data?.message);
     }
     setLoadingButton(false);
   };
@@ -84,7 +90,7 @@ const Login = () => {
           <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
           <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         </div>
-        <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
+        <div className="flex md:w-1/2 justify-center py-10 items-center bg-white flex-col">
           {!forgetPassword ? (
             <Formik
               initialValues={initialValuesForLogin}
@@ -292,6 +298,7 @@ const Login = () => {
               </Form>
             </Formik>
           )}{' '}
+          <h1 className="text-red-500">{erroMsg}</h1>
         </div>
       </div>
     </>
