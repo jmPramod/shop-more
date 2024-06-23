@@ -7,7 +7,9 @@ const {
   getResetPasswordFromGmail,
   resetPasswordController,
   profileUpdateController,
-  addNewKeyValue
+  addNewKeyValue,
+  addToCartPost,
+  addToCartGet
 } = require('../../controller/REST_Controller/REST.controller');
 const { verifyUser, verifyAdmin } = require('../../utils/verifyToken');
 
@@ -242,7 +244,8 @@ authRoute.get('/api/reset-password/:id/:token', getResetPasswordFromGmail);
 authRoute.post('/api/reset-password/:id/:token', putResetPasswordFromGmail);
 
 authRoute.post('/api/forgot-password', resetPasswordController);
-
+authRoute.post('/api/cart', verifyUser, addToCartPost);
+authRoute.get('/api/cart', verifyUser, addToCartGet);
 
 // authRoute.post('/new-key', addNewKeyValue);
 module.exports = { authRoute };

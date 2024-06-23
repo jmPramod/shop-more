@@ -1,5 +1,7 @@
 const SignUp = require('../../models/AuthSchema');
 const createError = require('../../utils/errorHandle');
+
+const productsSchema = require("../..//models/ProductSchema");
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -167,7 +169,54 @@ const profileUpdateController = async (req, res, next) => {
     next(error)
   }
 }
+const addToCartPost = async (req, res, next) => {
+  const { userId } = req.body;
+  const { productId } = req.body;
+  try {
+    const user = await SignUp.findById(userId);
+    const product = await productsSchema.findById(productId);
 
+    if (!user || !product) {
+      return next(createError(404, 'Product not found'));
+    }
+    // Check if the product is already in the user's cart
+    const isProductInCart = user.cartAdded.some(item => item.equals(product._id));
+    if (isProductInCart) {
+      return res.status(200).json({
+        message: 'This Product is already present in cart.',
+        data: user,
+        statusCode: 200,
+      });
+    }
+    user.cartAdded.push(product);
+    const productAdded = await user.save();
+    res.status(200).json({
+      message: 'Product added to cart Successfully.',
+      data: productAdded,
+      statusCode: 200,
+    });
+  } catch (error) {
+    next(error)
+  }
+}
+const addToCartGet = async (req, res, next) => {
+
+  try {
+    const { userId } = req.body;
+    const user = await SignUp.findById(userId).populate('cartAdded');
+    if (!user) {
+      return next(createError(404, 'User not found.'));
+    }
+
+    res.status(200).json({
+      message: 'cart to this user is.',
+      data: user,
+      statusCode: 200,
+    });
+  } catch (error) {
+    next(error)
+  }
+}
 const addNewKeyValue = async (req, res, next) => {
   try {
     const result = await SignUp.updateMany({}, {
@@ -193,5 +242,7 @@ module.exports = {
   profileUpdateController,
   putResetPasswordFromGmail,
   getResetPasswordFromGmail,
-  addNewKeyValue
+  addNewKeyValue,
+  addToCartPost,
+  addToCartGet
 };

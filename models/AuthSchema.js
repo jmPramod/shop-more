@@ -1,4 +1,4 @@
-const { default: mongoose, model } = require('mongoose');
+const { default: mongoose, model, Schema } = require('mongoose');
 
 const SignUpSchema = new mongoose.Schema(
   {
@@ -9,9 +9,11 @@ const SignUpSchema = new mongoose.Schema(
     password: { type: String, required: true, },
     role: { type: String, default: 'user', enum: ['user', 'admin', 'Super-Admin'] },
     image: { type: String, default: "https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png" },
-    cloudinaryPublicId: { type: String },
-    address: { type: String },
-    pinCode: { type: Number }
+    cloudinaryPublicId: { type: String, default: null },
+    address: { type: String, default: null },
+    pinCode: { type: Number, default: null },
+    cartAdded: [{ type: Schema.Types.ObjectId, ref: 'products', default: null }], // Reference to Product model
+
 
   },
   { timestamps: true }
