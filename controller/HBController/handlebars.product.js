@@ -130,6 +130,10 @@ const editProductGetHB = async (req, res, next) => {
 }
 const editProductPostHB = async (req, res, next) => {
     try {
+        if (req.body.images && typeof req.body.images === 'string') {
+            req.body.images = req.body.images.split(',').map(url => url.trim());
+        }
+
         console.log("product edit astart ", req.body);
         const { id } = req.params;
         const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true })
