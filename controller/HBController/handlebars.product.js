@@ -131,22 +131,22 @@ const editProductGetHB = async (req, res, next) => {
 const editProductPostHB = async (req, res, next) => {
     try {
         if (req.body.images && typeof req.body.images === 'string') {
-            req.body.images = req.body.images.split(',').map(url => url.trim());
+            // Split by spaces or new lines (regex \s+ matches any whitespace)
+            req.body.images = req.body.images.split(/\s+/).map(url => url.trim());
         }
 
-        console.log("product edit astart ", req.body);
+        console.log("product edit start ", req.body);
         const { id } = req.params;
-        const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true })
+        const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true });
         console.log("updateData", updateData);
         let productList = await productsSchema.find().lean();
 
         res.render('products/getProductList', { productList, style: "getProductList.css" });
-
     } catch (error) {
-        next(error)
+        next(error);
     }
-
 }
+
 module.exports = {
 
     getSingleProductHB,

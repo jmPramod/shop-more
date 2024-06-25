@@ -148,14 +148,15 @@
       </div>
   <main class="inputFieldTextAreaDiv">
           <label for='imagesArray'>Images</label>
-         <textarea
+       <textarea
   class='inputFieldTextArea'
   rows='2'
   cols='40'
   id='imagesArray'
   name='images'
-  placeholder='Comma-separated URLs for images'
->{{#each data.images}}{{this}}{{#unless @last}},{{/unless}}{{/each}}</textarea>
+  placeholder='Space or enter-separated URLs for images'
+>{{#each data.images}}{{this}}{{#unless @last}} {{else}}{{/unless}}{{/each}}</textarea>
+
         </main>
         
         <button class='createProductButton'>
