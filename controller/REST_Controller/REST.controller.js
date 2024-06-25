@@ -67,7 +67,7 @@ const loginController = async (req, res, next) => {
     const userData = { name: userExist.name, email };
     res.status(200).json({
       message: 'User logged in successfully.',
-      data: userData,
+      data: userExist,
       token: token
     });
   } catch (err) {
@@ -202,7 +202,7 @@ const addToCartPost = async (req, res, next) => {
 const addToCartGet = async (req, res, next) => {
 
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
     const user = await SignUp.findById(userId).populate('cartAdded');
     if (!user) {
       return next(createError(404, 'User not found.'));

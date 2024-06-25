@@ -23,5 +23,7 @@ productRouteHB.post(
 );
 productRouteHB.get('/get-product-list', getProductListHB);
 
+productRouteHB.post('/get-product-list', getProductListHB);
+
 
 module.exports = { productRouteHB }

@@ -17,7 +17,7 @@
       {{!-- action='/create-product' --}}
       action="{{#if mode}}/edit-product/{{data._id}}{{else}}/create-product{{/if}}"
       method='post'
-      enctype='multipart/form-data'
+      {{!-- enctype='multipart/form-data' --}}
     >
       <div>
         <div>
@@ -145,16 +145,14 @@
         </div>
         <div>
           <label for='imagesArray'>Images</label>
-          <textarea
-            class='inputField'
-            {{!-- required --}}
-            rows='2'
-            cols='40'
-            id='imagesArray'
-            name='images'
-            {{!-- value='{{data.images}}' --}}
-            placeholder='Comma-separated URLs for images'
-          ></textarea>
+         <textarea
+  class='inputField'
+  rows='2'
+  cols='40'
+  id='imagesArray'
+  name='images'
+  placeholder='Comma-separated URLs for images'
+>{{#each data.images}}{{this}}{{#unless @last}},{{/unless}}{{/each}}</textarea>
         </div>
 
         <button class='createProductButton'>

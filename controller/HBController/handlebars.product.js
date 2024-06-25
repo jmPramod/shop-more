@@ -18,6 +18,7 @@ const CreateProductHB = async (req, res, next) => {
             thumbnail,
             images,
         } = req.body;
+
         let error = [];
         let newProduct = await new productsSchema({
             title,
@@ -36,7 +37,7 @@ const CreateProductHB = async (req, res, next) => {
 
         // let productList = await productsSchema.find().lean();
 
-        // res.render('products/getProductList', { productList, style: "getProductList.css" });
+        res.render('products/getProductList', { newProduct, style: "getProductList.css" });
 
     } catch (err) {
 
@@ -47,11 +48,22 @@ const CreateProductHB = async (req, res, next) => {
 
 const getProductListHB = async (req, res, next) => {
     try {
-        let productList = await productsSchema.find().lean();
+        console.log("req.body", req.body);
+        if (req.body.filter) {
+            let productList = await productsSchema.find({ $or: [{ title: { $regex: req.body.filter, $options: "i" } }, { price: parseFloat(req.body.filter) }] }).lean();
+            console.log("productList", productList);
+            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, filterValue: req.body.filter });
 
-        res.render('products/getProductList', { productList, style: "getProductList.css" });
+
+        }
+        else {
+
+            let productList = await productsSchema.find().lean();
+
+            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true });
+        }
     } catch (error) {
-
+        console.log("error", error);
         req.flash('Error_msg', error);
     }
 };
@@ -112,12 +124,13 @@ const editProductGetHB = async (req, res, next) => {
 }
 const editProductPostHB = async (req, res, next) => {
     try {
+        console.log("product edit astart ", req.body);
         const { id } = req.params;
-        // const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true })
+        const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true })
+        console.log("updateData", updateData);
+        let productList = await productsSchema.find().lean();
 
-        // let productList = await productsSchema.find().lean();
-
-        // res.render('products/getProductList', { productList, style: "getProductList.css" });
+        res.render('products/getProductList', { productList, style: "getProductList.css" });
 
     } catch (error) {
         next(error)

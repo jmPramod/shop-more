@@ -1,7 +1,7 @@
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 .tableHead {
@@ -20,12 +20,21 @@ td {
   /* border-radius: 200px; */
   border: 1px solid black;
 }
+tr {
+  font-size: 20px;
+}
 tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-tr:hover {
-  transform: scale(1.03);
+.tableDataRow:hover {
+  transform: scale(0.98);
+
+  background-color: #ffffd6;
+  color: black;
+
+  font-size: 30px;
+  font-weight: bold;
 }
 .editButtonProduct {
   padding: 5px;
@@ -33,12 +42,14 @@ tr:hover {
 }
 .productImage {
   width: 80%;
-  /* height: 10%; */
+  border-radius: 20px;
 }
 .actionButton {
   display: flex;
   gap: 10px;
   height: 100%;
+  width: 100%;
+  min-height: 300px;
   align-items: center;
   justify-content: space-between;
 }

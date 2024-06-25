@@ -235,6 +235,96 @@ const authRoute = express.Router();
  *         description: Internal server error.
  */
 
+
+/**
+ * @swagger
+ * /api/cart:
+ *   post:
+ *     summary: Add product to cart
+ *     tags: [Cart]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *               - productId
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: The ID of the user
+ *               productId:
+ *                 type: string
+ *                 description: The ID of the product to add to cart
+ *     responses:
+ *       200:
+ *         description: Product added to cart successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Confirmation message
+ *                 data:
+ *                   type: object
+ *                   description: Updated user object with cart details
+ *                 statusCode:
+ *                   type: number
+ *                   description: HTTP status code
+ *       400:
+ *         description: Invalid request format or missing required fields.
+ *       401:
+ *         description: Unauthorized - User not authenticated.
+ *       404:
+ *         description: User or product not found.
+ *       500:
+ *         description: Internal server error.
+ *   get:
+ *     summary: Get user's cart
+ *     tags: [Cart]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: userId
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *           description: The ID of the user
+ *     responses:
+ *       200:
+ *         description: User's cart retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Confirmation message
+ *                 data:
+ *                   type: object
+ *                   description: User object with cart details
+ *                 statusCode:
+ *                   type: number
+ *                   description: HTTP status code
+ *       400:
+ *         description: Invalid request format or missing required fields.
+ *       401:
+ *         description: Unauthorized - User not authenticated.
+ *       404:
+ *         description: User not found.
+ *       500:
+ *         description: Internal server error.
+ */
+
+
 authRoute.post('/api/login', loginController);
 authRoute.post('/api/register', signUpController);
 authRoute.put('/api/update-profile/:id', verifyUser, profileUpdateController);

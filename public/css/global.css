@@ -250,3 +250,18 @@
     transform: rotate(360deg);
   }
 }
+/* this it the  nav bar  search  design   */
+.navbarSearchDiv {
+  width: 35%;
+  display: flex;
+  gap: 2px;
+}
+.searchProductInput {
+  padding: 5px;
+  border-radius: 10px;
+  width: 100%;
+}
+.searchButtonNav {
+  padding: 5px;
+  border-radius: 5px;
+}

@@ -2,6 +2,20 @@
   <a class='logo' href='/home'>
     <div>Admin<div class='dotcom'>.com</div></div>
   </a>
+  <form action='/get-product-list' method='POST' class='navbarSearchDiv'>
+
+    {{#if listProduct}}
+      <input
+        class='searchProductInput'
+        type='text'
+        name='filter'
+        placeholder='Search by Name,Price,_id '
+        value='{{filterValue}}'
+      />
+      <button class='searchButtonNav'>Search</button>
+    {{/if}}
+  </form>
+
   <ul class='menuItems'>
 
     {{#if user_info_1}}
@@ -9,7 +23,6 @@
     {{/if}}
     <li id='homeLink'><a href='/home'>Home</a></li>
     <li><a href='/logout'>Log Out</a></li>
-
     {{#if user_info_1}}
 
       <div><a href='/profile/{{user_info_1._id}}'><img
