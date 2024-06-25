@@ -1,3 +1,7 @@
+#createProductContainer {
+  padding: 10px;
+}
+
 .formContainer > div {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -23,11 +27,11 @@
   background-color: lightblue;
   display: flex;
 }
-.createProductContainer > h1 {
+.formContainer > h1 {
   text-align: center;
   width: 100%;
 }
-#createProductContainer {
+.formContainer {
   width: 90%;
   margin: 0 auto;
   background-color: lightblue;
@@ -40,7 +44,9 @@
   font-weight: bold;
 }
 .inputFieldTextAreaDiv {
-  border: 1px solid black;
+  border: 6px solid white;
+
+  margin: 0 auto;
   padding: 10px;
   align-items: center;
   background-color: lightblue;
@@ -63,7 +69,8 @@
 }
 .createProductButton {
   padding: 5px;
-  width: 100%;
+  width: 46%;
+  margin: 10px 27%;
   height: 40px;
   border-radius: 8px;
 }
