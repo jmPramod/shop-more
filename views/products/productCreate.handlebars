@@ -1,9 +1,14 @@
-<div
-  style='display: flex;align-items: center; justify-content: center; width: 100%; height: 100%;'
->
+
 
   <section id='createProductContainer'>
-    <h1>
+   
+    <form
+      class='formContainer'
+      {{!-- action='/create-product' --}}
+      action="{{#if mode}}/edit-product/{{data._id}}{{else}}/create-product{{/if}}"
+      method='post'
+      {{!-- enctype='multipart/form-data' --}}
+    > <h1>
       {{#if mode}}
 
         Edit Product
@@ -12,13 +17,6 @@
       {{/if}}
 
     </h1>
-    <form
-      class='formContainer'
-      {{!-- action='/create-product' --}}
-      action="{{#if mode}}/edit-product/{{data._id}}{{else}}/create-product{{/if}}"
-      method='post'
-      {{!-- enctype='multipart/form-data' --}}
-    >
       <div>
         <div>
           <label for='id'>ID</label>
@@ -143,18 +141,21 @@
             placeholder='Enter Product Title'
           />
         </div>
-        <div>
+      
+
+      </div>
+  <main class="inputFieldTextAreaDiv">
           <label for='imagesArray'>Images</label>
          <textarea
-  class='inputField'
+  class='inputFieldTextArea'
   rows='2'
   cols='40'
   id='imagesArray'
   name='images'
   placeholder='Comma-separated URLs for images'
 >{{#each data.images}}{{this}}{{#unless @last}},{{/unless}}{{/each}}</textarea>
-        </div>
-
+        </main>
+        
         <button class='createProductButton'>
             {{#if mode}}
 
@@ -163,10 +164,7 @@
         Create Product
       {{/if}} 
         </button>
-      </div>
-
     </form>
 
   </section>
-</div>
 

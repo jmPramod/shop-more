@@ -36,6 +36,24 @@
 
   /* margin: ; */
 }
+.inputFieldTextAreaDiv > label {
+  font-weight: bold;
+}
+.inputFieldTextAreaDiv {
+  border: 1px solid black;
+  padding: 10px;
+  align-items: center;
+  background-color: lightblue;
+  display: flex;
+  gap: 10px;
+  grid-template-columns: auto 90%;
+}
+.inputFieldTextArea {
+  height: 100px;
+  width: 100%;
+
+  padding: 0 20px;
+}
 .inputField {
   padding: 5px;
   width: 90%;
