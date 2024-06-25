@@ -80,7 +80,7 @@ const SlideMenu = () => {
           showDots={true}
           ssr={true} // means to render carousel on server-side.
           infinite={true}
-          autoPlay={true} //
+          autoPlay={false} //
           autoPlaySpeed={5000}
           keyBoardControl={true}
           customTransition="all .5"
@@ -107,14 +107,22 @@ const SlideMenu = () => {
                 className="w-full h-[62vh] md:h-[70vh] flex items-center justify-center gap-5  bg-blue-950 mt-[80px] p-7"
               >
                 {/* image */}
-                <motion.img
-                  src={val.images[1]}
+                <motion.div
                   animate={{ scale: 1 }}
                   initial={{ scale: 0.8 }}
                   transition={{ delay: 1 }}
-                  alt=""
-                  className="hidden md:block w-[50%] h-full "
-                />
+                  className="hidden md:flex w-[50%] h-full items-center justify-center bg-white "
+                >
+                  <motion.img
+                    src={val.thumbnail}
+                    animate={{ scale: 1 }}
+                    initial={{ scale: 0.8 }}
+                    transition={{ delay: 1 }}
+                    alt=""
+                    className="hidden md:block  h-full "
+                  />
+                </motion.div>
+
                 {/* information */}
                 <motion.div
                   animate={{ scale: 1 }}
