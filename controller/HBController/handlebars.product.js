@@ -50,7 +50,13 @@ const getProductListHB = async (req, res, next) => {
     try {
         console.log("req.body", req.body);
         if (req.body.filter) {
-            let productList = await productsSchema.find({ $or: [{ title: { $regex: req.body.filter, $options: "i" } }, { price: parseFloat(req.body.filter) }] }).lean();
+            let productList = await productsSchema.find({
+                $or: [{ title: { $regex: req.body.filter, $options: "i" } }
+
+                    // , { price: parseFloat(req.bo dy.filter) }
+
+                ]
+            }).lean();
             console.log("productList", productList);
             res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, filterValue: req.body.filter });
 
