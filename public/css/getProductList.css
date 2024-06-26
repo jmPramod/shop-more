@@ -1,7 +1,7 @@
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
 }
 .tableHead {
@@ -13,7 +13,7 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 15px;
-  /* font-size: 20px; */
+  font-size: 20px;
   width: 25%;
 }
 td {
@@ -24,16 +24,16 @@ tr {
   font-size: 20px;
 }
 tr:nth-child(even) {
-  background-color: #dddddd;
+  background-color: #ffffd6;
 }
 
 .tableDataRow:hover {
-  transform: scale(0.98);
+  /* transform: scale(1); */
 
-  background-color: #ffffd6;
+  background-color: #dddddd;
   color: black;
 
-  font-size: 30px;
+  /* font-size: 22px; */
   font-weight: bold;
 }
 .editButtonProduct {
@@ -49,7 +49,7 @@ tr:nth-child(even) {
   gap: 10px;
   height: 100%;
   width: 100%;
-  min-height: 300px;
+  min-height: 200px;
   align-items: center;
   justify-content: space-between;
 }

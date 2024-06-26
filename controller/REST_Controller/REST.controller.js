@@ -117,16 +117,16 @@ const putResetPasswordFromGmail = async (req, res, next) => {
   try {
     const { id, token } = req.params;
     const payload = jwt.verify(token, process.env.SECRET_KEY);
-    console.log("payload", payload)
+
     const saltRounds = 10;
     const hashPass = await bcrypt.hash(req.body.enterPassword, saltRounds);
-    console.log("hashPass", hashPass)
+
 
     const userExist = await SignUp.findOneAndUpdate(
       { email: payload.email },
       { password: hashPass.toString() }
     );
-    console.log("userExist", userExist)
+
 
     if (!userExist) {
       return next(createError(404, 'invalid URL')); //user does not exist in database

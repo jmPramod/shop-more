@@ -53,7 +53,7 @@
   margin-bottom: 0;
 }
 .menuItems > li:hover {
-  background-color: #838383;
+  /* background-color: #838383; */
 }
 .menuItems > li {
   list-style: none;

@@ -16,17 +16,23 @@
 
   {{#each productList}}
     <tr class="tableDataRow">
+
       <td>{{title}}</td>
+       {{#if price}}
       <td>{{price}} $</td>
+           {{/if}}
+             {{#if price}}
       <td> <img
         src='{{thumbnail}}'
         alt='Image of {{title}}'
         class="productImage"
        
       /></td>
-
+           {{/if}}
+  {{#if price}}
       <td class="actionButton" style=""> <a href='/edit-product/{{_id}}'>Edit</a>
        <a href=''>Delete</a>
+            {{/if}}
   </td>
 
   {{/each}}

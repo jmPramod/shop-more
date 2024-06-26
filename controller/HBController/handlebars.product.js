@@ -48,7 +48,6 @@ const CreateProductHB = async (req, res, next) => {
 
 const getProductListHB = async (req, res, next) => {
     try {
-        console.log("req.body", req.body);
         if (req.body.filter) {
             let productList = await productsSchema.find({
                 $or: [{ title: { $regex: req.body.filter, $options: "i" } }
@@ -57,7 +56,13 @@ const getProductListHB = async (req, res, next) => {
 
                 ]
             }).lean();
-            console.log("productList", productList);
+            if (productList.length === 0) {
+                productList = [{
+                    title: 'Product not Found',
+
+                }]
+
+            }
             res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, filterValue: req.body.filter });
 
 
@@ -135,13 +140,12 @@ const editProductPostHB = async (req, res, next) => {
             req.body.images = req.body.images.split(/\s+/).map(url => url.trim());
         }
 
-        console.log("product edit start ", req.body);
         const { id } = req.params;
         const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true });
-        console.log("updateData", updateData);
+   
         let productList = await productsSchema.find().lean();
+        res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true });
 
-        res.render('products/getProductList', { productList, style: "getProductList.css" });
     } catch (error) {
         next(error);
     }
