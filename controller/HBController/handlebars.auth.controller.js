@@ -124,6 +124,8 @@ const logout = (req, res, next) => {
 const allUserGet = async (req, res, next) => {
 
   try {
+
+    console.log("req.user_info ", req.user_info.role);
     let AllUserData = await SignUp.find({}).lean();
     await AllUserData.map(async (val) => {
       if (val.image.length === 20) {
@@ -135,7 +137,7 @@ const allUserGet = async (req, res, next) => {
       if (req.user_info.role === "Super-Admin") {
         superAdmin = true
       }
-      res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: req.user_info.role });
+      res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin });
     }
   }
   catch (err) {

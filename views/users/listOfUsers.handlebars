@@ -11,23 +11,40 @@
         <th>Email</th>
         <th>Phone</th>
         <th>Role</th>
-        <th>action</th>
+        {{#if superAdmin}}
+          <th>action</th>
+        {{/if}}
 
       </tr>
     </thead>
     <tbody class='tableBody'>
+      {{#if superAdmin}}
+        {{#each AllUserData}}
 
-      {{#each AllUserData}}
+          <tr>
+            <td><img src={{image}} alt='' height='100px' width='100px' /> </td>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{phone}}</td>
+            <td>{{role}}</td>
 
-        <tr>
-          <td><img src={{image}} alt='' height='100px' width='100px' /> </td>
-          <td>{{name}}</td>
-          <td>{{email}}</td>
-          <td>{{phone}}</td>
-          <td>{{role}}</td>
-          <td><a href='/edit-user/{{_id}}'>Edit</a></td>
-        </tr>
-      {{/each}}
+            <td><a href='/edit-user/{{_id}}'>Edit</a></td>
+          </tr>
+        {{/each}}
+      {{else}}
+        {{#each AllUserData}}
+
+          <tr>
+            <td><img src={{image}} alt='' height='100px' width='100px' /> </td>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{phone}}</td>
+            <td>{{role}}</td>
+
+          </tr>
+        {{/each}}
+      {{/if}}
+
     </tbody>
   </table>
 </section>
