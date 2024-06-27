@@ -1,53 +1,59 @@
-<section class="loginPage">
+<section class='loginPage'>
 
   <form
-    action="/edit-user/{{userExist._id}}"
-    method="post"
-    {{!-- enctype="multipart/form-data" --}}
+    action='/edit-user/{{userExist._id}}'
+    method='post'
+    {{! enctype="multipart/form-data" }}
   >
-    <div class="wrapper">
+    <div class='wrapper'>
       <h1>Update User</h1>
-      <div class="inputBlockContainer">
-        <label for="name">Name</label>
-        <input type="text" name="name" value="{{userExist.name}}" disabled/>
-      
-        
-      </div>
-     <div class="inputBlockContainer">
-        <label for="secondName">Name</label>
-        <input type="text" name="secondName" value="{{userExist.secondName}}" disabled/>
-      
-        
-      </div>
-      <div class="inputBlockContainer">
-        <label for="name">Email</label>
-        <input type="text" name="name" value="{{userExist.email}}" disabled />
-       
-        
-      </div>
-      <div class="inputBlockContainer">
-        <label for="phone">Phone</label>
-        <input type="tel" name="phone" value="{{userExist.phone}}" disabled/>
-       
-      </div>
-      
+      <div class='inputBlockContainer'>
+        <label for='name'>Name</label>
+        <input type='text' name='name' value='{{userExist.name}}' disabled />
 
-      <div class="inputBlockContainer">
-        <label for="role">Role</label>
-        <select name="role">
-          <option value=""></option>
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-
-        </select>
       </div>
-      <div class="remember-forgot">
-        <label><input type="checkbox">Remember me</label>
-             
+      <div class='inputBlockContainer'>
+        <label for='secondName'>Name</label>
+        <input
+          type='text'
+          name='secondName'
+          value='{{userExist.secondName}}'
+          disabled
+        />
+
+      </div>
+      <div class='inputBlockContainer'>
+        <label for='name'>Email</label>
+        <input type='text' name='name' value='{{userExist.email}}' disabled />
+
+      </div>
+      <div class='inputBlockContainer'>
+        <label for='phone'>Phone</label>
+        <input type='tel' name='phone' value='{{userExist.phone}}' disabled />
+
+      </div>
+
+      <div class='inputBlockContainer'>
+        <label for='role'>Role is :
+          <b>
+            {{userExist.role}}
+          </b>
+        </label>
+        <p>Do You want to change
+          <select name='role'>
+            <option value='admin'>Admin</option>
+            <option value='user'>User</option>
+
+          </select>
+        </p>
+
+      </div>
+      <div class='remember-forgot'>
+        <label><input type='checkbox' />Remember me</label>
+
       </div>
       <button>Update</button>
-     
-      
+
     </div>
   </form>
 </section>
