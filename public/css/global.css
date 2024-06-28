@@ -17,7 +17,7 @@
   z-index: 30;
   align-items: center;
   justify-content: space-between;
-  background-color: burlywood;
+  background-color: #007e9e;
   padding: 0 10px;
   position: fixed;
   height: 70px;
@@ -61,14 +61,15 @@
   padding: 10px;
   /* background-color: ; */
   border-radius: 4px;
-  background-color: lightblue;
+  background-color: gold;
 }
 .menuItems > li:hover {
-  color: rgb(171, 171, 171);
+  background-color: white;
+  font-weight: bold;
 }
 .menuItems > li > a {
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 /*======================

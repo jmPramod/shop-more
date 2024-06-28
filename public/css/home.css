@@ -1,5 +1,33 @@
 #homePage {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  /* align-items: center;
+  justify-content: space-evenly; */
+}
+#homePage > aside {
+  width: 50%;
+  padding: 20px;
+}
+
+#homePage > main {
+  width: 50%;
+
+  padding: 20px;
+}
+.userHome {
+  border: 1px solid red;
+  width: 100%;
+  margin: 20px;
+}
+
+.userHome > thead {
+  border: 1px solid black;
+  width: 100%;
+}
+.userHome > tbody {
+  border: 1px solid blue;
+  width: 100%;
+}
+.userHome > tbody > tr > td {
+  border: 1px solid blue;
+  padding: 10px;
 }

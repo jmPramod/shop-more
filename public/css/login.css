@@ -10,10 +10,24 @@
   overflow: hidden;
   height: 100%;
 }
+@media (0<width<900px) {
+  #loginPage {
+    flex-direction: column;
+  }
+}
+
 .loginImage {
   width: 50%;
+  padding: 50px;
   /* border: 1px solid red; */
   /* height: 100%; */
+}
+@media (0<width<900px) {
+  .loginImage {
+    padding: 4px;
+
+    width: 100%;
+  }
 }
 .demo {
   display: flex;
@@ -50,6 +64,7 @@
 }
 .loginInput > input {
   padding: 6px;
+  border-radius: 8px;
   width: 100%;
 }
 .loginButton {
@@ -60,11 +75,14 @@
   border: none;
   width: 80%;
   padding: 10px;
-  background-color: lightblue;
+  background-color: black;
+  border: 1px solid black;
   color: white;
 }
 .loginButton:hover {
-  background-color: #838383;
+  background-color: white;
+  font-weight: bold;
+  color: black;
 }
 .demoCredential {
   display: flex;
@@ -89,9 +107,9 @@
     min-height: 70%; */
     width: 90%;
   }
-  .loginImage {
+  /* .loginImage {
     display: none;
-  }
+  } */
   .loginInput,
   .loginButton,
   .demoCredential {
