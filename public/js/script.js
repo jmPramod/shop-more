@@ -1,14 +1,15 @@
 let alert = document.querySelector('.alert');
+
 setTimeout(() => {
   alert.style.transform = `translate(500px)`;
   alert.style.transition = "ease all 0.5s";
   alert.style.position = "fixed";
 }, 5000);
 
-let loading = document.querySelector('.loadingStart');
-setTimeout(() => {
-  loading.style.display = "none";
-}, 2000);
+// let loading = document.querySelector('.loadingStart');
+// setTimeout(() => {
+//   loading.style.display = "none";
+// }, 2000);
 
 
 
