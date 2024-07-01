@@ -24,7 +24,7 @@ const homeController = async (req, res) => {
 const userFetchController = async (req, res, next) => {
   try {
     let fetchedUser = await SignUp.find({});
-
+    console.log("fetchedUser", fetchedUser);
     res.status(200).json({ fetchedUser });
   } catch (err) {
 
@@ -129,8 +129,8 @@ const allUserGet = async (req, res, next) => {
 
   try {
 
-    console.log("req.user_info ", req.user_info.role);
     let AllUserData = await SignUp.find({}).lean();
+    console.log("AllUserData ", AllUserData);
     await AllUserData.map(async (val) => {
       if (val.image.length === 20) {
         val.image = await cloudinaryImage.url(val.image)
