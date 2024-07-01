@@ -1,11 +1,11 @@
 // import { createClient } from '@supabase/supabase-js';
 require('dotenv').config();
-const { createClient } = require('@supabase/supabase-js');
+// const { createClient } = require('@supabase/supabase-js');
 const { default: mongoose } = require('mongoose');
 require('dotenv').config();
-const supabaseUrl = process.env.SUPER_BASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+// const supabaseUrl = process.env.SUPER_BASE_URL;
+// const supabaseKey = process.env.SUPABASE_KEY;
+// const supabase = createClient(supabaseUrl, supabaseKey);
 
 const connectMongooseDB = async () => {
   try {
@@ -21,4 +21,7 @@ const connectMongooseDB = async () => {
   }
 };
 
-module.exports = { supabase, connectMongooseDB };
+module.exports = {
+  // supabase,
+  connectMongooseDB
+};
