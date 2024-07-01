@@ -10,15 +10,15 @@ table {
 }
 td,
 th {
-  border: 1px solid #dddddd;
-  text-align: left;
+  /* border: 1px solid #dddddd; */
+  /* text-align: left; */
   padding: 15px;
   font-size: 20px;
   width: 25%;
 }
 td {
   /* border-radius: 200px; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 tr {
   font-size: 20px;
@@ -29,7 +29,7 @@ tr:nth-child(even) {
 
 .tableDataRow:hover {
   /* transform: scale(1); */
-
+  border: 1px solid black;
   background-color: #dddddd;
   color: black;
 
@@ -49,7 +49,7 @@ tr:nth-child(even) {
   gap: 10px;
   height: 100%;
   width: 100%;
-  min-height: 200px;
+  /* min-height: 200px; */
   align-items: center;
   justify-content: space-between;
 }
@@ -72,6 +72,7 @@ tr:nth-child(even) {
   border: 0;
   border-radius: 5px;
   /* width: 100%;    */
+  display: block;
   padding: 10px;
 }
 .actionButton > a:hover {

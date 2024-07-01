@@ -19,18 +19,16 @@
   <ul class='menuItems'>
 
     {{#if user_info_1}}
-      <h4 style='text-transform: capitalize;'>Hi {{user_info_1.name}}</h4>
+      <h4 style='text-transform: capitalize; color:white'>Hi
+        {{user_info_1.name}}</h4>
     {{/if}}
     <li id='homeLink'><a href='/home'>Home</a></li>
-    <li><a href='/logout'>Log Out</a></li>
+    {{#if user_info_1}}
+      <li><a href='/logout'>Log Out</a></li>
+    {{/if}}
     {{#if user_info_1}}
 
-      <div><a href='/profile/{{user_info_1._id}}'><img
-            src='{{user_info_1.image}}'
-            width='50px'
-            height='50px'
-            style='border-radius: 100%;'
-          /></a></div>
+      <li id='homeLink'><a href='/profile/{{user_info_1._id}}'>Profile</a></li>
     {{/if}}
   </ul>
 

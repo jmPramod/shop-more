@@ -8,13 +8,15 @@ const homeController = async (req, res) => {
 
   // req.flash('Loading', '');
   const token = req.cookies.access_token;
-  const email = "test@test.com"
+
   if (token) {
-    // await res.render("loading")
     res.render("home", { style: "home.css", showSideBar: true, user_info_1: req.session.user_info_1 });
   } else {
-    res.render("users/loginUser", { style: "login.css" });
+
+    req.flash('Error_msg', "Please Login for Home Page.");
   }
+  res.render("users/loginUser", { style: "login.css" });
+
 };
 
 const userFetchController = async (req, res, next) => {
