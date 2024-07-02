@@ -29,7 +29,7 @@ adminAuthHB.post('/get-all-user', verifyAdminHB, allUserPost);
 adminAuthHB.get('/get-all-user', verifyAdminHB, allUserGet);
 adminAuthHB.post("/profile/:id", verifyOriginalUser, upload.any(), editProfilePost)
 
-adminAuthHB.get("/profile/:id", editProfileGet)
+adminAuthHB.get("/profile/:id", verifyOriginalUser, editProfileGet)
 module.exports = { adminAuthHB };
 
 

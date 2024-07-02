@@ -51,14 +51,14 @@ const editUserControllerPost = async (req, res, next) => {
 
 const editUserControllerGet = async (req, res, next) => {
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-  return res.render("users/createUsers", { userExist: userExist });
+  return res.render("users/createUsers", { userExist: userExist, user_info_1: req.session.user_info_1 });
 };
 const loginUserGet = async (req, res) => {
 
   const token = req.cookies.access_token;
 
   if (token) {
-    return res.render("home", { token, showSideBar: true });
+    return res.render("home", { token, showSideBar: true, user_info_1: req.session.user_info_1 });
   } else {
     return res.render("users/loginUser", { style: "login.css" });
   }
@@ -141,7 +141,7 @@ const allUserGet = async (req, res, next) => {
       if (req.user_info.role === "Super-Admin") {
         superAdmin = true
       }
-      return res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin });
+      return res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin, user_info_1: req.session.user_info_1 });
     }
   }
   catch (err) {
@@ -162,7 +162,7 @@ const editProfileGet = async (req, res, next) => {
 
 
 
-    return res.render("users/profile", { userExist: userExist });
+    return res.render("users/profile", { userExist: userExist, user_info_1: req.session.user_info_1 });
   } catch (error) {
     req.flash('Error_msg', error);
   }
