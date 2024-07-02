@@ -113,6 +113,23 @@ your preferred browser.
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/7708cc6a-c84b-46fe-80de-98cecfcb14ec)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
 ## Images of Project(Backend Handlebars)
 
