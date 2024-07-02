@@ -8,13 +8,14 @@ const homeController = async (req, res) => {
 
   // req.flash('Loading', '');
   const token = req.cookies.access_token;
-
+  console.log("pm", JSON.parse(req.cookies.user));
+  console.log(" req.session.user_info ", req.session.user_info)
   if (!token) {
 
     req.flash('Error_msg', "Please Login for Home Page.");
 
   } else {
-    return res.render("home", { style: "home.css", showSideBar: true, user_info: req.session.user_info });
+    return res.render("home", { style: "home.css", showSideBar: true, user_info: JSON.parse(req.cookies.user) });
 
   }
   return res.render("users/loginUser", { style: "login.css" });
@@ -51,14 +52,14 @@ const editUserControllerPost = async (req, res, next) => {
 
 const editUserControllerGet = async (req, res, next) => {
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-  return res.render("users/createUsers", { userExist: userExist, user_info: req.session.user_info });
+  return res.render("users/createUsers", { userExist: userExist, user_info: JSON.parse(req.cookies.user) });
 };
 const loginUserGet = async (req, res) => {
 
   const token = req.cookies.access_token;
 
   if (token) {
-    return res.render("home", { token, showSideBar: true, user_info: req.session.user_info });
+    return res.render("home", { token, showSideBar: true, user_info: JSON.parse(req.cookies.user) });
   } else {
     return res.render("users/loginUser", { style: "login.css" });
   }
@@ -102,10 +103,12 @@ const loginUserPost = async (req, res, next) => {
     );
     // delete res.locals[user_info];
     res.cookie("access_token", token);
+
     userExist.image = await cloudinaryImage.url(userExist.image)
     req.session.user_info = userExist
     // res.render("home", { user_info: req.session.user_info, token, showSideBar: true });
-
+    console.log("pk", userExist);
+    res.cookie("user", JSON.stringify(userExist));
 
     return res.redirect("/home")
 
@@ -120,6 +123,7 @@ const logout = (req, res, next) => {
 
   // req.flash('Loading', 'Loading is enabled!');
   res.clearCookie("access_token");
+  res.clearCookie("user");
   req.session.user_info = null
   const redirectUrl =
     process.env.DEPLOYED_BE_BASE_URL1 || "/login";
@@ -141,7 +145,7 @@ const allUserGet = async (req, res, next) => {
       if (req.user_info.role === "Super-Admin") {
         superAdmin = true
       }
-      return res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin, user_info: req.session.user_info });
+      return res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin, user_info: JSON.parse(req.cookies.user) });
     }
   }
   catch (err) {
@@ -162,7 +166,7 @@ const editProfileGet = async (req, res, next) => {
 
 
 
-    return res.render("users/profile", { userExist: userExist, user_info: req.session.user_info });
+    return res.render("users/profile", { userExist: userExist, user_info: JSON.parse(req.cookies.user) });
   } catch (error) {
     req.flash('Error_msg', error);
   }
