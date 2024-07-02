@@ -29,8 +29,8 @@ As a ADMIN I can do [Click to View](https://shop-more.vercel.app/login)
 
 Food API uses a number of open source projects to work properly:
 
-- [Node.js, Express] -Twilio, mongoose, Docker, Cloudinary, Multer, Swagger.
-- [Next JS] - Axios, Redux toolkit, Tailwind CSS.
+- [Node.js, Express] -Twilio, mongoose, Docker, Cloudinary, Multer, Swagger.[Click to View](https://shop-more.vercel.app/login)
+- [Next JS] - Axios, Redux toolkit, Tailwind CSS.[Click to View](https://shop-more-fe.netlify.app/)
 
 
 
