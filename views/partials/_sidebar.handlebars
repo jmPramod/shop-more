@@ -3,8 +3,10 @@
     <i class='fa-solid fa-caret-left'></i>
   </div>
   <div class='list'>
+    <div class='item'><a href='/profile/{{user_info_1._id}}'>
+        MY Profile</a></div>
     <div class='item'><a href='/get-all-user'>All User List</a></div>
- 
+
     {{!-- {{#eq user_info_1.role 'Super-Admin'}}
       <div class='item'><a href='/get-all-user'>List of Users</a></div>
 
@@ -13,7 +15,8 @@
     <div class='item'><a href='/get-product-list'>List of product</a></div>
     {{! <div class='item'><a href=''> Customer Management</a></div>
     <div class='item'><a href=''>Help and Support</a></div> }}
- <div class='item'><a href='/get-all-user'>Logout</a></div>
+
+    <div class='item'><a href='/logout'>Logout</a></div>
 
   </div>
 </div>
