@@ -10,7 +10,7 @@ I created an ecommerce platform using Next.js and Tailwind CSS for a responsive 
 
 
 ## Features
-As an User, I can perform [Client UI]([t-poc-1.netlify.app](https://shop-more-fe.netlify.app/))
+As an User, I can perform [Client UI](https://shop-more-fe.netlify.app/)
 - Users can easily create an account, recover forgotten passwords via email reset links, and receive SMS notifications upon booking a product.
 - They can browse through product listings, add items to their cart, and securely complete payments.
 - Users can track the status of their orders in real-time and view their complete order history, providing transparency and convenience.
