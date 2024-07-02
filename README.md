@@ -10,12 +10,12 @@ I created an ecommerce platform using Next.js and Tailwind CSS for a responsive 
 
 
 ## Features
-As an User, I can perform [Client UI](https://shop-more-fe.netlify.app/)
+As an User, I can perform [Click to View](https://shop-more-fe.netlify.app/)
 - Users can easily create an account, recover forgotten passwords via email reset links, and receive SMS notifications upon booking a product.
 - They can browse through product listings, add items to their cart, and securely complete payments.
 - Users can track the status of their orders in real-time and view their complete order history, providing transparency and convenience.
 
-As a ADMIN I can do [Server Admin Pannel](doc:linking-to-pages#anchor-links)
+As a ADMIN I can do [Click to View](https://shop-more.vercel.app/login)
 
  - Admins can perform CRUD operations on products, including creating new products, updating existing ones, and deleting obsolete items from the inventory.
  - Super Admins have the authority to manage user roles, such as promoting users to admin status or demoting admins to regular users, ensuring proper access control and management hierarchy
