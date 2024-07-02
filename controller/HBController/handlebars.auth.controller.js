@@ -8,7 +8,7 @@ const homeController = async (req, res) => {
 
   // req.flash('Loading', '');
   const token = req.cookies.access_token;
-
+  console.log(" req.session.user_info ", req.session.user_info)
   if (!token) {
 
     req.flash('Error_msg', "Please Login for Home Page.");
