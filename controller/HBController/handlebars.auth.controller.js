@@ -14,7 +14,7 @@ const homeController = async (req, res) => {
     req.flash('Error_msg', "Please Login for Home Page.");
 
   } else {
-    return res.render("home", { style: "home.css", showSideBar: true, user_info_1: req.session.user_info_1 });
+    return res.render("home", { style: "home.css", showSideBar: true, user_info: req.session.user_info });
 
   }
   return res.render("users/loginUser", { style: "login.css" });
@@ -51,14 +51,14 @@ const editUserControllerPost = async (req, res, next) => {
 
 const editUserControllerGet = async (req, res, next) => {
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-  return res.render("users/createUsers", { userExist: userExist, user_info_1: req.session.user_info_1 });
+  return res.render("users/createUsers", { userExist: userExist, user_info: req.session.user_info });
 };
 const loginUserGet = async (req, res) => {
 
   const token = req.cookies.access_token;
 
   if (token) {
-    return res.render("home", { token, showSideBar: true, user_info_1: req.session.user_info_1 });
+    return res.render("home", { token, showSideBar: true, user_info: req.session.user_info });
   } else {
     return res.render("users/loginUser", { style: "login.css" });
   }
@@ -100,11 +100,11 @@ const loginUserPost = async (req, res, next) => {
       { email: userExist.email, role: userExist.role, id: userExist._id },
       process.env.SECRET_KEY
     );
-    // delete res.locals[user_info_1];
+    // delete res.locals[user_info];
     res.cookie("access_token", token);
     userExist.image = await cloudinaryImage.url(userExist.image)
-    req.session.user_info_1 = userExist
-    // res.render("home", { user_info_1: req.session.user_info_1, token, showSideBar: true });
+    req.session.user_info = userExist
+    // res.render("home", { user_info: req.session.user_info, token, showSideBar: true });
 
 
     return res.redirect("/home")
@@ -120,7 +120,7 @@ const logout = (req, res, next) => {
 
   // req.flash('Loading', 'Loading is enabled!');
   res.clearCookie("access_token");
-  req.session.user_info_1 = null
+  req.session.user_info = null
   const redirectUrl =
     process.env.DEPLOYED_BE_BASE_URL1 || "/login";
   return res.redirect("/login");
@@ -141,7 +141,7 @@ const allUserGet = async (req, res, next) => {
       if (req.user_info.role === "Super-Admin") {
         superAdmin = true
       }
-      return res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin, user_info_1: req.session.user_info_1 });
+      return res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin, user_info: req.session.user_info });
     }
   }
   catch (err) {
@@ -162,7 +162,7 @@ const editProfileGet = async (req, res, next) => {
 
 
 
-    return res.render("users/profile", { userExist: userExist, user_info_1: req.session.user_info_1 });
+    return res.render("users/profile", { userExist: userExist, user_info: req.session.user_info });
   } catch (error) {
     req.flash('Error_msg', error);
   }
@@ -233,10 +233,10 @@ const editProfilePost = async (req, res, next) => {
     let AllUserData = await SignUp.find({}).lean();
 
     if (AllUserData) {
-      req.session.user_info_1 = null
+      req.session.user_info = null
       // res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
       userExist.image = await cloudinaryImage.url(userExist.image)
-      req.session.user_info_1 = userExist
+      req.session.user_info = userExist
 
       req.flash('Success_msg', "User Update Successfully!");
       return res.redirect("/home")

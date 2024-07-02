@@ -18,17 +18,17 @@
 
   <ul class='menuItems'>
 
-    {{#if user_info_1}}
+    {{#if user_info}}
       <h4 style='text-transform: capitalize; color:white'>Hi
-        {{user_info_1.name}}</h4>
+        {{user_info.name}}</h4>
     {{/if}}
     <li id='homeLink'><a href='/home'>Home</a></li>
-    {{#if user_info_1}}
+    {{#if user_info}}
       <li><a href='/logout'>Log Out</a></li>
     {{/if}}
-    {{#if user_info_1}}
+    {{#if user_info}}
 
-      <li id='homeLink'><a href='/profile/{{user_info_1._id}}'>Profile</a></li>
+      <li id='homeLink'><a href='/profile/{{user_info._id}}'>Profile</a></li>
     {{/if}}
   </ul>
 

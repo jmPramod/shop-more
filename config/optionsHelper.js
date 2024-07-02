@@ -12,7 +12,7 @@ const globalStorage = function (req, res, next) {
     res.locals.Info_msg = req.flash('Info_msg');
     res.locals.Error_Form = req.flash('Error_Form');
     res.locals.Loading = req.flash('Loading');
-    res.locals.user_info_1 = req.session.user_info_1;
+    res.locals.user_info = req.session.user_info;
     next()
 }
 const corsOption = {
