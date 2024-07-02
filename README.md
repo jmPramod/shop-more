@@ -106,7 +106,7 @@ your preferred browser.
    [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
 
 
-## Images of Project(Backend Handlebars)
+## Images of Project(Next js)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/333018c3-8520-4230-8b68-b83d5e6891cf)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/d6d05595-b852-4bed-a901-500ed9e0ff20)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/7708cc6a-c84b-46fe-80de-98cecfcb14ec)
