@@ -161,11 +161,7 @@ const editProfileGet = async (req, res, next) => {
       console.log("userExist.image", userExist.image);
       userExist.image = await cloudinaryImage.url(userExist.image)
       userExist.cloudinaryPublicId = ""
-
     }
-
-
-
     return res.render("users/profile", { userExist: userExist, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
   } catch (error) {
     req.flash('Error_msg', error);
