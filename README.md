@@ -10,7 +10,7 @@ I created an ecommerce platform using Next.js and Tailwind CSS for a responsive 
 
 
 ## Features
-As an User, I can perform [Click to View](https://shop-more-fe.netlify.app/){:target="_blank"}
+As an User, I can perform [Click to View](https://shop-more-fe.netlify.app/)
 
 - Users can easily create an account, recover forgotten passwords via email reset links, and receive SMS notifications upon booking a product.
 - They can browse through product listings, add items to their cart, and securely complete payments.
