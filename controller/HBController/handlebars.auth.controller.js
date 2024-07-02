@@ -233,10 +233,10 @@ const editProfilePost = async (req, res, next) => {
     let AllUserData = await SignUp.find({}).lean();
 
     if (AllUserData) {
-      req.session.user_info = null
+      // req.session.user_info = null
       // res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
       userExist.image = await cloudinaryImage.url(userExist.image)
-      req.session.user_info = userExist
+      // req.session.user_info = userExist
 
       req.flash('Success_msg', "User Update Successfully!");
       return res.redirect("/home")
