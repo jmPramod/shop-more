@@ -40,7 +40,7 @@ const Footer = () => {
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
                   <a
-                    href="https://github.com/themesberg/flowbite"
+                    href="https://github.com/jmPramod"
                     className="hover:underline "
                   >
                     Github
@@ -120,7 +120,7 @@ const Footer = () => {
               <span className="sr-only">Discord community</span>
             </a>
             <a
-              href="#"
+              href="https://x.com/JmPramod"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
             >
               <svg

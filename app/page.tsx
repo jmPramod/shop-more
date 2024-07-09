@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-// import Home from './components/Home';
 import { useDispatch } from 'react-redux';
 import { checkLocalStorageUser } from './redux/slice/loginSlice';
 import { useEffect } from 'react';
