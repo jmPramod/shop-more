@@ -159,6 +159,7 @@ const editProductPostHB = async (req, res, next) => {
             // Loop through images to delete
             for (let publicId of imagesToDelete) {
                 // Example of deleting image from Cloudinary
+
                 await cloudinaryImage.uploader.destroy(publicId);
 
                 // Remove the image from the images array in the database
@@ -168,18 +169,52 @@ const editProductPostHB = async (req, res, next) => {
             }
         }
 
+        let found = false;
+        if (req.files) {
+            console.log("pk", req.files);
+            for (let i = 0; i < req.files.length; i++) {
+                if (req.files[i].fieldname === 'thumbnailImg') {
 
+
+                    const file = req.files[i]
+                    console.log("file", file);
+                    result1 = await cloudinaryImage.uploader.upload(file.path);
+                    req.body.thumbnail = req.body.thumbnail || {};
+
+                    req.body.thumbnail.imageUrl = result1.url
+                    req.body.thumbnail.imgPublicId = result1.public_id
+                    console.log("img123", req.body);
+                    if (data.thumbnail.imgPublicId) {
+                        await cloudinaryImage.uploader.destroy(data.thumbnail.imgPublicId, (error, result) => {
+                            if (error) {
+                                console.error('Error deleting thumbnail image:', error);
+                            } else {
+                                console.log('Deleted thumbnail image:', result);
+                            }
+                        });
+                    }
+                    // Delete the temporary file after upload
+                }
+
+            }
+        }
 
         if (req.files && req.files.length > 0) {
-            for (let file of req.files) {
-                // Upload image to Cloudinary
-                const result = await cloudinaryImage.uploader.upload(file.path);
+            console.log("file123", req.files);
 
-                // Push uploaded image details to images array
-                existingImages.push({
-                    productUrl: result.secure_url,
-                    productPublicId: result.public_id
-                });
+            for (let file of req.files) {
+                if (file.fieldname != "thumbnailImg") {
+
+                    // Upload image to Cloudinary
+                    const result = await cloudinaryImage.uploader.upload(file.path);
+
+                    // Push uploaded image details to images array
+                    existingImages.push({
+                        productUrl: result.secure_url,
+                        productPublicId: result.public_id
+                    });
+                }
+
             }
         }
 

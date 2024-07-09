@@ -13,7 +13,11 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number },
     brand: { type: String },
     category: { type: String },
-    thumbnail: { type: String },
+    thumbnail: {
+      imageUrl: { type: String, default: null },
+      imgPublicId: { type: String, default: null }
+    },
+
     images: [{
       productUrl: { type: String },
       productPublicId: { type: String, default: null }
