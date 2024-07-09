@@ -48,7 +48,6 @@ const Card = (props: any) => {
     <motion.div
       onClick={() => router.push(`/product/${product._id}`)}
       ref={ref}
-      
       style={{
         scale: scrollYProgress,
         opacity: scrollYProgress,
@@ -64,7 +63,7 @@ const Card = (props: any) => {
         {/* image div*/}
         <div className="w-[100%] h-[200px] mx-auto">
           <motion.img
-            src={product.thumbnail}
+            src={product.thumbnail?.imageUrl}
             alt=""
             className="w-full h-full  object-cover "
           />

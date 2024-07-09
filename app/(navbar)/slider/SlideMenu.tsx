@@ -114,7 +114,7 @@ const SlideMenu = () => {
                   className="hidden md:flex w-[50%] h-full items-center justify-center bg-white "
                 >
                   <motion.img
-                    src={val.thumbnail}
+                    src={val.thumbnail?.imageUrl}
                     animate={{ scale: 1 }}
                     initial={{ scale: 0.8 }}
                     transition={{ delay: 1 }}

@@ -25,8 +25,8 @@ const Nav = (props: PropsType) => {
   const { openMobView } = props;
   const [showProfile, setShowProfile] = useState(false);
   useEffect(() => {
-    // console.log('products', products);
-  }, [products]);
+    console.log('products', searchResult);
+  }, [searchResult]);
   const handleProfile = () => {
     setShowProfile(!showProfile);
   };
@@ -44,6 +44,8 @@ const Nav = (props: PropsType) => {
     } else {
       let response = await SearchProducts(searchText);
       if (response) {
+        console.log('pjm', response);
+
         setSearchResult(response);
       }
     }
@@ -151,7 +153,11 @@ const Nav = (props: PropsType) => {
                       router.push(`/product/${val._id}`);
                     }}
                   >
-                    <img src={val?.thumbnail} height="70px" width="70px" />
+                    <img
+                      src={val?.thumbnail?.imageUrl}
+                      height="70px"
+                      width="70px"
+                    />
                     <h1 className="text-bold text-xl">{val?.title}</h1>
                   </div>
                 ))
