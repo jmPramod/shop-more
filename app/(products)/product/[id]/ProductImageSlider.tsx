@@ -79,7 +79,11 @@ const ProductImageSlider = (props: any) => {
                   className="w-full  flex items-center justify-center gap-5   mt-2 p-5"
                 >
                   {/* image */}
-                  <img src={val} alt="" className=" md:block w-[90%]" />
+                  <img
+                    src={val?.productUrl}
+                    alt=""
+                    className=" md:block w-[90%]"
+                  />
                 </div>
               ))}
           </Carousel>
