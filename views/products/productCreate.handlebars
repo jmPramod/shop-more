@@ -6,11 +6,11 @@
    
     <form
       class='formContainer'
-      {{!-- action='/create-product' --}}
+      enctype='multipart/form-data'
       action="{{#if mode}}/edit-product/{{data._id}}{{else}}/create-product{{/if}}"
       method='post'
-      {{!-- enctype='multipart/form-data' --}}
-    > <h1>
+     
+    > <h1 style="font-size: 25px;">
       {{#if mode}}
 
         Edit Product
@@ -118,7 +118,41 @@
             placeholder='Enter Product brand'
           />
         </div>
+       <div style="flex-direction: column; gap: 5px;">
+      <h3>Add Image: <input type="file"  name='image' id="ProductImage{{@index}}" style="" multiple></h3>
+
+<div style="width: 100%; display: flex; gap: 10px; flex-wrap: wrap;">
+  {{#each data.images}}
+    {{#if this}}
+      <div style="display: flex; flex-direction: column; width: 15%; gap: 5px;">
+        <img src="{{this.productUrl}}" alt="Product Image" width="70%" height="50%">
         <div>
+          Delete: <input type="checkbox" name="deleteImage" value="{{this.productPublicId}}">
+        </div>
+      </div>
+    {{/if}}
+  {{/each}}
+</div>
+   
+        
+         </div>
+
+       
+
+
+        <div style="justify-content: space-between;">
+          <label for='thumbnail'>Thumbnail</label>
+         
+           <div style="display: flex; flex-direction: column ; width: 30%;gap: 5px;">
+
+            <img src="{{data.thumbnail}}" alt="Product Image" width="50%" height="50%">
+           <input type="file" style=""    id='thumbnail1'
+            name='image'
+       >
+  </div>
+
+        </div>
+       <div>
           <label for='category'>Category</label>
           <input
             class='inputField'
@@ -131,34 +165,9 @@
             placeholder='Enter Product category'
           />
         </div>
-        <div>
-          <label for='thumbnail'>Thumbnail</label>
-          <input
-            class='inputField'
-            required
-            value='{{data.thumbnail}}'
-            type='text'
-            id='thumbnail'
-            name='thumbnail'
-            placeholder='Enter Product Title'
-          />
-        </div>
-      
-
       </div>
-  <main class="inputFieldTextAreaDiv">
-          <label for='imagesArray'>Images</label>
-       <textarea
-  class='inputFieldTextArea'
-  rows='2'
-  cols='40'
-  id='imagesArray'
-  name='images'
-  placeholder='Space or enter-separated URLs for images'
->{{#each data.images}}{{this}}{{#unless @last}} {{else}}{{/unless}}{{/each}}</textarea>
 
-        </main>
-        
+      
         <button class='createProductButton'>
             {{#if mode}}
 

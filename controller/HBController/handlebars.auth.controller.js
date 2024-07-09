@@ -8,8 +8,6 @@ const homeController = async (req, res) => {
 
   // req.flash('Loading', '');
   const token = req.cookies.access_token;
-  console.log("pm", req.cookies.user && JSON.parse(req.cookies.user));
-  console.log(" req.session.user_info ", req.session.user_info)
   if (!token) {
 
     req.flash('Error_msg', "Please Login for Home Page.");
@@ -135,11 +133,11 @@ const allUserGet = async (req, res, next) => {
 
     let AllUserData = await SignUp.find({}).lean();
     console.log("AllUserData ", AllUserData);
-    await AllUserData.map(async (val) => {
-      if (val.image.length === 20) {
-        val.image = await cloudinaryImage.url(val.image)
-      }
-    })
+    // await AllUserData.map(async (val) => {
+    //   if (val.images.length === 20) {
+    //     val.image = await cloudinaryImage.url(val.image)
+    //   }
+    // })
     if (AllUserData) {
       let superAdmin = false
       if (req.user_info.role === "Super-Admin") {
@@ -157,11 +155,7 @@ const editProfileGet = async (req, res, next) => {
   try {
 
     const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-    if (userExist.image.length === 20) {
-      console.log("userExist.image", userExist.image);
-      userExist.image = await cloudinaryImage.url(userExist.image)
-      userExist.cloudinaryPublicId = ""
-    }
+
     return res.render("users/profile", { userExist: userExist, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
   } catch (error) {
     req.flash('Error_msg', error);
@@ -172,59 +166,28 @@ const editProfileGet = async (req, res, next) => {
 }
 const editProfilePost = async (req, res, next) => {
   try {
+    console.log("req.body", req.body);
     const oldData = await SignUp.findOne({ _id: req.params.id }).lean();
-    let newImageUploaded;
-    let result
-    // if (req.files[0]) {
-    //   await cloudinaryImage.uploader.upload(req.files[0].path,
-    //     {
-    //       transformation: [
-    //         { width: 800, height: 600, crop: 'limit' },
-    //         { quality: 'auto' }, // Automatically adjust the quality
-    //         { fetch_format: 'auto' }, // Automatically select the format
-    //         { progressive: true }, // Use progressive JPEGs
-    //         { strip: true } // Strip metadata
-    //       ]
-    //     },
-    //     async function (err, result) {
-    //       if (err) {
-    //         req.flash('Error_msg', err);
-    //         res.redirect(`users/profile/${req.params.id}`);
-    //         // res.redirect(`/get-all-user`)
-    //       }
-    //       if (result.public_id) {
-    //         req.body.image = result.public_id
-    //         newImageUploaded = result.public_id
 
-    //       }
-
-
-    //     }
-    //   )
-    // }
+    let result1
     if (req.files && req.files.length > 0) {
       const file = req.files[0];
       console.log("file", file);
-      result = await cloudinaryImage.uploader.upload(file.path);
-      console.log("result", result);
-      if (result.public_id) {
-        req.body.image = result.public_id;
+      result1 = await cloudinaryImage.uploader.upload(file.path);
+      req.body.images = req.body.images || {};
 
-        // Optionally delete old image from Cloudinary
-        if (oldData.image.length === 20) {
-          await cloudinaryImage.uploader.destroy(oldData.image);
-        }
+      req.body.images.imageUrl = result1.url
+      req.body.images.imgPublicId = result1.public_id
+      if (oldData.images.imgPublicId) {
+        await cloudinaryImage.uploader.destroy(oldData.images.imgPublicId, (error, result) => {
+          if (error) {
+            console.error('Error deleting image:', error);
+          } else {
+            console.log('Deleted image:', result);
+          }
+        });
       }
     }
-
-    // if (newImageUploaded) {
-    //   if (oldData.image.length === 20) {
-
-    //     cloudinaryImage.uploader.destroy(oldData.image)
-    //   }
-    //   req.body.image = newImageUploaded
-    // }
-
     if (!req.body.password) {
       req.body.password = oldData.password
     }
@@ -235,7 +198,7 @@ const editProfilePost = async (req, res, next) => {
     if (AllUserData) {
       // req.session.user_info = null
       // res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
-      userExist.image = await cloudinaryImage.url(userExist.image)
+      // userExist.image = await cloudinaryImage.url(userExist.image)/
       // req.session.user_info = userExist
 
       req.flash('Success_msg', "User Update Successfully!");

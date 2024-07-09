@@ -3,17 +3,18 @@
   <form
     action='/edit-user/{{userExist._id}}'
     method='post'
+    id='ChangeRoleContainer'
     {{! enctype="multipart/form-data" }}
   >
-    <div class='wrapper'>
-      <h1>Update User</h1>
-      <div class='inputBlockContainer'>
-        <label for='name'>Name</label>
+    <div class='wrapper1'>
+      <h1>Update User Role</h1>
+      <div class='inputBlockContainer1'>
+        <label for='name'>First Name</label>
         <input type='text' name='name' value='{{userExist.name}}' disabled />
 
       </div>
-      <div class='inputBlockContainer'>
-        <label for='secondName'>Name</label>
+      <div class='inputBlockContainer1'>
+        <label for='secondName'>Last Name</label>
         <input
           type='text'
           name='secondName'
@@ -22,18 +23,18 @@
         />
 
       </div>
-      <div class='inputBlockContainer'>
+      <div class='inputBlockContainer1'>
         <label for='name'>Email</label>
         <input type='text' name='name' value='{{userExist.email}}' disabled />
 
       </div>
-      <div class='inputBlockContainer'>
+      <div class='inputBlockContainer1'>
         <label for='phone'>Phone</label>
         <input type='tel' name='phone' value='{{userExist.phone}}' disabled />
 
       </div>
 
-      <div class='inputBlockContainer'>
+      <div class='inputBlockContainer2'>
         <label for='role'>Role is :
           <b>
             {{userExist.role}}
@@ -48,10 +49,7 @@
         </p>
 
       </div>
-      <div class='remember-forgot'>
-        <label><input type='checkbox' />Remember me</label>
 
-      </div>
       <button>Update</button>
 
     </div>

@@ -19,8 +19,7 @@ const cloudinaryImage = require('cloudinary').v2;
 const storage = new CloudinaryStorage({
     cloudinary: cloudinaryImage,
     params: {
-        folder: 'your_folder_name', // Optional - specify folder to store in Cloudinary
-        allowed_formats: ['jpg', 'jpeg', 'png'], // Optional - specify allowed formats
+        folder: 'your_folder_name',
         transformation: [
             { width: 800, height: 600, crop: 'limit' },
             { quality: 'auto' },
@@ -30,6 +29,7 @@ const storage = new CloudinaryStorage({
         ]
     },
 });
+// console.log("storage", storage);
 
 const upload = multer({ storage: storage });
 module.exports = upload

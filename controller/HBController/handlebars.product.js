@@ -1,6 +1,7 @@
 const createError = require("../../utils/errorHandle");
 const productsSchema = require("../../models/ProductSchema");
 
+const cloudinaryImage = require("../../utils/cloudinary");
 
 
 const CreateProductHB = async (req, res, next) => {
@@ -123,6 +124,7 @@ const editProductGetHB = async (req, res, next) => {
     try {
         const id = req.params.id
         const data = await productsSchema.findById(id).lean()
+        console.log("data", data);
         res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css" });
 
 
@@ -133,16 +135,60 @@ const editProductGetHB = async (req, res, next) => {
 
 
 }
+
 const editProductPostHB = async (req, res, next) => {
+
+
     try {
-        if (req.body.images && typeof req.body.images === 'string') {
-            // Split by spaces or new lines (regex \s+ matches any whitespace)
-            req.body.images = req.body.images.split(/\s+/).map(url => url.trim());
-        }
 
         const { id } = req.params;
+        const data = await productsSchema.findById(id).lean()
+
+        console.log("req.body", req.files);
+
+        let existingImages = data.images || []; // Get existing images or initialize as empty array
+
+
+
+
+
+        // Check if there are images to delete
+        if (req.body.deleteImage) {
+            let imagesToDelete = Array.isArray(req.body.deleteImage) ? req.body.deleteImage : [req.body.deleteImage];
+
+            // Loop through images to delete
+            for (let publicId of imagesToDelete) {
+                // Example of deleting image from Cloudinary
+                await cloudinaryImage.uploader.destroy(publicId);
+
+                // Remove the image from the images array in the database
+                existingImages = data.images.filter(image => image.productPublicId !== publicId);
+
+
+            }
+        }
+
+
+
+        if (req.files && req.files.length > 0) {
+            for (let file of req.files) {
+                // Upload image to Cloudinary
+                const result = await cloudinaryImage.uploader.upload(file.path);
+
+                // Push uploaded image details to images array
+                existingImages.push({
+                    productUrl: result.secure_url,
+                    productPublicId: result.public_id
+                });
+            }
+        }
+
+        req.body.images = existingImages;
+
+
+        console.log("req.body.img", req.body);
         const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true });
-   
+
         let productList = await productsSchema.find().lean();
         res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true });
 

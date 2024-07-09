@@ -1,6 +1,6 @@
 const express = require('express');
 const { verifyAdmin } = require('../../utils/verifyToken');
-const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController, sortProducts, filterProducts, updateProducts } = require('../../controller/REST_Controller/productController');
+const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController, sortProducts, filterProducts, updateProducts, manupulateDB } = require('../../controller/REST_Controller/productController');
 
 const productRouteRest = express.Router();
 /**
@@ -296,5 +296,6 @@ productRouteRest.get("/products/filter", filterProducts);
 productRouteRest.get("/products/sort", sortProducts);
 
 
-productRouteRest.get("/products/update", updateProducts);
+// productRouteRest.get("/products/update", updateProducts);
+// productRouteRest.get("/pjm", manupulateDB)
 module.exports = { productRouteRest };

@@ -36,3 +36,16 @@ function toggleSidebar(btn) {
 
 //!Spinner test 1
 
+function previewImage(event) {
+  const input = event.target;
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const imagePreview = document.getElementById('profileImage');
+      imagePreview.src = e.target.result;
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}

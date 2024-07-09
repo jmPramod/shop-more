@@ -1,0 +1,402 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Money tracking App API",
+    "description": "A minimal and easy way to create money Transaction Tracking API in NodeJs using TypeScript",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "JWTAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "JWTAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "url": " http://localhost:4000/",
+      "description": "Local Dev Env"
+    },
+    {
+      "url": "/api/",
+      "description": "Production Env"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Transactions",
+      "description": "API for transactions in the system"
+    },
+    {
+      "name": "Banks",
+      "description": "API for banks in the system"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/auth/sign-up": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RegisterSchemaValidation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User created successfully"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Login user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "user@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              },
+              "required": ["email", "password"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          }
+        }
+      }
+    },
+    "/auth/user/{id}": {
+      "get": {
+        "tags": ["auth"],
+        "summary": "Get user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully"
+          }
+        }
+      },
+      "put": {
+        "tags": ["auth"],
+        "summary": "Update user details",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RegisterSchemaValidation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details updated successfully"
+          }
+        }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Forgot password",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/forgotPasswordSchemaValidation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset email sent successfully"
+          }
+        }
+      }
+    },
+    "/banks/update-banks": {
+      "put": {
+        "tags": ["bank"],
+        "summary": "Update bank details",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/bankSchemaValidation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank details updated successfully"
+          }
+        }
+      }
+    },
+    "/banks/banks/{id}": {
+      "get": {
+        "tags": ["bank"],
+        "summary": "Get bank details by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank details retrieved successfully"
+          }
+        }
+      }
+    },
+    "/banks/create-banks": {
+      "post": {
+        "tags": ["bank"],
+        "summary": "Create a new bank account",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/bankSchemaValidation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank account created successfully"
+          }
+        }
+      }
+    },
+    "/banks/banks/{id}": {
+      "delete": {
+        "tags": ["bank"],
+        "summary": "Delete bank account by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank account deleted successfully"
+          }
+        }
+      }
+    },
+    "/transactions/transactions": {
+      "get": {
+        "tags": ["transaction"],
+        "summary": "Get all transactions",
+        "responses": {
+          "200": {
+            "description": "Transactions retrieved successfully"
+          }
+        }
+      },
+      "post": {
+        "tags": ["transaction"],
+        "summary": "Create a new transaction",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/transactionJoiSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction created successfully"
+          }
+        }
+      }
+    },
+    "/transactions/transactions/{id}": {
+      "get": {
+        "tags": ["transaction"],
+        "summary": "Get transaction by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction details retrieved successfully"
+          }
+        }
+      },
+      "put": {
+        "tags": ["transaction"],
+        "summary": "Update transaction details",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/transactionJoiSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction details updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["transaction"],
+        "summary": "Delete transaction by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction deleted successfully"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Transactions": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Transaction"
+          }
+        }
+      }
+    },
+    "Bank": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "branches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Banks": {
+      "type": "object",
+      "properties": {
+        "banks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Bank"
+          }
+        }
+      }
+    }
+  }
+}

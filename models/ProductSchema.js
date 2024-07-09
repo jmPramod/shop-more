@@ -14,7 +14,10 @@ const productSchema = new mongoose.Schema(
     brand: { type: String },
     category: { type: String },
     thumbnail: { type: String },
-    images: [String],
+    images: [{
+      productUrl: { type: String },
+      productPublicId: { type: String, default: null }
+    }],
   },
   { timestamps: true }
 );

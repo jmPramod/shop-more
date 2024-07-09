@@ -4,13 +4,26 @@
   action='/profile/{{userExist._id}}'
   id='profileContainer'
 >
-  <div>
-
+  <div class='profileImageContainer'>
     <img
-      src='{{userExist.image}}'
+      src='{{userExist.images.imageUrl}}'
+      alt='Profile Image'
+      id='profileImage'
+    />
+    <label for='imageUpload' class='btn' style=''>Select Image</label>
+    <input
+      id='imageUpload'
+      style='visibility:hidden;'
+      type='file'
+      name='image'
+      onchange='previewImage(event)'
+      accept='image/*'
+    />
+
+    {{!-- <img
+      src='{{userExist.images.imageUrl}}'
       alt='Profile  Image'
       width='100px'
-      {{! name='Progile' }}
       height='100px'
     />
     <i class='fa-solid fa-pen' for='files'></i>
@@ -21,9 +34,9 @@
       placeholder='Change image'
       title='Edit Image'
       name='image'
-    />
+    /> --}}
   </div>
-  <div>
+  <div class='profileDetailsContainer'>
     <div>
       <label for='name'>First Name</label>
       <input type='text' name='name' id='name' value='{{userExist.name}}' />
@@ -50,7 +63,7 @@
       />
     </div>
     <div>
-      <label for='password'> old password</label>
+      <label for='password'> Old password</label>
       <input type='text' name='password' id='password' />
     </div>
     <div>
@@ -62,6 +75,6 @@
       <input type='text' name='phone' id='phone' value='{{userExist.phone}}' />
     </div>
 
+    <button>Update</button>
   </div>
-  <button>Update</button>
 </form>

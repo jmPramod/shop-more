@@ -217,11 +217,26 @@ const updateProducts = async (req, res, next) => {
     console.log("error", error);
   }
 }
+
+const manupulateDB = async (req, res, next) => {
+  try {
+    console.log("start");
+    const documents = await productsSchema.updateMany({}, { $set: { images: [] } })
+
+    console.log("end");
+  } catch (error) {
+    console.log("err", error);
+  }
+
+
+}
 module.exports = {
+
   getSingleProduct,
   productController,
   CreateProductController,
   getCategories,
   importProducts,
-  searchProduct, sortProducts, filterProducts, updateProducts
+  searchProduct, sortProducts, filterProducts, updateProducts,
+  manupulateDB
 };

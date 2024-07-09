@@ -55,8 +55,8 @@
   grid-template-columns: auto 90%;
 }
 .inputFieldTextArea {
-  height: 100px;
-  width: 100%;
+  height: 200px;
+  width: 40%;
 
   padding: 0 20px;
 }
