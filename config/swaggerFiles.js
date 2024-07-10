@@ -14,8 +14,6 @@ const swaggerOption = {
             contact: {
                 name: "Shop More",
                 url: "https://shop-more-fe.netlify.app/",
-
-
             }
         },
         components: {
@@ -30,9 +28,11 @@ const swaggerOption = {
         security: [{
             JWTAuth: []
         }],
-        servers: [{ url: `http://localhost:${port}/`, description: " local host", }, {
-            url: "https://shop-more.vercel.app", description: "base url of this project",
-        }]
+        servers: [
+
+            { url: "https://shop-more.vercel.app", description: "base url of this project", },
+            { url: `http://localhost:${port}/`, description: " local host", },
+        ]
     },
 
     apis: ["./routes/REST/*.js"]
