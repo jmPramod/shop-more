@@ -137,4 +137,6 @@ your preferred browser.
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/c76b242c-f31a-418c-8807-22adc7193e3d)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/ece8823f-fab9-4160-8843-135740ac037e)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/40ffbeb0-68e0-46cd-9021-05517fb3797b)
+![image](https://github.com/jmPramod/shop-more/assets/107529743/5ca43e97-f68f-4f0e-aa74-9a46898d4b5f)
+
 
