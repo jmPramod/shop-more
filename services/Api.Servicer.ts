@@ -59,6 +59,25 @@ export const login = async (payload: any) => {
     }
   }
 };
+
+export const registerUser = async (payload: any) => {
+  try {
+    const response = await axios.post(`${baseUrl}/api/register`, payload);
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      // statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        // statusCode: error.response.data?.status,
+        message: error,
+        data: {},
+      };
+    }
+  }
+};
 export const resetPassword = async (payload: any) => {
   try {
     const response = await axios.post(

@@ -58,7 +58,7 @@ const Nav = (props: PropsType) => {
     }
   }, [searchText, searchResult]);
   return (
-    <div className="h-[80px] bg-[#212121] text-white z-40 w-full">
+    <div className="h-[80px] bg-[#212121] text-white z-2000 w-full">
       <div className="sm:w-[90%] w-[95%] mx-auto flex h-[100%] items-center justify-between">
         {/* logo div */}
         <div

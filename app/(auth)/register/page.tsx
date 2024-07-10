@@ -3,7 +3,9 @@
 import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { loginSlice, userAction } from '../../../app/redux/slice/loginSlice';
 
+import { registerUser } from './../../../services/Api.Servicer';
 import { FaBattleNet } from 'react-icons/fa';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,6 +14,8 @@ import { useSelector } from 'react-redux';
 const Register = () => {
   const dispatch = useDispatch();
 
+  const [erroMsg, setErrorMsg] = useState('');
+  const [loadingButton, setLoadingButton] = useState(false);
   const products = useSelector((state: any) => state.userList);
   const router = useRouter();
   const initialValuesForRegister = {
@@ -40,7 +44,7 @@ const Register = () => {
       .required('Please confirm your password'),
   });
 
-  const handleSubmitForRegiter = (values: any) => {
+  const handleSubmitForRegiter = async (values: any) => {
     let { reEnterPassword, ...a } = values;
     console.log('values', values, a);
 
@@ -51,6 +55,22 @@ const Register = () => {
       phone: 'string',
       password: 'string',
     };
+
+    setLoadingButton(true);
+    let user = await registerUser(values);
+    console.log(' user?.data 1', user);
+
+    if (user && Object.keys(user?.data).length !== 0) {
+      console.log('user?.data', user?.data);
+
+      dispatch(userAction.setUser(user?.data));
+      localStorage.setItem('User', JSON.stringify(user?.data));
+      router.push('/');
+    } else {
+      setErrorMsg(user?.message?.response?.data?.message);
+      console.log('user?.data 2', user?.message?.response?.data?.message);
+    }
+    setLoadingButton(false);
   };
 
   return (
