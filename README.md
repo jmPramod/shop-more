@@ -133,7 +133,6 @@ your preferred browser.
    
 ## Images of Backend Project( Handlebars)
 
-![image](https://github.com/jmPramod/shop-more/assets/107529743/6979c6b4-0edf-4130-bb9f-fe10dc687c7a)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/be0a58e3-c10b-485a-aef1-0d276315afcc)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/c76b242c-f31a-418c-8807-22adc7193e3d)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/ece8823f-fab9-4160-8843-135740ac037e)
