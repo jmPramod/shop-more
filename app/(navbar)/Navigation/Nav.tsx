@@ -176,12 +176,18 @@ const Nav = (props: PropsType) => {
           Object.keys(products.user).length > 0 ? (
             <div className="flex flex-col items-center relative w-[65px]">
               <li onClick={handleProfile}>
-                <img
-                  src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
-                  alt=""
-                  width={'100px'}
-                  height={'50px'}
-                />
+              <img
+                width={'100px'}
+                height={'50px'}
+                className="  rounded-full"
+                // src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
+                src={
+                  products?.user
+                    ? products?.user?.images?.imageUrl
+                    : 'https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png'
+                }
+                alt="Rounded avatar"
+              />
               </li>
               {showProfile && (
                 <div className="w-[100px] top-[57px] absolute bg-white flex flex-col items-center justify-center gap-1">

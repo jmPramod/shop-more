@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/no-unescaped-entities */
 'use client';
@@ -18,7 +19,7 @@ const page = () => {
   const [checkLogin, setCheckLogin] = useState(false);
   const products = useSelector((state: any) => state.userList.user);
   useEffect(() => {
-      if (products && Object?.keys(products)?.length === 0) {
+    if (products && Object?.keys(products)?.length === 0) {
       setCheckLogin(true);
     } else {
       setCheckLogin(false);
@@ -29,27 +30,36 @@ const page = () => {
   }, [dispatch]); // Make sure to include dispatch in the dependency array
 
   const initialValuesForRegister = {
-    name: '',
-    secondName: '',
-    address: '',
-    phone: '',
-    pinCode: '',
+    name: (products && products.name) || '',
+    secondName: (products && products.secondName) || '',
+    address: (products && products.address) || '',
+    phone: (products && products.phone) || '',
+    pinCode: (products && products.pinCode) || '',
+    password: '',
     reEnterPassword: '',
   };
   const validationSchemaForRegister = Yup.object({
     name: Yup.string().required('Name is required'),
-    secondName: Yup.string().required('Last Name is required'),
+    secondName: Yup.string(),
     address: Yup.string().required('Address is required'),
-    phone: Yup.string().required('Phone is required'),
+    phone: Yup.number().required('Phone is required'),
     pinCode: Yup.string().required('Pin code is required'),
+    password: Yup.string()
+      .min(8, 'Password must be at least 8 characters')
+      .required('Password is required'),
+    reEnterPassword: Yup.string()
+      .oneOf([Yup.ref('password'), ''], 'Passwords must match') // Validate if re-entered password matches the password field
+      .required('Please confirm your password'),
   });
-  const handleSubmitForRegiter = (values: any) => {
+  const handleUpdateUser = (values: any) => {
     const payload = {
       name: 'string',
       secondName: 'string',
       email: 'string',
       phone: 'string',
       password: 'string',
+      address: '',
+      pinCode: '',
     };
   };
   return (
@@ -60,11 +70,16 @@ const page = () => {
         <div className="w-full h-full mt-[77px] items-center flex justify-center flex-col gap-4">
           <div className="flex md:w-full justify-center py-10 items-center bg-white gap-3">
             <div className="relative flex  items-end">
-              <Image
+              <img
                 width={200}
                 height={200}
                 className="  rounded-full"
-                src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
+                // src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
+                src={
+                  products
+                    ? products?.images?.imageUrl
+                    : 'https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png'
+                }
                 alt="Rounded avatar"
               />
               <FaEdit size={25} />
@@ -72,7 +87,8 @@ const page = () => {
             <Formik
               initialValues={initialValuesForRegister}
               validationSchema={validationSchemaForRegister}
-              onSubmit={handleSubmitForRegiter}
+              onSubmit={handleUpdateUser}
+              enableReinitialize={true} // Enable form to reinitialize when initialValues change
             >
               <Form className="bg-white w-[60%]">
                 <h1 className="text-gray-800 font-bold text-2xl mb-1 w-full">
@@ -204,12 +220,68 @@ const page = () => {
                   name="pinCode"
                   component="div"
                 />
+                <>
+                  <div className="flex items-center border-2 py-2 px-3 rounded-2xl  mt-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-gray-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <Field
+                      type="text"
+                      id="first_name"
+                      className="pl-2  w-full outline-none border-none  "
+                      placeholder="Enter password"
+                      name="password"
+                    />
+                  </div>
+                  <ErrorMessage
+                    className="text-red-500 text-sm"
+                    name="password"
+                    component="div"
+                  />
+                </>
+                <>
+                  <div className="flex items-center border-2 py-2 px-3 rounded-2xl  mt-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-gray-400"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <Field
+                      type="text"
+                      id="first_name"
+                      className="pl-2  w-full outline-none border-none  "
+                      placeholder="Re-enter password"
+                      name="reEnterPassword"
+                    />
+                  </div>
+                  <ErrorMessage
+                    className="text-red-500 text-sm"
+                    name="reEnterPassword"
+                    component="div"
+                  />
+                </>
 
                 <button
                   type="submit"
                   className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
                 >
-                  Register
+                  Update
                 </button>
               </Form>
             </Formik>
