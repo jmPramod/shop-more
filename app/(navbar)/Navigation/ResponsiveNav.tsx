@@ -11,7 +11,6 @@ const ResponsiveNav = () => {
   const openMobView = () => setMobileView(!mobileView);
   const closeMobView = () => setMobileView(!mobileView);
   const renderNavbar = () => {
-    console.log('pathname', pathname);
     if (
       pathname === '/login' ||
       pathname === '/register' ||
