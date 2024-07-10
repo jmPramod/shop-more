@@ -34,9 +34,6 @@ const ProductCard = (props: any) => {
     },
   };
 
-  useEffect(() => {
-    console.log('props:', data);
-  }, [data]);
   return (
     <motion.div
       // animate={{ scale: 1 }}

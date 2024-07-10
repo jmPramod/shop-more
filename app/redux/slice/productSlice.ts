@@ -37,8 +37,7 @@ const ProductAction = loginSlice.actions;
 const checkLocalStorageProduct = () => {
   return (dispatch: any) => {
     const storedProduct = localStorage.getItem('Product');
-    console.log('storedProduct', storedProduct);
-
+ 
     if (storedProduct) {
       dispatch(ProductAction.setProduct(JSON.parse(storedProduct)));
     }

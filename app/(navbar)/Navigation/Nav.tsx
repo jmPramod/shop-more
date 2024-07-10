@@ -24,10 +24,7 @@ const Nav = (props: PropsType) => {
 
   const { openMobView } = props;
   const [showProfile, setShowProfile] = useState(false);
-  useEffect(() => {
-    console.log('products', searchResult);
-  }, [searchResult]);
-  const handleProfile = () => {
+    const handleProfile = () => {
     setShowProfile(!showProfile);
   };
   const handleLogout = () => {
@@ -44,8 +41,7 @@ const Nav = (props: PropsType) => {
     } else {
       let response = await SearchProducts(searchText);
       if (response) {
-        console.log('pjm', response);
-
+       
         setSearchResult(response);
       }
     }

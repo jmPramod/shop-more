@@ -37,8 +37,7 @@ const userAction = loginSlice.actions;
 const checkLocalStorageUser = () => {
   return (dispatch: any) => {
     const storedUser = localStorage.getItem('User');
-    console.log('storedUser', storedUser);
-
+  
     if (storedUser) {
       dispatch(userAction.setUser(JSON.parse(storedUser)));
     }

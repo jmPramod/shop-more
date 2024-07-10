@@ -4,8 +4,7 @@ import axios from 'axios';
 const baseUrl = 'https://shop-more.vercel.app';
 export const getProductsCategory = async () => {
   try {
-    console.log('baseUrl', baseUrl);
-    const response = await axios.get(`${baseUrl}/products/get-categories`);
+       const response = await axios.get(`${baseUrl}/products/get-categories`);
     return {
       message: response.data.message,
       data: response.data.data,
@@ -84,8 +83,7 @@ export const resetPassword = async (payload: any) => {
       `${baseUrl}/api/forget-password`,
       payload
     );
-    console.log('response', response);
-    return {
+       return {
       message: response.data.message,
       data: response.data.data,
       statusCode: response.data.statusCode,
