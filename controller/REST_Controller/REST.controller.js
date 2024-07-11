@@ -185,7 +185,7 @@ const addToCartPost = async (req, res, next) => {
       return res.status(200).json({
         message: 'This Product is already present in cart.',
         data: user,
-        statusCode: 200,
+        statusCode: 204,
       });
     }
     user.cartAdded.push(product);
