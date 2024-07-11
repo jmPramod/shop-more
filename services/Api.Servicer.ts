@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const baseUrl = process.env.NEXT_PUBLIC_Base_url;
-const baseUrl = 'https://shop-more.vercel.app';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 export const getProductsCategory = async () => {
   try {
     const response = await axios.get(`${baseUrl}/products/get-categories`);

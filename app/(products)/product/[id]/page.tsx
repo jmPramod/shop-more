@@ -106,13 +106,12 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
           </>
         ) : (
           <div className="md:w-[60%] w-full  flex flex-col  gap-5 p-5   justify-center">
-            <h1 className="text-3xl text-left font-bold">
+            <h1 className="text-4xl text-left font-bold">
               {productData?.title}
             </h1>
             <div className="text-left flex gap-1 items-center justify-start">
               <div className="text-2xl">{productData?.price} $</div>
-              <sub className="text-md">
-                {' '}
+              <sub className="text-lg">
                 {'('}
                 {productData?.discountPercentage}% off{')'}
               </sub>
@@ -124,14 +123,14 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
               {renderStars(productData?.rating)}
             </div>
 
-            <div>
+            <div className="text-2xl">
               <b>Brand:</b> {productData?.brand}{' '}
             </div>
-            <div>
+            <div className="text-2xl">
               <b>Description: </b>
               {productData?.description}{' '}
             </div>
-            <div>
+            <div className="text-2xl">
               <b>Number of Product left: </b>
               {productData?.stock} items left{' '}
             </div>
