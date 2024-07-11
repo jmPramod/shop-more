@@ -6,6 +6,13 @@ const cloudinaryImage = require("../../utils/cloudinary");
 
 const CreateProductHB = async (req, res, next) => {
     try {
+        if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+
+            res.render('products/productCreate');
+            return req.flash('Error_msg', "Demo account can't Create the project.");
+
+
+        }
         const {
             id,
             title,
@@ -21,19 +28,19 @@ const CreateProductHB = async (req, res, next) => {
         } = req.body;
 
         let error = [];
-        let newProduct = await new productsSchema({
-            title,
-            id,
-            description,
-            price,
-            discountPercentage,
-            rating,
-            stock,
-            brand,
-            category,
-            thumbnail,
-            images,
-        }).save();
+        // let newProduct = await new productsSchema({
+        //     title,
+        //     id,
+        //     description,
+        //     price,
+        //     discountPercentage,
+        //     rating,
+        //     stock,
+        //     brand,
+        //     category,
+        //     thumbnail,
+        //     images,
+        // }).save();
 
 
         // let productList = await productsSchema.find().lean();
@@ -141,10 +148,17 @@ const editProductPostHB = async (req, res, next) => {
 
     try {
 
+        if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+
+            req.flash('Error_msg', "Demo account can't Update the project.");
+            // return res.render('products/productCreate');
+            return res.redirect(`/edit-product/${req.params.id}`)
+
+
+        }
         const { id } = req.params;
         const data = await productsSchema.findById(id).lean()
 
-        console.log("req.body", req.files);
 
         let existingImages = data.images || []; // Get existing images or initialize as empty array
 

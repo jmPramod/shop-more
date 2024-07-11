@@ -34,6 +34,9 @@ const userFetchController = async (req, res, next) => {
 const editUserControllerPost = async (req, res, next) => {
   try {
 
+    if (req.params.id === "668df0fcf7c96d0b6992fe2b") {
+      console.log("user test")
+    }
     const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id }, { role: req.body.role });
 
     let AllUserData = await SignUp.find({}).lean();
@@ -166,6 +169,14 @@ const editProfileGet = async (req, res, next) => {
 }
 const editProfilePost = async (req, res, next) => {
   try {
+    if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+
+      req.flash('Error_msg', "You cant Update Profile in demo account.");
+      // return res.render('products/productCreate');
+      return res.redirect(`/profile/${req.params.id}`)
+
+
+    }
     console.log("req.body", req.body);
     const oldData = await SignUp.findOne({ _id: req.params.id }).lean();
 
