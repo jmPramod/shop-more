@@ -41,21 +41,21 @@ const Login = () => {
   });
   const handleSubmitForForgotPassword = async (values: any) => {
     setLoadingButton(true);
-  
-          setLoadingButton(false);
+
+    setLoadingButton(false);
   };
   const handleSubmitForLogin = async (values: any) => {
     setLoadingButton(true);
     let user = await login(values);
-  
+
     if (user && Object.keys(user?.data).length !== 0) {
-    
+      console.log('user1', user);
       dispatch(userAction.setUser(user?.data));
       localStorage.setItem('User', JSON.stringify(user?.data));
       router.push('/');
     } else {
       setErrorMsg(user?.message?.response?.data?.message);
-       }
+    }
     setLoadingButton(false);
   };
   //   useEffect(() => {}, [products]);

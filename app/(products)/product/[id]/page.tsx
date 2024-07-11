@@ -2,17 +2,28 @@
 
 import React, { useEffect, useState } from 'react';
 import ProductImageSlider from './ProductImageSlider';
-import { getSingleProducts } from './../../../../services/Api.Servicer';
+import {
+  AddToCart,
+  getSingleProducts,
+} from './../../../../services/Api.Servicer';
 // import Footer from './../../../components/Footer/Footer';
 import Footer from './../../../(navbar)/Footer/Footer';
 import { BiSolidStar } from 'react-icons/bi';
 import { BiSolidStarHalf } from 'react-icons/bi';
 import { BiStar } from 'react-icons/bi';
+import { useAppSelector } from '../../../../app/redux/store';
+import { userAction } from '@/app/redux/slice/loginSlice';
+import { useDispatch } from 'react-redux';
 
+import { useRouter } from 'next/navigation';
 const SingleProduct = ({ params }: { params: { id: string } }) => {
   const [productData, setProductData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
+  const router = useRouter();
+  const [goToCart, setGoToCart] = useState(false);
+  const user = useAppSelector((state) => state.userList.user);
+  const dispatch = useDispatch();
   const renderStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -35,16 +46,38 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
 
     return stars;
   };
+
+  const handleCart = async (_id: any) => {
+    if (goToCart) {
+      router.push('/order');
+    } else if (user?._id) {
+      const payload = {
+        userId: user?._id,
+        productId: _id,
+      };
+      let response = await AddToCart(payload);
+      console.log('_id', response);
+      dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
+      setGoToCart(true);
+    }
+  };
   useEffect(() => {
+    if (user?.cartAdded && user?.cartAdded.length > 0) {
+      let pk = user?.cartAdded.includes(params?.id);
+      setGoToCart(pk);
+    }
+
     const fetchSingleProduct = async () => {
       if (params?.id) {
         let responce = await getSingleProducts(params?.id);
+
         setProductData(responce?.data);
       }
       setLoading(false);
     };
     fetchSingleProduct();
-  }, [params?.id]);
+  }, [params?.id, user]);
+
   return (
     <>
       <div className="w-full flex   gap-5 mt-[100px] md:mt-[80px] items-center justify-center flex-col md:flex-row">
@@ -103,9 +136,12 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
               {productData?.stock} items left{' '}
             </div>
             <div className="flex gap-5 ">
-              <button className="w-[50%]  p-2 border bg-[#ff9f00] text-white text-2xl">
+              <button
+                className="w-[50%]  p-2 border bg-[#ff9f00] text-white text-2xl "
+                onClick={() => handleCart(productData?._id)}
+              >
                 {' '}
-                Add to cart
+                {goToCart ? 'Go To Cart' : 'Add To Cart'}
               </button>
 
               <button className="w-[50%] p-2  border bg-[#fb641b] text-white text-2xl">

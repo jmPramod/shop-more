@@ -4,7 +4,7 @@ import axios from 'axios';
 const baseUrl = 'https://shop-more.vercel.app';
 export const getProductsCategory = async () => {
   try {
-       const response = await axios.get(`${baseUrl}/products/get-categories`);
+    const response = await axios.get(`${baseUrl}/products/get-categories`);
     return {
       message: response.data.message,
       data: response.data.data,
@@ -43,6 +43,10 @@ export const sortProducts = async (sortName: string, minMax: number) => {
 export const login = async (payload: any) => {
   try {
     const response = await axios.post(`${baseUrl}/api/login`, payload);
+    console.log('token', response);
+    if (response?.data?.token) {
+      localStorage.setItem('token', JSON.stringify(response?.data?.token));
+    }
     return {
       message: response.data.message,
       data: response.data.data,
@@ -62,6 +66,9 @@ export const login = async (payload: any) => {
 export const registerUser = async (payload: any) => {
   try {
     const response = await axios.post(`${baseUrl}/api/register`, payload);
+    if (response?.data?.token) {
+      localStorage.setItem('token', JSON.stringify(response?.data?.token));
+    }
     return {
       message: response.data.message,
       data: response.data.data,
@@ -83,7 +90,7 @@ export const resetPassword = async (payload: any) => {
       `${baseUrl}/api/forget-password`,
       payload
     );
-       return {
+    return {
       message: response.data.message,
       data: response.data.data,
       statusCode: response.data.statusCode,
@@ -160,6 +167,63 @@ export const SearchProducts = async (searchTerm?: string) => {
         message: error?.response?.data.message,
         data: error?.response?.data.data,
         statusCode: error?.response?.data.statusCode,
+      };
+    }
+  }
+};
+export const AddToCart = async (payload: any) => {
+  try {
+    const token1 = localStorage.getItem('token');
+    let token;
+    if (token1) {
+      token = JSON.parse(token1);
+    }
+    const response = await axios.post(`${baseUrl}/api/cart`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        statusCode: 500,
+        message: error,
+        data: {},
+      };
+    }
+  }
+};
+
+export const GetCartList = async (userId: any) => {
+  try {
+    const token1 = localStorage.getItem('token');
+    let token;
+    if (token1) {
+      token = JSON.parse(token1);
+    }
+    const response = await axios.get(`${baseUrl}/api/cart?userId=${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log('pjm', response);
+
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        statusCode: 500,
+        message: error,
+        data: {},
       };
     }
   }

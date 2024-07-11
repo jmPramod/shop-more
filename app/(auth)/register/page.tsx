@@ -46,7 +46,7 @@ const Register = () => {
 
   const handleSubmitForRegiter = async (values: any) => {
     let { reEnterPassword, ...a } = values;
-   
+
     const payload = {
       name: 'string',
       secondName: 'string',
@@ -57,15 +57,17 @@ const Register = () => {
 
     setLoadingButton(true);
     let user = await registerUser(values);
-   
+
     if (user && Object.keys(user?.data).length !== 0) {
-    
       dispatch(userAction.setUser(user?.data));
       localStorage.setItem('User', JSON.stringify(user?.data));
+      console.log('user', user);
+      // dispatch(userAction.setUser(user?.data));
+      // localStorage.setItem('User', JSON.stringify(user?.data));
       router.push('/');
     } else {
       setErrorMsg(user?.message?.response?.data?.message);
-       }
+    }
     setLoadingButton(false);
   };
 

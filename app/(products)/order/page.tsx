@@ -2,12 +2,12 @@
 
 import { useEffect } from 'react';
 import Summary from './Summary';
-import PayCart from './PayCart';
+import CartList from './PayCart';
 export default function page() {
   return (
-    <div className="flex">
+    <div className="flex mt-20 ">
+      <CartList />
       <Summary />
-      <PayCart />
     </div>
   );
 }

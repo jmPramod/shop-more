@@ -10,7 +10,7 @@ import { BsCart4 } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../app/redux/store';
 import { userAction } from '../../../app/redux/slice/loginSlice';
-import { SearchProducts } from '../../../services/Api.Servicer';
+import { GetCartList, SearchProducts } from '../../../services/Api.Servicer';
 interface PropsType {
   openMobView: () => void;
 }
@@ -21,16 +21,19 @@ const Nav = (props: PropsType) => {
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchText, setSearchText] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
-
+  const [cartNumber, setCartNumber] = useState(0);
   const { openMobView } = props;
   const [showProfile, setShowProfile] = useState(false);
-    const handleProfile = () => {
+
+  const handleProfile = () => {
     setShowProfile(!showProfile);
   };
   const handleLogout = () => {
     setShowProfile(false);
     dispatch(userAction.logout());
     localStorage.removeItem('User');
+
+    localStorage.removeItem('token');
   };
   const onSearchClick = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(() => e.target.value.trim());
@@ -41,7 +44,6 @@ const Nav = (props: PropsType) => {
     } else {
       let response = await SearchProducts(searchText);
       if (response) {
-       
         setSearchResult(response);
       }
     }
@@ -53,6 +55,27 @@ const Nav = (props: PropsType) => {
       setSearchResult(() => null);
     }
   }, [searchText, searchResult]);
+  useEffect(() => {
+    const fetchCart = async () => {
+      const response = await GetCartList(products.user._id);
+      console.log('response123', response?.data?.cartAdded.length);
+      setCartNumber(response?.data?.cartAdded?.length);
+      dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
+    };
+    if (
+      products.user != null &&
+      products.user != undefined &&
+      typeof products.user === 'object' &&
+      Object.keys(products.user).length > 0
+    ) {
+      fetchCart();
+
+      console.log('response123', 'start');
+    }
+  }, [dispatch, products]);
+  useEffect(() => {
+    console.log('products', products);
+  }, [products]);
   return (
     <div className="h-[80px] bg-[#212121] text-white z-2000 w-full">
       <div className="sm:w-[90%] w-[95%] mx-auto flex h-[100%] items-center justify-between">
@@ -166,7 +189,9 @@ const Nav = (props: PropsType) => {
           <li className="flex text-sm sm:text-xl font-medium flex-wrap p-1 m-1 hover:text-red-600 border px-2 hover:border-red-600">
             <Link href={'/'} className="flex gap-1  items-center ">
               <BsCart4 /> cart{' '}
-              <sup className="text-yellow-400  p-1 font-bold">1</sup>
+              <sup className="text-yellow-400  p-1 font-bold">
+                {products.cartList}
+              </sup>
             </Link>
           </li>
 
@@ -176,21 +201,21 @@ const Nav = (props: PropsType) => {
           Object.keys(products.user).length > 0 ? (
             <div className="flex flex-col items-center relative w-[65px]">
               <li onClick={handleProfile}>
-              <img
-                width={'100px'}
-                height={'50px'}
-                className="  rounded-full"
-                // src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
-                src={
-                  products?.user
-                    ? products?.user?.images?.imageUrl
-                    : 'https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png'
-                }
-                alt="Rounded avatar"
-              />
+                <img
+                  width={'100px'}
+                  height={'50px'}
+                  className="  rounded-full"
+                  // src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
+                  src={
+                    products?.user
+                      ? products?.user?.images?.imageUrl
+                      : 'https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png'
+                  }
+                  alt="Rounded avatar"
+                />
               </li>
               {showProfile && (
-                <div className="w-[100px] top-[57px] absolute bg-white flex flex-col items-center justify-center gap-1">
+                <div className="w-[100px] top-[57px] absolute bg-white flex flex-col items-center justify-center gap-1 border">
                   <Link
                     className="text-black p-3 hover:underline "
                     href={'/profile '}
@@ -201,7 +226,7 @@ const Nav = (props: PropsType) => {
 
                   <Link
                     className="text-black p-3 hover:underline"
-                    href={'/'}
+                    href={'#'}
                     onClick={handleLogout}
                   >
                     Logout
