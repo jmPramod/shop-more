@@ -62,7 +62,7 @@ const Login = () => {
   return (
     <>
       <div className="h-screen md:flex ">
-        <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
+        <div className="relative overflow-hidden md:flex w-[100%] md:w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center ">
           <div className="absolute z-100 text-white border rounded-md p-1 top-[6%] left-[7%]">
             {' '}
             <div
@@ -73,26 +73,27 @@ const Login = () => {
               <h1 className="text-sm sm:text-2xl font-bold">Shop More</h1>
             </div>
           </div>
-          <div>
+          <div className="flex items-center justify-center w-full md:block">
             <Image
               src="/images/login1.jpg"
               width={500}
               height={500}
+              className="w-[70%] md:w-auto"
               alt="Picture of the author"
             />
           </div>
-          <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-          <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-          <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-          <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+          <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
+          <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
+          <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
+          <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
         </div>
-        <div className="flex md:w-1/2 justify-center py-10 items-center bg-white flex-col">
+        <div className="flex w-[80%] md:w-1/2 justify-center py-10 items-center bg-white flex-col m-auto">
           <Formik
             initialValues={initialValuesForLogin}
             validationSchema={validationSchemaForLogin}
             onSubmit={handleSubmitForLogin}
           >
-            <Form className="bg-white w-[50%]">
+            <Form className="bg-white w-full md:w-[50%]">
               <h1 className="text-gray-800 font-bold text-2xl mb-1 w-[50%]">
                 Welcome Back !
               </h1>

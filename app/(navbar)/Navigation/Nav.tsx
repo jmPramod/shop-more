@@ -2,6 +2,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { FaBattleNet } from 'react-icons/fa';
 import { FaBars } from 'react-icons/fa';
@@ -15,6 +17,7 @@ interface PropsType {
   openMobView: () => void;
 }
 const Nav = (props: PropsType) => {
+  const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
   const products = useAppSelector((state) => state.userList);
@@ -76,6 +79,11 @@ const Nav = (props: PropsType) => {
   useEffect(() => {
     console.log('products', products);
   }, [products]);
+
+  useEffect(() => {
+    setShowProfile(false);
+  }, [pathname]);
+
   return (
     <div className="h-[80px] bg-[#212121] text-white z-2000 w-full">
       <div className="sm:w-[90%] w-[95%] mx-auto flex h-[100%] items-center justify-between">

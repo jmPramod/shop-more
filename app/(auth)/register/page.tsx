@@ -74,14 +74,41 @@ const Register = () => {
   return (
     <>
       <div className="h-screen md:flex  ">
+           <div className="relative overflow-hidden flex md:hidden w-[100%] md:w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center ">
+          <div className="absolute z-100 text-white border rounded-md p-1 top-[6%] left-[7%]">
+            {' '}
+            <div
+              className="flex items-center space-x-2 cursor-pointer"
+              onClick={() => router.push('/')}
+            >
+              <FaBattleNet className="w-5 h-5 sm:w-10 sm:h-10 text-orange-300 " />
+              <h1 className="text-sm sm:text-2xl font-bold">Shop More</h1>
+            </div>
+          </div>
+          <div className="flex items-center justify-center w-full md:block">
+            <Image
+              src="/images/login1.jpg"
+              width={500}
+              height={500}
+              className="w-[70%] md:w-auto"
+              alt="Picture of the author"
+            />
+          </div>
+          <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
+          <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
+          <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
+          <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
+        </div>
         <div className="flex md:w-1/2 justify-center py-10 items-center flex-col bg-white relative">
           <div
-            className="absolute flex items-center space-x-2 cursor-pointer top-2 left-4 border rounded-xl p-1"
+            className="absolute hidden md:flex items-center space-x-2 cursor-pointer top-2 left-4 border rounded-xl p-1"
             onClick={() => router.push('/')}
           >
             <FaBattleNet className="w-5 h-5 sm:w-10 sm:h-10 text-orange-300 " />
             <h1 className="text-sm sm:text-2xl font-bold">Shop More</h1>
           </div>
+
+          
           <Formik
             initialValues={initialValuesForRegister}
             validationSchema={validationSchemaForRegister}
