@@ -21,6 +21,10 @@ const verifyToken = (req, res, next) => {
 
         return next(createError(401, 'Token is not Valid'));
       }
+      console.log(
+
+        "user_info", user
+      );
       req.user_info = user;
       next();
     });
@@ -31,7 +35,21 @@ const verifyToken = (req, res, next) => {
 
   }
 };
+const verifyUserOrAdminOrSuperAdmin = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.params && req.params.id && req.user_info && req.user_info.id !== req.params.id) {
+      return next(createError(403, 'You cannot edit others account !'));
 
+    }
+    else if (req.user_info &&
+      (req.user_info.role === 'user' || req.user_info.role === 'admin' || req.user_info.role === 'Super-Admin')
+    ) {
+      next();
+    } else {
+      return next(createError(403, 'You are not authorized !'));
+    }
+  });
+};
 const verifyUser = (req, res, next) => {
   verifyToken(req, res, () => {
 
@@ -86,6 +104,7 @@ const verifyUserHB = (req, res, next) => {
 };
 const verifyAdminHB = (req, res, next) => {
   verifyTokenHB(req, res, () => {
+
     if (req.user_info && (req.user_info.role === 'admin' || req.user_info.role === 'Super-Admin')) {
 
       next();
@@ -117,4 +136,4 @@ const verifyOriginalUser = (req, res, next) => {
   });
 };
 
-module.exports = { verifyUser, verifyOriginalUser, verifyAdmin, verifyToken, verifyUserHB, verifyAdminHB, verifyTokenHB, verifySuperAdminHB };
+module.exports = { verifyUser, verifyOriginalUser, verifyAdmin, verifyToken, verifyUserHB, verifyAdminHB, verifyTokenHB, verifySuperAdminHB, verifyUserOrAdminOrSuperAdmin };

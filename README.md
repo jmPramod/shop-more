@@ -29,8 +29,8 @@ As a ADMIN I can do [Click to View](https://shop-more.vercel.app/login)
 
 Food API uses a number of open source projects to work properly:
 
-- [Node.js, Express] -Twilio, mongoose, Docker, Cloudinary, Multer, Swagger.[Click to View](https://shop-more.vercel.app/login)
-- [Next JS] - Axios, Redux toolkit, Tailwind CSS.[Click to View](https://shop-more-fe.netlify.app/)
+- [Node.js, Express] -Twilio, mongoose, Docker, Cloudinary, Multer, Swagger.[Click to View Backend hosted website](https://shop-more.vercel.app/login)
+- [Next JS] - Axios, Redux toolkit, Tailwind CSS.[Click to View front end website](https://shop-more-fe.netlify.app/)
 
 
 
@@ -107,7 +107,7 @@ your preferred browser.
    [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
 
 
-## Images of Project(Next js)
+## Images of FrontEnd Project(Next js)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/333018c3-8520-4230-8b68-b83d5e6891cf)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/d6d05595-b852-4bed-a901-500ed9e0ff20)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/7708cc6a-c84b-46fe-80de-98cecfcb14ec)
@@ -131,11 +131,12 @@ your preferred browser.
 
 
    
-## Images of Project(Backend Handlebars)
+## Images of Backend Project( Handlebars)
 
-![image](https://github.com/jmPramod/shop-more/assets/107529743/6979c6b4-0edf-4130-bb9f-fe10dc687c7a)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/be0a58e3-c10b-485a-aef1-0d276315afcc)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/c76b242c-f31a-418c-8807-22adc7193e3d)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/ece8823f-fab9-4160-8843-135740ac037e)
 ![image](https://github.com/jmPramod/shop-more/assets/107529743/40ffbeb0-68e0-46cd-9021-05517fb3797b)
+![image](https://github.com/jmPramod/shop-more/assets/107529743/5ca43e97-f68f-4f0e-aa74-9a46898d4b5f)
+
 

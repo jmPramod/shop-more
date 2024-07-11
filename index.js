@@ -1,22 +1,24 @@
 const express = require('express');
 const app = express();
+const flash = require('connect-flash');
 var cors = require('cors');
-
+const cookies = require('cookie-parser');
+const swaggerUI = require("swagger-ui-express")
+const { engine } = require('express-handlebars');
+const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
 
 require('dotenv').config(); //to import dot env file in index.js
+
 const port = process.env.PORT;
-const { engine } = require('express-handlebars');
-const { adminAuthHB } = require('./routes/HB/adminAuthHB');
+const { globalStorage, corsOption, sessionOption, handelbarIfHelper } = require('./config/optionsHelper');//don't remove this important line it gives error after hosting 
 const { connectMongooseDB } = require('./config/db.connect');
+const { swaggerSpec, CSS_URL } = require('./config/swaggerFiles');
+const { adminAuthHB } = require('./routes/HB/adminAuthHB');
 const { authRoute } = require('./routes/REST/userAuth');
 const { productRouteRest } = require('./routes/REST/productRoute');
-const cookies = require('cookie-parser');
-const flash = require('connect-flash');
-const swaggerUI = require("swagger-ui-express")
-const { swaggerSpec, CSS_URL } = require('./config/swaggerFiles');
-const { globalStorage, corsOption, sessionOption, handelbarIfHelper } = require('./config/optionsHelper');//don't remove this important line it gives error after hosting 
-const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
 const { productRouteHB } = require('./routes/HB/productRoutesHB');
+const { paymentRouteRest } = require('./routes/REST/paymentRoutes');
+
 
 // handelbarIfHelper
 // app.use(cors(corsOption));
@@ -45,6 +47,7 @@ app.use('/', adminAuthHB);
 app.use('/', authRoute);
 app.use('/', productRouteRest);
 app.use('/', productRouteHB);
+app.use("/", paymentRouteRest)
 //404 page for handlebars
 app.get('*', function (req, res) {
   res.status(404).render("404Error")
