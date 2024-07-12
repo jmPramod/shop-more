@@ -12,6 +12,7 @@ const {
   addToCartGet
 } = require('../../controller/REST_Controller/REST.controller');
 const { verifyUser, verifyAdmin, verifyUserOrAdminOrSuperAdmin } = require('../../utils/verifyToken');
+const upload = require('../../utils/multer');
 
 
 const authRoute = express.Router();
@@ -327,7 +328,7 @@ const authRoute = express.Router();
 
 authRoute.post('/api/login', loginController);
 authRoute.post('/api/register', signUpController);
-authRoute.put('/api/update-profile/:id', verifyUser, profileUpdateController);
+authRoute.put('/api/update-profile/:id', verifyUserOrAdminOrSuperAdmin, upload.any(), profileUpdateController);
 
 authRoute.get('/api/reset-password/:id/:token', getResetPasswordFromGmail);
 

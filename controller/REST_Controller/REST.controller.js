@@ -144,6 +144,27 @@ const putResetPasswordFromGmail = async (req, res, next) => {
 const profileUpdateController = async (req, res, next) => {
   try {
     const userId = req.params.id;
+    console.log("req.files", req.files);
+    return
+    if (req.files && req.files.length > 0) {
+      const file = req.files[0];
+      console.log("file", file);
+      result1 = await cloudinaryImage.uploader.upload(file.path);
+      req.body.images = req.body.images || {};
+
+      req.body.images.imageUrl = result1.url
+      req.body.images.imgPublicId = result1.public_id
+      if (oldData.images.imgPublicId) {
+        await cloudinaryImage.uploader.destroy(oldData.images.imgPublicId, (error, result) => {
+          if (error) {
+            console.error('Error deleting image:', error);
+          } else {
+            console.log('Deleted image:', result);
+          }
+        });
+      }
+    }
+
     const userEmailExist = await SignUp.findById(userId)
     const isPassword = await bcrypt.compare(req.body.password, userEmailExist.password);
     if (!isPassword) {
@@ -158,10 +179,10 @@ const profileUpdateController = async (req, res, next) => {
     }
 
 
-    const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    // const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     res.status(200).json({
       message: 'User update Successfully.',
-      data: userToUpdate,
+      // data: userToUpdate,
       statusCode: 200,
     });
 

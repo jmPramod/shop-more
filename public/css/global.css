@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 * {
+  font-family: 'Poppins', sans-serif;
+
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
+
 #firstParent {
   height: 85vh;
 }
@@ -17,7 +21,7 @@
   z-index: 30;
   align-items: center;
   justify-content: space-between;
-  background-color: #007e9e;
+  background-color: black;
   padding: 0 10px;
   position: fixed;
   height: 70px;

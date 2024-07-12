@@ -1,9 +1,63 @@
-<section id='loginPage'>
-  <img src='../images/login1.png' alt='' class='loginImage' />
-  <div class='loginFormContainer'>
+<head>
+  <link rel='stylesheet' href='../../css/login.css' />
 
-    <h1>Log In</h1>
-    <form
+</head>
+
+
+<section id='loginPage'>
+  <aside class="imgloginContianer">
+
+    <img
+      class='wave'
+      src='https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/wave.png'
+    />
+    <div class='LeftProfileContainer'>
+      <div class='imgContinerLeft'>
+        <img
+        class="img2"
+          src='https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/bg.svg'
+        />
+      </div>
+    </div>
+  </aside>
+  <div class='loginFormContainer'>
+    <form action='/login/' method='post' class='container'>
+      <aside class='form' id='login'>
+        <h1 class='form__title'>Welcome Back</h1>
+        <div class='form__input-group'>
+          
+          <input
+            type='text'
+            class='form__input'
+            autofocus
+            name='email'
+            placeholder='Email'
+            id='usernameInput'
+            required
+          />
+        </div>
+        <div class='form__input-group'>
+          <input
+            type='password'
+            class='form__input'
+            autofocus
+            name='password'
+            placeholder='Password'
+            id='passwordInput'
+            required
+          />
+          <div class='padding'></div>
+          <a href='#'><button class='form__button' id='loginButton'>Sign In</button></a>
+    <div style="display:flex ;justify-content: space-between; padding:5px"> 
+
+     <p style="font-size: 12;">Test Email:  test@test.com</p>
+     <p style="font-size: 12;">Test Password:  test@123</p>
+    </div>
+        </div>
+      </div>
+    </form>
+    {{! <h1>Log In</h1> }}
+    {{!-- <form
       class='loginForm'
       action='/login/'
       method='post'
@@ -29,6 +83,12 @@
         <h6> Password: <b>test@123</b></h6>
 
       </div>
-    </form>
+    </form> --}}
   </div>
 </section>
+<script>
+  let box = new gsap.timeline(); box.from('.container', { width: '0%', stagger:
+  0.4, duration: 1.5 }); box.from('.form__title', { opacity: 0, y: -30 });
+  box.from('.form__input-group input', { opacity: 0, stagger: 0.3 });
+  box.from('.form__button ', { opacity: 0, y: 20 });
+</script>

@@ -131,7 +131,7 @@ const editProductGetHB = async (req, res, next) => {
     try {
         const id = req.params.id
         const data = await productsSchema.findById(id).lean()
-        console.log("data", data);
+        // console.log("data", data);
         res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css" });
 
 
@@ -144,7 +144,6 @@ const editProductGetHB = async (req, res, next) => {
 }
 
 const editProductPostHB = async (req, res, next) => {
-
 
     try {
 
@@ -185,19 +184,15 @@ const editProductPostHB = async (req, res, next) => {
 
         let found = false;
         if (req.files) {
-            console.log("pk", req.files);
             for (let i = 0; i < req.files.length; i++) {
                 if (req.files[i].fieldname === 'thumbnailImg') {
 
+                    const urlPath = req.files[i].path
+                    const PublicID = urlPath.split(".")[2].split("/").pop()
 
-                    const file = req.files[i]
-                    console.log("file", file);
-                    result1 = await cloudinaryImage.uploader.upload(file.path);
                     req.body.thumbnail = req.body.thumbnail || {};
-
-                    req.body.thumbnail.imageUrl = result1.url
-                    req.body.thumbnail.imgPublicId = result1.public_id
-                    console.log("img123", req.body);
+                    req.body.thumbnail.imageUrl = urlPath
+                    req.body.thumbnail.imgPublicId = PublicID
                     if (data.thumbnail.imgPublicId) {
                         await cloudinaryImage.uploader.destroy(data.thumbnail.imgPublicId, (error, result) => {
                             if (error) {
@@ -207,35 +202,44 @@ const editProductPostHB = async (req, res, next) => {
                             }
                         });
                     }
-                    // Delete the temporary file after upload
                 }
 
-            }
-        }
+                else {
+                    const urlPath = req.files[i].path
+                    const PublicID = urlPath.split(".")[2].split("/").pop()
 
-        if (req.files && req.files.length > 0) {
-            console.log("file123", req.files);
-
-            for (let file of req.files) {
-                if (file.fieldname != "thumbnailImg") {
-
-                    // Upload image to Cloudinary
-                    const result = await cloudinaryImage.uploader.upload(file.path);
-
-                    // Push uploaded image details to images array
                     existingImages.push({
-                        productUrl: result.secure_url,
-                        productPublicId: result.public_id
+                        productUrl: urlPath,
+                        productPublicId: PublicID
                     });
                 }
 
             }
         }
 
+        // if (req.files && req.files.length > 0) {
+        //     // console.log("file123", req.files);
+
+        //     for (let file of req.files) {
+        //         if (file.fieldname != "thumbnailImg") {
+
+        //             // Upload image to Cloudinary
+        //             const result = await cloudinaryImage.uploader.upload(file.path);
+
+        //             // Push uploaded image details to images array
+        //             existingImages.push({
+        //                 productUrl: result.secure_url,
+        //                 productPublicId: result.public_id
+        //             });
+        //         }
+
+        //     }
+        // }
+
         req.body.images = existingImages;
 
 
-        console.log("req.body.img", req.body);
+        // console.log("req.body.img", req.body);
         const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true });
 
         let productList = await productsSchema.find().lean();

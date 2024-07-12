@@ -9,10 +9,7 @@ if (alert) {
   }, 5000);
 }
 
-// let loading = document.querySelector('.loadingStart');
-// setTimeout(() => {
-//   loading.style.display = "none";
-// }, 2000);
+
 
 
 
