@@ -120,7 +120,7 @@ const SlideMenu = () => {
                     initial={{ scale: 0.8 }}
                     transition={{ delay: 1 }}
                     alt=""
-                    className=" md:block  h-full md:w-1/2 max-w-[50%] md:max-w-[100%] "
+                    className=" md:block  h-full md:w-1/2 max-w-[90%] md:max-w-[100%] "
                   />
                 </motion.div>
 
