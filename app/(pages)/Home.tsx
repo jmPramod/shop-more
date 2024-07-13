@@ -19,7 +19,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log('pramod', process.env.NEXT_PUBLIC_BASE_URL);
     const fetch = async () => {
       const [
         response1,

@@ -61,9 +61,6 @@ const Register = () => {
     if (user && Object.keys(user?.data).length !== 0) {
       dispatch(userAction.setUser(user?.data));
       localStorage.setItem('User', JSON.stringify(user?.data));
-      console.log('user', user);
-      // dispatch(userAction.setUser(user?.data));
-      // localStorage.setItem('User', JSON.stringify(user?.data));
       router.push('/');
     } else {
       setErrorMsg(user?.message?.response?.data?.message);
@@ -74,7 +71,7 @@ const Register = () => {
   return (
     <>
       <div className="h-screen md:flex  ">
-           <div className="relative overflow-hidden flex md:hidden w-[100%] md:w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center ">
+        <div className="relative overflow-hidden flex md:hidden w-[100%] md:w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center ">
           <div className="absolute z-100 text-white border rounded-md p-1 top-[6%] left-[7%]">
             {' '}
             <div
@@ -108,7 +105,6 @@ const Register = () => {
             <h1 className="text-sm sm:text-2xl font-bold">Shop More</h1>
           </div>
 
-          
           <Formik
             initialValues={initialValuesForRegister}
             validationSchema={validationSchemaForRegister}

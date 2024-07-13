@@ -9,14 +9,20 @@ import { FaEdit } from 'react-icons/fa';
 import { FaHome } from 'react-icons/fa';
 import { FaMapMarkedAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { loginSlice, userAction } from '../../../app/redux/slice/loginSlice';
+
 import * as Yup from 'yup';
 import { LoginModel } from './../../components/loginModel/LoginModel';
 import { AppDispatch } from '../../../app/redux/store';
 import { checkLocalStorageUser } from '../../../app/redux/slice/loginSlice';
+import axios from 'axios';
+import { profileUpdate } from './../../../services/Api.Servicer';
 const page = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const [selectedImage, setSelectedImage] = useState<any>(); // State to hold selected image file
 
   const [checkLogin, setCheckLogin] = useState(false);
+
   const products = useSelector((state: any) => state.userList.user);
   useEffect(() => {
     if (products && Object?.keys(products)?.length === 0) {
@@ -44,23 +50,37 @@ const page = () => {
     address: Yup.string().required('Address is required'),
     phone: Yup.number().required('Phone is required'),
     pinCode: Yup.string().required('Pin code is required'),
-    password: Yup.string()
-      .min(8, 'Password must be at least 8 characters')
-      .required('Password is required'),
-    reEnterPassword: Yup.string()
-      .oneOf([Yup.ref('password'), ''], 'Passwords must match') // Validate if re-entered password matches the password field
-      .required('Please confirm your password'),
+    password: Yup.string().min(8, 'Password must be at least 8 characters'),
+    reEnterPassword: Yup.string(),
   });
-  const handleUpdateUser = (values: any) => {
-    const payload = {
-      name: 'string',
-      secondName: 'string',
-      email: 'string',
-      phone: 'string',
-      password: 'string',
-      address: '',
-      pinCode: '',
-    };
+  const handleUpdateUser = async (values: any) => {
+    let User: any = localStorage.getItem('User');
+    const formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      if (values[key] !== '') {
+        formData.append(key, values[key]);
+      }
+    });
+    if (selectedImage) {
+      formData.append('file', selectedImage);
+    }
+    if (User) {
+      User = JSON.parse(User);
+      let response = await profileUpdate(formData, User._id);
+      if (response && response.statusCode === 200) {
+        dispatch(userAction.setUser(response?.data));
+        localStorage.setItem('User', JSON.stringify(response?.data));
+      } else {
+        // setErrorMsg(user?.message?.response?.data?.message);
+      }
+    }
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+    }
   };
   return (
     <>
@@ -70,19 +90,27 @@ const page = () => {
         <div className="w-full h-full mt-[77px] items-center flex justify-center flex-col gap-4">
           <div className="flex md:w-full justify-center py-10 items-center bg-white gap-3">
             <div className="relative flex  items-end">
-              <img
-                width={200}
-                height={200}
-                className="  rounded-full"
-                // src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
-                src={
-                  products
-                    ? products?.images?.imageUrl
-                    : 'https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png'
-                }
-                alt="Rounded avatar"
-              />
-              <FaEdit size={25} />
+              <label htmlFor="fileInput" className="cursor-pointer">
+                <img
+                  width={200}
+                  height={200}
+                  className="  rounded-full"
+                  // src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png"
+                  src={
+                    products
+                      ? products?.images?.imageUrl
+                      : 'https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png'
+                  }
+                  alt="Rounded avatar"
+                />
+                <FaEdit size={25} />
+                <input
+                  id="fileInput"
+                  type="file"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
+              </label>
             </div>
             <Formik
               initialValues={initialValuesForRegister}

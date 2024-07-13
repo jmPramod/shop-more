@@ -61,7 +61,6 @@ const Nav = (props: PropsType) => {
   useEffect(() => {
     const fetchCart = async () => {
       const response = await GetCartList(products.user._id);
-      console.log('response123', response?.data?.cartAdded.length);
       setCartNumber(response?.data?.cartAdded?.length);
       dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
     };
@@ -73,13 +72,9 @@ const Nav = (props: PropsType) => {
     ) {
       fetchCart();
 
-      console.log('response123', 'start');
-    }
+        }
   }, [dispatch, products]);
-  useEffect(() => {
-    console.log('products', products);
-  }, [products]);
-
+ 
   useEffect(() => {
     setShowProfile(false);
   }, [pathname]);

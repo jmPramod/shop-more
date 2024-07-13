@@ -43,14 +43,13 @@ export const sortProducts = async (sortName: string, minMax: number) => {
 export const login = async (payload: any) => {
   try {
     const response = await axios.post(`${baseUrl}/api/login`, payload);
-    console.log('token', response);
-    if (response?.data?.token) {
+     if (response?.data?.token) {
       localStorage.setItem('token', JSON.stringify(response?.data?.token));
     }
     return {
       message: response.data.message,
       data: response.data.data,
-      // statusCode: response.data.statusCode,
+      statusCode: response.data.statusCode,
     };
   } catch (error: any) {
     if (error) {
@@ -211,7 +210,40 @@ export const GetCartList = async (userId: any) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('pjm', response);
+   
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        statusCode: 500,
+        message: error,
+        data: {},
+      };
+    }
+  }
+};
+export const profileUpdate = async (payload: any, id: any) => {
+  try {
+    const token1 = localStorage.getItem('token');
+
+    let token;
+    if (token1) {
+      token = JSON.parse(token1);
+    }
+    const response = await axios.patch(
+      `${baseUrl}/api/update-profile/${id}`,
+
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return {
       message: response.data.message,

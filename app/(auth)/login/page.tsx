@@ -49,7 +49,7 @@ const Login = () => {
     let user = await login(values);
 
     if (user && Object.keys(user?.data).length !== 0) {
-      console.log('user1', user);
+    
       dispatch(userAction.setUser(user?.data));
       localStorage.setItem('User', JSON.stringify(user?.data));
       router.push('/');

@@ -31,7 +31,6 @@ const MobileNav = (props: PropType) => {
 
       localStorage.removeItem('token');
     } else {
-      console.log("ok")
       router.push('/login');
     }
   };
@@ -88,10 +87,7 @@ const MobileNav = (props: PropType) => {
             </Link>
           </li>
           <li className="text-sm sm:text-xl font-medium text-white  ">
-            <div
-               onClick={() => handleLogout()}
-              className="text-3xl"
-            >
+            <div onClick={() => handleLogout()} className="text-3xl">
               {products.user != null &&
               products.user != undefined &&
               typeof products.user === 'object' &&

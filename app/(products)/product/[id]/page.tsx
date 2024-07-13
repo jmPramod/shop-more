@@ -56,8 +56,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
         productId: _id,
       };
       let response = await AddToCart(payload);
-      console.log('_id', response);
-      dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
+       dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
       setGoToCart(true);
     }
   };
