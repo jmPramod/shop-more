@@ -5,7 +5,10 @@ const productsSchema = require("../..//models/ProductSchema");
 const productController = async (req, res, next) => {
   try {
     const allprod = await productsSchema.find();
-    if (!allprod) return next(createError(404, "No Data Found"));
+    if (allprod.length === 0) {
+
+      return next(createError(404, "No Data Found"));
+    }
     res.status(200).json({
       message: "Data retrieved successfully",
       count: allprod.length,
