@@ -119,7 +119,7 @@
           />
         </div>
        <div style="flex-direction: column; gap: 5px;">
-      <h3>Add Image: <input type="file"  name='image' id="ProductImage{{@index}}" style="" multiple></h3>
+      <h3>Add Image: <input type="file"  name='image' id="ProductImage{{@index}}"  onchange="previewImages(event)" style="" multiple></h3>
 
 <div style="width: 100%; display: flex; gap: 10px; flex-wrap: wrap;">
   {{#each data.images}}
@@ -132,6 +132,8 @@
       </div>
     {{/if}}
   {{/each}}
+  
+   <div style="display: flex;  width: 15%; gap: 5px;" id="DisplayProductImage"></div>
 </div>
    
         
@@ -180,3 +182,28 @@
 
   </section>
 
+<script>
+  function previewImages(event) {
+    const input = event.target;
+    const imagePreviewContainer = document.getElementById('DisplayProductImage'); // Assuming this is the container where images will be shown
+
+    while (imagePreviewContainer.firstChild) {
+      imagePreviewContainer.removeChild(imagePreviewContainer.firstChild); // Clear existing images
+    }
+
+    if (input.files) {
+      Array.from(input.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imgElement = document.createElement('img');
+          imgElement.src = e.target.result;
+        imgElement.style.width = '100%';  // Set width to 50%
+          imgElement.style.height = '100%'; // Set height to 70%
+          imgElement.style.objectFit = 'cover'; // Optional: Ensure the image fills the container
+            imagePreviewContainer.appendChild(imgElement);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  }
+</script>

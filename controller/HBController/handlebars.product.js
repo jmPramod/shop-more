@@ -131,7 +131,7 @@ const editProductGetHB = async (req, res, next) => {
     try {
         const id = req.params.id
         const data = await productsSchema.findById(id).lean()
-        // console.log("data", data);
+        console.log("data", data);
         res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css" });
 
 
