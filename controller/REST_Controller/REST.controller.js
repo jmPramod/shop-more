@@ -1,6 +1,7 @@
 const SignUp = require('../../models/AuthSchema');
 const createError = require('../../utils/errorHandle');
 
+const cloudinaryImage = require("../../utils/cloudinary");
 const productsSchema = require("../..//models/ProductSchema");
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
@@ -143,17 +144,36 @@ const putResetPasswordFromGmail = async (req, res, next) => {
 };
 const profileUpdateController = async (req, res, next) => {
   try {
-    const userId = req.params.id;
-    console.log("req.files", req.files);
-    return
-    if (req.files && req.files.length > 0) {
-      const file = req.files[0];
-      console.log("file", file);
-      result1 = await cloudinaryImage.uploader.upload(file.path);
-      req.body.images = req.body.images || {};
 
-      req.body.images.imageUrl = result1.url
-      req.body.images.imgPublicId = result1.public_id
+    const userId = req.params.id;
+    const oldData = await SignUp.findById({ _id: userId });
+    // params: ,
+
+    if (req.body.images) {
+      const params = {
+        folder: 'ProfileImage',  // Specify the folder where the image will be stored
+        transformation: [
+          { width: 800, height: 600, crop: 'limit' },  // Resize and crop the image
+          { quality: 'auto' },  // Automatically adjust the image quality
+          { fetch_format: 'auto' },  // Automatically determine the best format
+          { progressive: true },  // Enable progressive rendering
+          { strip: true }  // Strip all metadata from the image
+        ]
+      };
+      await cloudinaryImage.uploader.upload(req.body.images,
+        params,
+        function (error, result) {
+          console.log("result", result);
+          req.body.images = {};
+
+          req.body.images.imageUrl = result.url
+          req.body.images.imgPublicId = result.public_id
+          console.log("result2", req.body);
+          console.log("errorPL", error);
+
+        })
+
+      console.log("123");
       if (oldData.images.imgPublicId) {
         await cloudinaryImage.uploader.destroy(oldData.images.imgPublicId, (error, result) => {
           if (error) {
@@ -164,29 +184,33 @@ const profileUpdateController = async (req, res, next) => {
         });
       }
     }
+    if (req.body.password) {
 
-    const userEmailExist = await SignUp.findById(userId)
-    const isPassword = await bcrypt.compare(req.body.password, userEmailExist.password);
-    if (!isPassword) {
-      return next(createError(404, 'Your previous Password is incorrect '));
+      const isPassword = await bcrypt.compare(req.body.password, oldData.password);
+      if (!isPassword) {
+        return next(createError(404, 'Your previous Password is incorrect '));
+      }
+      else {
+
+        const saltRounds = 10;
+        const password = await bcrypt.hash(req.body.password, saltRounds);
+        req.body.password = password
+
+      }
+
     }
-    if (isPassword) {
 
-      const saltRounds = 10;
-      const password = await bcrypt.hash(req.body.password, saltRounds);
-      req.body.password = password
-
-    }
-
-
-    // const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    console.log("456");
+    console.log("maruthi", req.body);
+    const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     res.status(200).json({
       message: 'User update Successfully.',
-      // data: userToUpdate,
+      data: userToUpdate,
       statusCode: 200,
     });
 
   } catch (error) {
+    console.log("error", error);
     next(error)
   }
 }
@@ -242,7 +266,10 @@ const addNewKeyValue = async (req, res, next) => {
   try {
     const result = await SignUp.updateMany({}, {
       $set: {
-        pinCode: null
+        images: {
+          imageUrl: 'https://res.cloudinary.com/dtvq8ysaj/image/upload/v1720770108/Global%20Images/profile_new-removebg-preview_motz7n.png',
+          imgPublicId: null
+        },
       }
     });
     res.json({

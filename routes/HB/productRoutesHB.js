@@ -8,7 +8,8 @@ const {
     editProductGetHB,
     editProductPostHB,
 } = require('../../controller/HBController/handlebars.product');
-const upload = require('../../utils/multer');
+const { uploadProduct } = require('../../utils/multer');
+
 
 const productRouteHB = express.Router();
 
@@ -22,7 +23,7 @@ productRouteHB.get(
 productRouteHB.post(
     '/edit-product/:id',
     verifyAdminHB,
-    upload.any(),
+    uploadProduct.any(),
     editProductPostHB
 );
 productRouteHB.get('/get-product-list', getProductListHB);

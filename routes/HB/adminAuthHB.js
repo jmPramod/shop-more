@@ -13,7 +13,8 @@ const {
   editProfileGet,
   editProfilePost
 } = require('../../controller/HBController/handlebars.auth.controller');
-const upload = require('../../utils/multer');
+const { uploadProfile } = require('../../utils/multer');
+
 const { Router } = express;
 const adminAuthHB = Router();
 adminAuthHB.get('/home', homeController);
@@ -27,7 +28,7 @@ adminAuthHB.post('/login', loginUserPost);
 adminAuthHB.get('/logout', logout);
 adminAuthHB.post('/get-all-user', verifyAdminHB, allUserPost);
 adminAuthHB.get('/get-all-user', verifyAdminHB, allUserGet);
-adminAuthHB.post("/profile/:id", verifyOriginalUser, upload.any(), editProfilePost)
+adminAuthHB.post("/profile/:id", verifyOriginalUser, uploadProfile.any(), editProfilePost)
 
 adminAuthHB.get("/profile/:id", verifyOriginalUser, editProfileGet)
 module.exports = { adminAuthHB };
