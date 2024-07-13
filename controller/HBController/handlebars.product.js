@@ -156,13 +156,13 @@ const editProductPostHB = async (req, res, next) => {
 
         }
         const { id } = req.params;
-        const data = await productsSchema.findById(id).lean()
+        const data = await productsSchema.findById(id)
 
 
         let existingImages = data.images || []; // Get existing images or initialize as empty array
 
 
-
+        console.log("req.body.deleteImage", req.body.deleteImage);
 
 
         // Check if there are images to delete
@@ -172,9 +172,9 @@ const editProductPostHB = async (req, res, next) => {
             // Loop through images to delete
             for (let publicId of imagesToDelete) {
                 // Example of deleting image from Cloudinary
-
-                await cloudinaryImage.uploader.destroy(publicId);
-
+                console.log("publicId", publicId)
+                let res = await cloudinaryImage.uploader.destroy(publicId);
+                console.log("res", res)
                 // Remove the image from the images array in the database
                 existingImages = data.images.filter(image => image.productPublicId !== publicId);
 
@@ -188,8 +188,8 @@ const editProductPostHB = async (req, res, next) => {
                 if (req.files[i].fieldname === 'thumbnailImg') {
 
                     const urlPath = req.files[i].path
-                    const PublicID = urlPath.split(".")[2].split("/").pop()
-
+                    const q = urlPath.split(".")[2].split("/")
+                    const PublicID = q[q.length - 2].concat("/", q[q.length - 1])
                     req.body.thumbnail = req.body.thumbnail || {};
                     req.body.thumbnail.imageUrl = urlPath
                     req.body.thumbnail.imgPublicId = PublicID
@@ -206,7 +206,8 @@ const editProductPostHB = async (req, res, next) => {
 
                 else {
                     const urlPath = req.files[i].path
-                    const PublicID = urlPath.split(".")[2].split("/").pop()
+                    const q = urlPath.split(".")[2].split("/")
+                    const PublicID = q[q.length - 2].concat("/", q[q.length - 1])
 
                     existingImages.push({
                         productUrl: urlPath,
