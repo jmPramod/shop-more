@@ -68,6 +68,10 @@ const getSingleProduct = async (req, res, next) => {
     const productDetails = await productsSchema.findById({
       _id: req.params.id,
     });
+    if (!productDetails) {
+      return next(createError(404, "Product not found"));
+
+    }
     res.status(200).json({
       message: "Product fetched successfully.",
       data: productDetails,
@@ -145,7 +149,10 @@ const getCategories = async (req, res, next) => {
       },
       { "$replaceRoot": { "newRoot": "$product" } }
     ])
+    if (!productDetails) {
+      return next(createError(404, "No Product Found."));
 
+    }
     res.status(200).json({
       message: 'All category fetched.',
       count: productDetails.length,
@@ -154,7 +161,7 @@ const getCategories = async (req, res, next) => {
     });
 
   } catch (error) {
-    next(err)
+    next(error)
   }
 }
 
