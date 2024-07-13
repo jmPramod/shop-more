@@ -29,7 +29,7 @@ const ProfileStorage = new CloudinaryStorage({
     },
 });
 
-
+console.log("ProductStorage", ProductStorage);
 const uploadProfile = multer({ storage: ProfileStorage });
 const uploadProduct = multer({ storage: ProductStorage });
 module.exports = { uploadProduct, uploadProfile }

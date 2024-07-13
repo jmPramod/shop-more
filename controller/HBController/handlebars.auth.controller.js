@@ -180,15 +180,15 @@ const editProfilePost = async (req, res, next) => {
     console.log("req.body", req.body);
     const oldData = await SignUp.findOne({ _id: req.params.id }).lean();
 
-    let result1
     if (req.files && req.files.length > 0) {
-      const file = req.files[0];
-      console.log("file", file);
-      result1 = await cloudinaryImage.uploader.upload(file.path);
-      req.body.images = req.body.images || {};
 
-      req.body.images.imageUrl = result1.url
-      req.body.images.imgPublicId = result1.public_id
+      req.body.images = {};
+      const urlPath = req.files[0].path
+      const q = urlPath.split(".")[2].split("/")
+      const PublicID = q[q.length - 2].concat("/", q[q.length - 1])
+
+      req.body.images.imageUrl = urlPath
+      req.body.images.imgPublicId = PublicID
       if (oldData.images.imgPublicId) {
         await cloudinaryImage.uploader.destroy(oldData.images.imgPublicId, (error, result) => {
           if (error) {
@@ -203,14 +203,9 @@ const editProfilePost = async (req, res, next) => {
       req.body.password = oldData.password
     }
 
-    const userExist = await SignUp.findByIdAndUpdate({ _id: req.params.id }, req.body).lean();
+    const UpdateUser = await SignUp.findByIdAndUpdate({ _id: req.params.id }, req.body).lean();
     let AllUserData = await SignUp.find({}).lean();
-
     if (AllUserData) {
-      // req.session.user_info = null
-      // res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css" });
-      // userExist.image = await cloudinaryImage.url(userExist.image)/
-      // req.session.user_info = userExist
 
       req.flash('Success_msg', "User Update Successfully!");
       return res.redirect("/home")

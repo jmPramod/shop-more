@@ -178,7 +178,7 @@ const editProductPostHB = async (req, res, next) => {
                 // Remove the image from the images array in the database
                 existingImages = data.images.filter(image => image.productPublicId !== publicId);
 
-
+                console.log("existingImages", existingImages);
             }
         }
 
