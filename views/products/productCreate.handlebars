@@ -119,7 +119,11 @@
           />
         </div>
        <div style="flex-direction: column; gap: 5px;">
-      <h3>Add Image: <input type="file"  name='image' id="ProductImage{{@index}}"  onchange="previewImages(event)" style="" multiple></h3>
+       <div style="display:flex; justify-content: space-between;">
+
+        <h3>Images</h3>
+      <label for="ProductImage" style="border: 1px solid black; display: flex;align-items: center;justify-content: center; border-radius: 5px; background-color: white; font-size: 15px; cursor: pointer;padding:4px">Add Image <input type="file"  name='image' id="ProductImage"  onchange="previewImages(event)" style="display: none;" multiple></label h>
+       </div>
 
 <div style="width: 100%; display: flex; gap: 10px; flex-wrap: wrap;">
   {{#each data.images}}
@@ -142,14 +146,25 @@
        
 
 
-        <div style="justify-content: space-between;">
+        <div style="justify-content: space-between; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; width: 100%;">
           <label for='thumbnail'>Thumbnail</label>
+
+<label for="thumbnail1"  style=" border: 1px solid black; padding:3px ;display: flex; align-items: center;justify-content: center;border-radius: 5px;background-color: white; font-size: 15px; cursor: pointer"
+       >
+       Change
+</label>
+          </div>
          
            <div style="display: flex; flex-direction: column ; width: 30%;gap: 5px;">
 
-            <img src="{{data.thumbnail.imageUrl}}" alt="Product Image" width="50%" height="50%">
-           <input type="file" style=""    id='thumbnail1'
+
+            <img src="{{data.thumbnail.imageUrl}}" alt="Product Image" width="50%" height="50%" id="DisplayProductThumbnailImage">
+          
+           <input type="file"   id='thumbnail1'
             name='thumbnailImg'
+             onchange="previewThumbnailImages(event)" 
+       style="display:none;"
        >
   </div>
 
@@ -206,4 +221,23 @@
       });
     }
   }
+
+
+
+ function previewThumbnailImages(event) {
+    const input = event.target;
+    const srcImage = document.getElementById('DisplayProductThumbnailImage'); // Assuming this is the container where images will be shown
+const thumbnailInput=document.getElementById("thumbnail1")
+   
+   
+    if (input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+           srcImage.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+
 </script>
