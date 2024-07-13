@@ -144,45 +144,30 @@ const putResetPasswordFromGmail = async (req, res, next) => {
 };
 const profileUpdateController = async (req, res, next) => {
   try {
+    const oldData = await SignUp.findById(req.params.id)
 
-    const userId = req.params.id;
-    const oldData = await SignUp.findById({ _id: userId });
-    // params: ,
 
-    if (req.body.images) {
-      const params = {
-        folder: 'ProfileImage',  // Specify the folder where the image will be stored
-        transformation: [
-          { width: 800, height: 600, crop: 'limit' },  // Resize and crop the image
-          { quality: 'auto' },  // Automatically adjust the image quality
-          { fetch_format: 'auto' },  // Automatically determine the best format
-          { progressive: true },  // Enable progressive rendering
-          { strip: true }  // Strip all metadata from the image
-        ]
-      };
-      await cloudinaryImage.uploader.upload(req.body.images,
-        params,
-        function (error, result) {
-          console.log("result", result);
-          req.body.images = {};
+    let existingImages = {};
+    if (req.files.length > 0) {
+      console.log("req.files@@@", req.files)
+      const urlPath = req.files[0].path
+      const PublicID = urlPath.split(".")[2].split("/").pop()
 
-          req.body.images.imageUrl = result.url
-          req.body.images.imgPublicId = result.public_id
-          console.log("result2", req.body);
-          console.log("errorPL", error);
-
-        })
-
-      console.log("123");
+      existingImages = {
+        imageUrl: urlPath,
+        imgPublicId: PublicID
+      }
       if (oldData.images.imgPublicId) {
         await cloudinaryImage.uploader.destroy(oldData.images.imgPublicId, (error, result) => {
           if (error) {
-            console.error('Error deleting image:', error);
+            console.error('Error deleting thumbnail image:', error);
           } else {
-            console.log('Deleted image:', result);
+            console.log('Deleted thumbnail image:', result);
           }
         });
       }
+      req.body.images = existingImages;
+
     }
     if (req.body.password) {
 
@@ -198,10 +183,8 @@ const profileUpdateController = async (req, res, next) => {
 
       }
 
-    }
+    } console.log("req.body", req.body)
 
-    console.log("456");
-    console.log("maruthi", req.body);
     const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     res.status(200).json({
       message: 'User update Successfully.',
