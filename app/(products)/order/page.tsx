@@ -15,7 +15,7 @@ export default function page() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(checkLocalStorageUser());
+    checkLocalStorageUser();
   }, [dispatch, afterDelete]); // Make sure to include dispatch in the dependency array
 
   useEffect(() => {

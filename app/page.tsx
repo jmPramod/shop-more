@@ -11,7 +11,7 @@ export default function HomePage() {
   const products = useAppSelector((state) => state.userList);
 
   useEffect(() => {
-    dispatch(checkLocalStorageUser());
+    checkLocalStorageUser();
   }, [dispatch]); // Make sure to include dispatch in the dependency array
 
   return (
