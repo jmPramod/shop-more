@@ -148,8 +148,7 @@ const profileUpdateController = async (req, res, next) => {
 
 
     let existingImages = {};
-    if (req.files.length > 0) {
-      console.log("req.files@@@", req.files)
+    if (req.files && req.files.length > 0) {
       const urlPath = req.files[0].path
       const q = urlPath.split(".")[2].split("/")
       const PublicID = q[q.length - 2].concat("/", q[q.length - 1])
