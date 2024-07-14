@@ -43,7 +43,7 @@ const SlideMenu = () => {
   }, []);
   return (
     <div>
-      {loading || true ? (
+      {loading ? (
         <div
           role="status"
           className="w-full h-[71vh] flex items-center justify-center gap-5  bg-blue-950 mt-[80px] p-7 flex-col md:flex-row"

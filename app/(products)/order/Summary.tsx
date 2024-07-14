@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Summary = () => {
+const Summary = (props: any) => {
+  const { cartList } = props;
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    if (cartList) {
+      let tot = 0;
+      cartList.map((val: any, ind: number) => {
+        tot = tot + val.price;
+      });
+      setTotal(tot);
+      console.log('res', tot);
+    }
+  }, [cartList]);
   return (
     <div className="w-1/3 h-full border fixed  right-1 p-1">
       <div className=" bg-white p-3 h-full">
@@ -24,7 +36,7 @@ const Summary = () => {
           <div>
             <div className="flex items-center justify-between ">
               <h1 className="text-lg font-medium">Total</h1>
-              <h2>₹ 1909</h2>
+              <h2>₹ {total}</h2>
             </div>
           </div>
         </div>

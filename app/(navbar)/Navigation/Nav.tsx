@@ -72,6 +72,7 @@ const Nav = (props: PropsType) => {
     ) {
       fetchCart();
     }
+    console.log('products', products);
   }, [dispatch, products]);
 
   useEffect(() => {

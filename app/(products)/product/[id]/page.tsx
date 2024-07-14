@@ -12,7 +12,10 @@ import { BiSolidStar } from 'react-icons/bi';
 import { BiSolidStarHalf } from 'react-icons/bi';
 import { BiStar } from 'react-icons/bi';
 import { useAppSelector } from '../../../../app/redux/store';
-import { userAction } from '@/app/redux/slice/loginSlice';
+import {
+  checkLocalStorageUser,
+  userAction,
+} from '../../../../app/redux/slice/loginSlice';
 import { useDispatch } from 'react-redux';
 
 import { useRouter } from 'next/navigation';
@@ -76,6 +79,9 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
     };
     fetchSingleProduct();
   }, [params?.id, user]);
+  useEffect(() => {
+    dispatch(checkLocalStorageUser());
+  }, [dispatch]); // Make sure to include dispatch in the dependency array
 
   return (
     <>
