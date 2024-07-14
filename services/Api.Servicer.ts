@@ -43,7 +43,7 @@ export const sortProducts = async (sortName: string, minMax: number) => {
 export const login = async (payload: any) => {
   try {
     const response = await axios.post(`${baseUrl}/api/login`, payload);
-     if (response?.data?.token) {
+    if (response?.data?.token) {
       localStorage.setItem('token', JSON.stringify(response?.data?.token));
     }
     return {
@@ -197,7 +197,33 @@ export const AddToCart = async (payload: any) => {
     }
   }
 };
-
+export const RemoveFromCart = async (payload: any) => {
+  try {
+    const token1 = localStorage.getItem('token');
+    let token;
+    if (token1) {
+      token = JSON.parse(token1);
+    }
+    const response = await axios.patch(`${baseUrl}/api/cart`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        statusCode: 500,
+        message: error,
+        data: {},
+      };
+    }
+  }
+};
 export const GetCartList = async (userId: any) => {
   try {
     const token1 = localStorage.getItem('token');
@@ -210,7 +236,7 @@ export const GetCartList = async (userId: any) => {
         Authorization: `Bearer ${token}`,
       },
     });
-   
+
     return {
       message: response.data.message,
       data: response.data.data,

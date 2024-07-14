@@ -43,12 +43,12 @@ const SlideMenu = () => {
   }, []);
   return (
     <div>
-      {loading ? (
+      {loading || true ? (
         <div
           role="status"
           className="w-full h-[71vh] flex items-center justify-center gap-5  bg-blue-950 mt-[80px] p-7 flex-col md:flex-row"
         >
-          <div className="h-[80vh] md:h-[71vh]  flex items-center justify-center w-full md:w-[50%]  bg-gray-300 rounded  dark:bg-gray-700 ml-0 md:ml-7">
+          <div className="h-[80vh] md:h-full  flex items-center justify-center w-full md:w-[50%]  bg-gray-300 rounded  dark:bg-gray-700 ml-0 md:ml-7">
             <svg
               className="w-10 h-10 text-gray-200 dark:text-gray-600"
               aria-hidden="true"

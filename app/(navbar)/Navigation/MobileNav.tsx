@@ -74,7 +74,10 @@ const MobileNav = (props: PropType) => {
             )}
 
           <li className="text-sm sm:text-xl font-medium text-white  ">
-            <Link href={'/'} className="flex gap-1  items-center text-3xl ">
+            <Link
+              href={'/order'}
+              className="flex gap-1  items-center text-3xl "
+            >
               <BsCart4 /> Cart{' '}
               <sup className="text-yellow-400  p-1 font-bold">
                 {products.cartList}
