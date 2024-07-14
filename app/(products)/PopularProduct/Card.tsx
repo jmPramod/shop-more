@@ -78,7 +78,7 @@ const Card = (props: any) => {
         </div>
 
         <div>
-          <button>{product?.price}$</button>
+          <button>{product?.price}₹</button>
         </div>
       </motion.div>
     </motion.div>

@@ -56,7 +56,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
         productId: _id,
       };
       let response = await AddToCart(payload);
-       dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
+      dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
       setGoToCart(true);
     }
   };
@@ -109,7 +109,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
               {productData?.title}
             </h1>
             <div className="text-left flex gap-1 items-center justify-start">
-              <div className="text-2xl">{productData?.price} $</div>
+              <div className="text-2xl">{productData?.price} ₹</div>
               <sub className="text-lg">
                 {'('}
                 {productData?.discountPercentage}% off{')'}

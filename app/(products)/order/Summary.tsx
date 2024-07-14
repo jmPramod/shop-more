@@ -8,23 +8,23 @@ const Summary = () => {
         <div className="flex flex-col  border gap-4 p-3">
           <div className="flex items-center justify-between ">
             <h1 className="text-lg font-medium">Price(1 items)</h1>
-            <h2>RS 1909</h2>
+            <h2>₹ 1909</h2>
           </div>
           <div className="flex items-center justify-between">
             <h1 className="text-lg font-medium">Discount</h1>
-            <h2>-RS 500</h2>
+            <h2>-₹ 500</h2>
           </div>
 
           <div className="flex items-center justify-between">
             <h1 className="text-lg font-medium">Delivery Charges</h1>
             <h2>
-              RS 40 <p>Free</p>
+              ₹ 40 <p>Free</p>
             </h2>
           </div>
           <div>
             <div className="flex items-center justify-between ">
               <h1 className="text-lg font-medium">Total</h1>
-              <h2>RS 1909</h2>
+              <h2>₹ 1909</h2>
             </div>
           </div>
         </div>
