@@ -1,6 +1,6 @@
 const express = require('express');
 const { verifyAdmin } = require('../../utils/verifyToken');
-const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController, sortProducts, filterProducts, updateProducts, manupulateDB } = require('../../controller/REST_Controller/productController');
+const { productController, getSingleProduct, getCategories, searchProduct, CreateProductController, sortProducts, filterProducts, updateProducts, manupulateDB, } = require('../../controller/REST_Controller/productController');
 
 const productRouteRest = express.Router();
 /**

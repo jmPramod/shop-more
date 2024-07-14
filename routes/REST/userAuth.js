@@ -9,7 +9,9 @@ const {
   profileUpdateController,
   addNewKeyValue,
   addToCartPost,
-  addToCartGet
+  addToCartGet,
+
+  removeFromCartPatch
 } = require('../../controller/REST_Controller/REST.controller');
 const { verifyUser, verifyAdmin, verifyUserOrAdminOrSuperAdmin } = require('../../utils/verifyToken');
 const { uploadProfile } = require('../../utils/multer');
@@ -338,6 +340,8 @@ authRoute.post('/api/reset-password/:id/:token', putResetPasswordFromGmail);
 authRoute.post('/api/forgot-password', resetPasswordController);
 authRoute.post('/api/cart', verifyUserOrAdminOrSuperAdmin, addToCartPost);
 authRoute.get('/api/cart', verifyUserOrAdminOrSuperAdmin, addToCartGet);
+authRoute.patch('/api/cart', verifyUserOrAdminOrSuperAdmin, removeFromCartPatch);
+
 
 // authRoute.get('/new-key', addNewKeyValue);
 module.exports = { authRoute };

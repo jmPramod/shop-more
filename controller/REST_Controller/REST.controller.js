@@ -228,6 +228,38 @@ const addToCartPost = async (req, res, next) => {
     next(error)
   }
 }
+const removeFromCartPatch = async (req, res, next) => {
+  const { userId } = req.body;
+  const { productId } = req.body;
+  try {
+    const user = await SignUp.findById(userId);
+    if (!user) {
+      return next(createError(404, 'User not found'));
+    }
+    const product = await productsSchema.findById(productId);
+    if (!product) {
+      return next(createError(404, 'Product not found'));
+    }
+    if (!user || !product) {
+      return next(createError(404, 'Product not found'));
+    }
+    const index = user.cartAdded.findIndex(item => item._id.toString() === productId.toString());
+    if (index === -1) {
+      return next(createError(404, 'Product not found in cart'));
+    }
+    user.cartAdded.splice(index, 1);
+
+
+    const productRemoved = await user.save();
+    res.status(200).json({
+      message: 'Product Removed to cart Successfully.',
+      data: productRemoved,
+      statusCode: 200,
+    });
+  } catch (error) {
+    next(error)
+  }
+}
 const addToCartGet = async (req, res, next) => {
 
   try {
@@ -276,5 +308,6 @@ module.exports = {
   getResetPasswordFromGmail,
   addNewKeyValue,
   addToCartPost,
-  addToCartGet
+  addToCartGet,
+  removeFromCartPatch
 };
