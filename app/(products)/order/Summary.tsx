@@ -19,7 +19,9 @@ const Summary = (props: any) => {
         <h1 className="text-xl font-semibold">Price Details</h1>
         <div className="flex flex-col  border gap-4 p-3">
           <div className="flex items-center justify-between ">
-            <h1 className="text-lg font-medium">Price(1 items)</h1>
+            <h1 className="text-lg font-medium">
+              Price({cartList&&cartList.length} items)
+            </h1>
             <h2>₹ 1909</h2>
           </div>
           <div className="flex items-center justify-between">

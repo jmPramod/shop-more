@@ -80,8 +80,8 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
     fetchSingleProduct();
   }, [params?.id, user]);
   useEffect(() => {
-    dispatch(checkLocalStorageUser());
-  }, [dispatch]); // Make sure to include dispatch in the dependency array
+    checkLocalStorageUser();
+  }, []); // Make sure to include dispatch in the dependency array
 
   return (
     <>
