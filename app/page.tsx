@@ -1,7 +1,7 @@
 'use client';
 
 import { useDispatch } from 'react-redux';
-import { checkLocalStorageUser } from './redux/slice/loginSlice';
+import { checkLocalStorageUser, userAction } from './redux/slice/loginSlice';
 import { useEffect } from 'react';
 import { AppDispatch, useAppSelector } from './redux/store';
 import Home from './(pages)/Home';
@@ -12,6 +12,12 @@ export default function HomePage() {
 
   useEffect(() => {
     checkLocalStorageUser();
+    const storedUser = localStorage.getItem('User');
+
+    if (storedUser) {
+      console.log('storedUser', storedUser);
+      dispatch(userAction.setUser(JSON.parse(storedUser)));
+    }
   }, [dispatch]); // Make sure to include dispatch in the dependency array
 
   return (

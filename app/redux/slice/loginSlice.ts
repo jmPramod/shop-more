@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { profileUpdate } from './../../../services/Api.Servicer';
 
 interface LoginState {
   user: any;
@@ -46,18 +45,12 @@ const loginSlice = createSlice({
 });
 const userAction = loginSlice.actions;
 const checkLocalStorageUser = () => {
-  return async (dispatch: any) => {
+  return (dispatch: any) => {
     const storedUser = localStorage.getItem('User');
 
     if (storedUser) {
-      const fetchUser = JSON.parse(storedUser);
-      try {
-        console.log('fetchUser', fetchUser);
-        let result = await profileUpdate({}, fetchUser._id);
-        dispatch(userAction.setUser(result?.data));      }
-         catch (error:any) {
-        dispatch(userAction.setError(error.message));
-      }
+      console.log('storedUser', storedUser);
+      dispatch(userAction.setUser(JSON.parse(storedUser)));
     }
   };
 };

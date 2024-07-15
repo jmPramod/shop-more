@@ -78,7 +78,14 @@ const Nav = (props: PropsType) => {
   useEffect(() => {
     setShowProfile(false);
   }, [pathname]);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('User');
 
+    if (storedUser) {
+      console.log('storedUser', storedUser);
+      dispatch(userAction.setUser(JSON.parse(storedUser)));
+    }
+  }, [dispatch]);
   return (
     <div className="h-[80px] bg-[#212121] text-white z-2000 w-full">
       <div className="sm:w-[90%] w-[95%] mx-auto flex h-[100%] items-center justify-between">

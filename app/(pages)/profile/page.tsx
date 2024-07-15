@@ -33,7 +33,7 @@ const page = () => {
   }, [products]);
   useEffect(() => {
     checkLocalStorageUser()
-  }, [dispatch]); // Make sure to include dispatch in the dependency array
+  }, []); // Make sure to include dispatch in the dependency array
 
   const initialValuesForRegister = {
     name: (products && products.name) || '',
