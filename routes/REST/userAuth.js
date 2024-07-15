@@ -337,7 +337,7 @@ authRoute.get('/api/reset-password/:id/:token', getResetPasswordFromGmail);
 
 authRoute.post('/api/reset-password/:id/:token', putResetPasswordFromGmail);
 
-authRoute.post('/api/forgot-password', resetPasswordController);
+authRoute.post('/api/forget-password', resetPasswordController);
 authRoute.post('/api/cart', verifyUserOrAdminOrSuperAdmin, addToCartPost);
 authRoute.get('/api/cart', verifyUserOrAdminOrSuperAdmin, addToCartGet);
 authRoute.patch('/api/cart', verifyUserOrAdminOrSuperAdmin, removeFromCartPatch);
