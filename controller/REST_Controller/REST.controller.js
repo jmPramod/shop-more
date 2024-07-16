@@ -89,6 +89,7 @@ const resetPasswordController = async (req, res, next) => {
       _id: userExist._id,
     };
     const { resetLink } = await forgotPasswordResetLink(payload);
+    console.log("resetLink", resetLink);
     res.status(200).json({
       message: 'reset link sent successfully',
       data: null,
@@ -123,7 +124,7 @@ const putResetPasswordFromGmail = async (req, res, next) => {
       return next(createError(404, 'invalid URL')); //user does not exist in database
     }
     const saltRounds = 10;
-    const hashPass = await bcrypt.hash(req.body.enterPassword, saltRounds);
+    const hashPass = await bcrypt.hash(req.body.password, saltRounds);
 
 
     const userExist = await SignUp.findOneAndUpdate(
@@ -136,7 +137,7 @@ const putResetPasswordFromGmail = async (req, res, next) => {
 
     res.status(200).json({
       message: 'Password reset Successfully.',
-      data: null,
+      data: userExist,
       statusCode: 200,
     });
   } catch (err) {
