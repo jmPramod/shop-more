@@ -14,7 +14,8 @@ const ResponsiveNav = () => {
     if (
       pathname === '/login' ||
       pathname === '/register' ||
-      pathname.includes('reset-password')
+      pathname.includes('password-reset') ||
+      pathname.includes('forgot-password')
     ) {
       return <></>;
     } else {

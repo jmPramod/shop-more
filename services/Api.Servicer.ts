@@ -85,20 +85,26 @@ export const registerUser = async (payload: any) => {
 };
 export const resetPassword = async (payload: any) => {
   try {
+    console.log('payload', payload);
     const response = await axios.post(
-      `${baseUrl}/api/forget-password`,
+      ` http://localhost:5900/api/forget-password`,
       payload
     );
+    // const response = await axios.post(
+    //   `${baseUrl}/api/forget-password`,
+    //   payload
+    // );
     return {
       message: response.data.message,
       data: response.data.data,
       statusCode: response.data.statusCode,
     };
   } catch (error: any) {
+    console.log(error )
     if (error) {
       return {
-        statusCode: error.response.data?.status,
-        message: error,
+        statusCode: error.response.data?.statusCode,
+        message: error.response.data?.message,
         data: null,
       };
     }
@@ -209,6 +215,31 @@ export const RemoveFromCart = async (payload: any) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    return {
+      message: response.data.message,
+      data: response.data.data,
+      statusCode: response.data.statusCode,
+    };
+  } catch (error: any) {
+    if (error) {
+      return {
+        statusCode: 500,
+        message: error,
+        data: {},
+      };
+    }
+  }
+};
+export const EnterResetPasssword = async (
+  payload: any,
+  id: any,
+  token: any
+) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:5900/api/reset-password/${id}/${token}`,
+      payload
+    );
     return {
       message: response.data.message,
       data: response.data.data,

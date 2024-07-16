@@ -49,7 +49,6 @@ const Login = () => {
     let user = await login(values);
 
     if (user && Object.keys(user?.data).length !== 0) {
-    
       dispatch(userAction.setUser(user?.data));
       localStorage.setItem('User', JSON.stringify(user?.data));
       router.push('/');
@@ -199,7 +198,7 @@ const Login = () => {
               <span
                 className="text-sm ml-2 hover:text-blue-500 cursor-pointer"
                 onClick={() => {
-                  router.push('reset-password');
+                  router.push('forgot-password');
                 }}
               >
                 Forgot Password ?

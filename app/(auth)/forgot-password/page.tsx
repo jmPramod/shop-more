@@ -7,66 +7,40 @@ import Image from 'next/image';
 
 import { FaBattleNet } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
-// import { login,    } from './../../../services/Api.Servicer';
-import { useSelector } from 'react-redux';
-import { AppDispatch, useAppSelector } from '../../../../app/redux/store';
-import { userAction } from '../../../../app/redux/slice/loginSlice';
-import { login } from '../../../../services/Api.Servicer';
-// import { loginSlice, userAction } from '../../../app/redux/slice/loginSlice';
-// import { useAppSelector, AppDispatch } from '../../../app/redux/store';
+import { resetPassword } from './../../../services/Api.Servicer';
 
-const baseUrl = process.env.NEXT_PUBLIC_Base_url;
 const Login = () => {
   const [erroMsg, setErrorMsg] = useState('');
-  const dispatch = useDispatch<AppDispatch>();
+  const [emailSent,setEmailSent]=useState(false)
   const router = useRouter();
-  const products = useAppSelector((state) => state.userList);
   const [loadingButton, setLoadingButton] = useState(false);
-  const [forgetPassword, setForgetPassword] = useState(false);
   const initialValuesForForgetPassword = {
     email: '',
-  };
-  const initialValuesForLogin = {
-    email: '',
-    password: '',
   };
   const validationSchemaForForgetPassword = Yup.object({
     email: Yup.string()
       .email('Invalid email address')
       .required('Email is required'),
   });
-  const validationSchemaForLogin = Yup.object({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    password: Yup.string().required('Password is required'),
-  });
   const handleSubmitForForgotPassword = async (values: any) => {
     setLoadingButton(true);
-  
-    // let resetLink = await resetPassword(values.email);
-     setLoadingButton(false);
-  };
-  const handleSubmitForLogin = async (values: any) => {
-    setLoadingButton(true);
-    let user = await login(values);
-   
-    if (user && Object.keys(user?.data).length !== 0) {
-   
-      dispatch(userAction.setUser(user?.data));
-      localStorage.setItem('User', JSON.stringify(user?.data));
-      router.push('/');
-    } else {
-      setErrorMsg(user?.message?.response?.data?.message);
-      }
+    const payload = { email: values.email };
+    let resetLink = await resetPassword(payload);
+    console.log('resetLink', resetLink);
+    if(resetLink&&resetLink.statusCode===200){
+      setErrorMsg(`A Reset link is sent to your email.`)
+    }else{
+      setErrorMsg(resetLink&&resetLink.message)
+      
+    }
+
     setLoadingButton(false);
   };
-  //   useEffect(() => {}, [products]);
+
   return (
     <>
       <div className="h-screen md:flex ">
-      <div className="relative overflow-hidden md:flex w-[100%] md:w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center ">
+        <div className="relative overflow-hidden md:flex w-[100%] md:w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center ">
           <div className="absolute z-100 text-white border rounded-md p-1 top-[6%] left-[7%]">
             {' '}
             <div
@@ -92,7 +66,7 @@ const Login = () => {
           <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8 hidden md:block"></div>
         </div>
         <div className="flex w-[80%] md:w-1/2 justify-center py-10 items-center bg-white flex-col m-auto">
-        <Formik
+          <Formik
             initialValues={initialValuesForForgetPassword}
             validationSchema={validationSchemaForForgetPassword}
             onSubmit={handleSubmitForForgotPassword}
