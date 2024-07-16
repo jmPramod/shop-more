@@ -118,7 +118,10 @@ const putResetPasswordFromGmail = async (req, res, next) => {
   try {
     const { id, token } = req.params;
     const payload = jwt.verify(token, process.env.SECRET_KEY);
-
+    console.log("payload", payload);
+    if (!payload) {
+      return next(createError(404, 'invalid URL')); //user does not exist in database
+    }
     const saltRounds = 10;
     const hashPass = await bcrypt.hash(req.body.enterPassword, saltRounds);
 
@@ -129,9 +132,7 @@ const putResetPasswordFromGmail = async (req, res, next) => {
     );
 
 
-    if (!userExist) {
-      return next(createError(404, 'invalid URL')); //user does not exist in database
-    }
+
 
     res.status(200).json({
       message: 'Password reset Successfully.',
@@ -139,6 +140,7 @@ const putResetPasswordFromGmail = async (req, res, next) => {
       statusCode: 200,
     });
   } catch (err) {
+    console.log("err,err", err)
     next(err);
   }
 };
