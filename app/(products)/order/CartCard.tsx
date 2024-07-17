@@ -21,11 +21,11 @@ if(res&&res.statusCode===200){
     }
   };
   return (
-    <div className="p-2 border flex gap-2 my-5 ">
+    <div className="p-2 border flex gap-2 my-5 flex-col md:flex-row">
       <img
         src={val && val?.thumbnail.imageUrl}
         alt={val && val?.title}
-        className="w-1/3 min-w-[40%]"
+        className="w-full md:w-1/3 min-w-[40%]"
       />
       <div className="info flex flex-col w-full justify-center gap-3">
         <div className="flex flex-col gap-4">

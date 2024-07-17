@@ -8,7 +8,7 @@ const CartList = (props: any) => {
   }, [props.cartList]);
 
   return (
-    <div className="w-[66.66%] h-full  overflow-auto p-5 ">
+    <div className="w-full md:w-[66.66%] h-full  overflow-auto p-5 ">
       <h1 className="text-3xl font-bold">CART</h1>
 
       {cartList && cartList.length > 0 ? (

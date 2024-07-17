@@ -44,7 +44,7 @@ export default function page() {
   }, [afterDelete, dispatch]);
 
   return (
-    <div className="flex mt-20 ">
+    <div className="flex mt-20  flex-col md:flex-row">
       <CartList
         cartList={cartList && cartList}
         setAfterDelete={setAfterDelete}

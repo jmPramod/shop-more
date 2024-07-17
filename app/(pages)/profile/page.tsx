@@ -88,8 +88,8 @@ const page = () => {
         <LoginModel />
       ) : (
         <div className="w-full h-full mt-[77px] items-center flex justify-center flex-col gap-4">
-          <div className="flex md:w-full justify-center py-10 items-center bg-white gap-3">
-            <div className="relative flex  items-end">
+          <div className="flex w-full flex-col md:flex-row justify-center py-10 items-center bg-white gap-3">
+            <div className="relative flex  items-end ">
               <label htmlFor="fileInput" className="cursor-pointer">
                 <img
                   width={200}

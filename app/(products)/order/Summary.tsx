@@ -14,7 +14,7 @@ const Summary = (props: any) => {
     }
   }, [cartList]);
   return (
-    <div className="w-1/3 h-full border fixed  right-1 p-1">
+    <div className=" w-full md:w-1/3 h-full border static md:fixed  right-1 p-1">
       <div className=" bg-white p-3 h-full">
         <h1 className="text-xl font-semibold">Price Details</h1>
         <div className="flex flex-col  border gap-4 p-3">
