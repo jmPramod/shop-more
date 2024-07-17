@@ -32,13 +32,36 @@
     {{/if}}
   </ul>
 
-  <ul class='mobileIcon'>
-    <div class='mobileIcon'>
+  <ul class='mobileIcon' id='pjm' onclick='toggleMenu()'>
+    <div class='mobileIcon' id='toggleButtonNav'>
 
       <i class='fa-solid fa-bars'></i>
-
     </div>
 
+  </ul>
+  <ul
+    id='menuContent'
+    style='top:57px; list-style: none;  display: none;    height: 200px; width:200px; position: absolute ; background-color: white; border:1px solid black; right:0 ;text-decoration: none;'
+  >
+
+    {{#if user_info}}
+      <li
+        style='text-decoration: none;border:1px solid black; margin-top: 10px;      width: 50%;
+    margin: 16px auto;'
+      ><a href='/logout' style='text-decoration: none;padding: 5px;'>Log Out</a></li>
+    {{/if}}
+
+    {{#if user_info}}
+
+      <li
+        id='homeLink'
+        style='text-decoration: none;border:1px solid black; margin-top: 10px;      width: 50%;
+    margin: 16px auto;'
+      ><a
+          style='text-decoration: none;padding: 5px;'
+          href='/profile/{{user_info._id}}'
+        >Profile</a></li>
+    {{/if}}
   </ul>
 
 </div>

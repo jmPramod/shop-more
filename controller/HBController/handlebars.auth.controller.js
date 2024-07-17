@@ -102,12 +102,10 @@ const loginUserPost = async (req, res, next) => {
       { email: userExist.email, role: userExist.role, id: userExist._id },
       process.env.SECRET_KEY
     );
-    // delete res.locals[user_info];
     res.cookie("access_token", token);
 
     userExist.image = await cloudinaryImage.url(userExist.image)
     req.session.user_info = userExist
-    // res.render("home", { user_info: req.session.user_info, token, showSideBar: true });
     console.log("pk", userExist);
     res.cookie("user", JSON.stringify(userExist));
 

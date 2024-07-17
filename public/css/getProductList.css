@@ -1,80 +1,52 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 90%;
-  margin: 0 auto;
+.tableConatiner {
+  width: 100%;
 }
-.tableHead {
-  background-color: black;
+.tableHeadContainer > tr {
+  /* display: flex; */
+}
+.tableHeadContainer > tr > th {
+  border: 1px solid black;
   color: white;
+  padding: 10px;
+  background-color: gray;
+  /* display: flex; */
 }
-td,
-th {
-  /* border: 1px solid #dddddd; */
-  /* text-align: left; */
-  padding: 15px;
-  font-size: 20px;
+.tableBodyContianer > tr > td {
+  border: 1px solid;
+  text-align: center;
   width: 25%;
 }
-td {
-  /* border-radius: 200px; */
-  /* border: 1px solid black; */
-}
-tr {
-  font-size: 20px;
-}
-tr:nth-child(even) {
-  background-color: #ffffd6;
-}
 
-.tableDataRow:hover {
-  /* transform: scale(1); */
-  border: 1px solid black;
-  background-color: #dddddd;
-  color: black;
-
-  /* font-size: 22px; */
-  font-weight: bold;
-}
-.editButtonProduct {
-  padding: 5px;
-  width: 100px;
-}
-.productImage {
-  width: 80%;
-  border-radius: 20px;
-}
-.actionButton {
-  display: flex;
-  gap: 10px;
-  height: 100%;
-  width: 100%;
-  /* min-height: 200px; */
-  align-items: center;
-  justify-content: space-between;
-}
-.actionButton {
-  width: 100%;
-}
-.actionButton > button > a {
-  text-decoration: none;
-  color: white;
-  /* padding: 10px; */
-  /* width: 100%; */
-}
-.actionButton > a {
-  /* width: 100px; */
-  text-decoration: none;
-  text-align: center;
-  width: 100%;
-  color: white;
-  background-color: green;
-  border: 0;
-  border-radius: 5px;
-  /* width: 100%;    */
-  display: block;
+.tableBodyContianer > tr > td > img {
+  max-width: 100px;
   padding: 10px;
 }
-.actionButton > a:hover {
-  background-color: black;
+
+.tableBodyContianer > tr > td > a {
+  text-decoration: none;
+  border: 1px solid;
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border-radius: 7px;
+  width: 100%;
+}
+#deleteAnker {
+  background-color: red;
+}
+
+@media (0<width<700px) {
+  #actionButton {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    min-height: 103px;
+    justify-content: center;
+    padding: 6px;
+  }
+
+  .tableBodyContianer > tr > td > a {
+    padding: 0;
+  }
 }

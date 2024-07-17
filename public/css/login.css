@@ -41,6 +41,9 @@
   #loginPage > aside {
     width: 100%;
   }
+  .imgContinerLeft > img {
+    width: 100%;
+  }
 }
 .container {
   width: 400px;

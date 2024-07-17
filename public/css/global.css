@@ -39,6 +39,12 @@
 
   border: 1px solid black;
 }
+
+@media (0<width<700px) {
+  .logo {
+    font-size: 11px;
+  }
+}
 .logo > div {
   display: flex;
   gap: 3px;
@@ -224,6 +230,7 @@
   }
   .mobileIcon {
     display: block;
+    color: white;
   }
 }
 /* Spinner loading css */
@@ -262,6 +269,12 @@
   display: flex;
   gap: 2px;
 }
+
+@media (0<width<700px) {
+  .navbarSearchDiv {
+    width: 60%;
+  }
+}
 .searchProductInput {
   padding: 5px;
   border-radius: 10px;
@@ -270,4 +283,13 @@
 .searchButtonNav {
   padding: 5px;
   border-radius: 5px;
+  background-color: rgb(239, 239, 0);
+}
+
+@media (0<width<700px) {
+  .searchButtonNav {
+    border-radius: 5px;
+    border-radius: 7px;
+    font-size: 9px;
+  }
 }

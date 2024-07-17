@@ -1,8 +1,12 @@
 #homePage {
   display: flex;
-  /* align-items: center;
-  justify-content: space-evenly; */
 }
+@media (0<width<700px) {
+  #homePage {
+    flex-direction: column;
+  }
+}
+
 #homePage > aside {
   width: 50%;
   padding: 20px;
@@ -13,12 +17,26 @@
 
   padding: 20px;
 }
+@media (0<width<700px) {
+  #homePage > main {
+    width: 100%;
+  }
+
+  #homePage > aside {
+    width: 100%;
+  }
+}
+
 .userHome {
   border: 1px solid black;
   width: 100%;
   margin: 20px;
 }
-
+@media (0<width<700px) {
+  .userHome {
+    margin: 0px;
+  }
+}
 .userHome > thead {
   border: 1px solid black;
   width: 100%;

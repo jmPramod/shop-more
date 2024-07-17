@@ -5,8 +5,8 @@
 </head>
 
 <section> 
-  <table>
-    <thead>
+  <table class="tableConatiner">
+    <thead class="tableHeadContainer">
       <tr class="tableHead">
         <th>Title</th>
         
@@ -18,14 +18,14 @@
       </tr>
     </thead>
 
-    <tbody>
+    <tbody class="tableBodyContianer">
 
   {{#each productList}}
     <tr class="tableDataRow">
 
       <td>{{title}}</td>
        {{#if price}}
-      <td>{{price}} $</td>
+      <td>{{price}} Rs</td>
            {{/if}}
              {{#if price}}
       <td> <img
@@ -36,8 +36,9 @@
       /></td>
            {{/if}}
       {{#if price}}
-      <td class="actionButton" style=""> <a href='/edit-product/{{_id}}'>Edit</a>
-       <a href=''>Delete</a>
+      <td id="actionButton" style=""> 
+        <a href='/edit-product/{{_id}}'>Edit</a>
+       <a href='' id="deleteAnker"> Delete</a>
             {{/if}}
   </td>
 </tr>
