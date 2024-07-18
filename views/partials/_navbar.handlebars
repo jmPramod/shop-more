@@ -41,27 +41,33 @@
   </ul>
   <ul
     id='menuContent'
-    style='top:57px; list-style: none;  display: none;    height: 200px; width:200px; position: absolute ; background-color: white; border:1px solid black; right:0 ;text-decoration: none;'
+    style='top:57px; list-style: none;  display: none;  min-height:100px ;width:200px; position: absolute ; background-color: white; border:1px solid black; right:0 ;text-decoration: none;'
   >
 
-    {{#if user_info}}
-      <li
-        style='text-decoration: none;border:1px solid black; margin-top: 10px;      width: 50%;
-    margin: 16px auto;'
-      ><a href='/logout' style='text-decoration: none;padding: 5px;'>Log Out</a></li>
-    {{/if}}
+    <li
+      id='homeLink'
+      style='text-decoration: none;border:1px solid black; margin-top: 10px;      width: 50%;
+    margin: 16px auto; text-align: center; background: gold; border-radius: 6px;'
+    ><a href='/home' style='text-decoration: none;'>Home</a></li>
 
     {{#if user_info}}
 
       <li
         id='homeLink'
         style='text-decoration: none;border:1px solid black; margin-top: 10px;      width: 50%;
-    margin: 16px auto;'
+    margin: 16px auto; text-align: center;background: gold; border-radius: 6px;'
       ><a
           style='text-decoration: none;padding: 5px;'
           href='/profile/{{user_info._id}}'
         >Profile</a></li>
     {{/if}}
+    {{#if user_info}}
+      <li
+        style='text-decoration: none;border:1px solid black; margin-top: 10px;      width: 50%;
+    margin: 16px auto;  text-align: center;background: gold; border-radius: 6px;'
+      ><a href='/logout' style='text-decoration: none;padding: 5px;'>Log Out</a></li>
+    {{/if}}
+
   </ul>
 
 </div>
