@@ -42,7 +42,7 @@
 
 @media (0<width<700px) {
   .logo {
-    font-size: 11px;
+    font-size: 10px;
   }
 }
 .logo > div {
@@ -272,7 +272,7 @@
 
 @media (0<width<700px) {
   .navbarSearchDiv {
-    width: 60%;
+    width: 50%;
   }
 }
 .searchProductInput {

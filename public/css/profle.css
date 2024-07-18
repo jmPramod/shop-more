@@ -28,6 +28,12 @@
   height: 200px;
 }
 
+@media (0<width<700px) {
+  .profileImageContainer > img {
+    width: 50%;
+    height: 50%;
+  }
+}
 .profileImageContainer > label {
   border: 1px solid black;
   padding: 5px;
@@ -69,11 +75,18 @@
 
   font-size: 20px;
 }
-
 .profileDetailsContainer > div > input {
   padding: 5px;
   /* width: 50%; */
   font-size: 20px;
+}
+@media (0<width<700px) {
+  .profileDetailsContainer > div > label {
+    font-size: 15px;
+  }
+  .profileDetailsContainer > div > input {
+    font-size: 15px;
+  }
 }
 
 @media (0<width<700px) {

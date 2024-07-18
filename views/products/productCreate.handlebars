@@ -4,6 +4,7 @@
 </head>
 
   <section 
+  style="width: 100%;"
   id='createProductContainer'
   >
    
@@ -12,6 +13,7 @@
       enctype='multipart/form-data'
       action="{{#if mode}}/edit-product/{{data._id}}{{else}}/create-product{{/if}}"
       method='post'
+      style="border: 1px solid red; "
      
     > <h1 style="font-size: 25px;">
       {{#if mode}}
@@ -131,7 +133,7 @@
 <div class="uploadProductImage" style="">
   {{#each data.images}}
     {{#if this}}
-      <div style="">
+      <div style=";">
         <img src="{{this.productUrl}}" alt="Product Image" width="70%" height="50%">
         <div>
           Delete: <input type="checkbox" name="deleteImage" value="{{this.productPublicId}}">
