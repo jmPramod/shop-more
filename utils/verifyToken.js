@@ -21,10 +21,7 @@ const verifyToken = (req, res, next) => {
 
         return next(createError(401, 'Token is not Valid'));
       }
-      console.log(
 
-        "user_info", user
-      );
       req.user_info = user;
       next();
     });

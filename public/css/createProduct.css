@@ -27,6 +27,89 @@
   background-color: lightblue;
   display: flex;
 }
+
+@media (0<width<700px) {
+  .formContainer > div > div {
+    flex-direction: column;
+    width: 95%;
+    margin: 0 auto;
+  }
+}
+.CreateProductImage {
+  display: flex;
+  justify-content: space-between;
+}
+@media (0<width<700px) {
+  .CreateProductImage {
+    flex-direction: column;
+  }
+}
+.uploadProductImage {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.uploadProductImage > div {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 15%;
+  gap: 5px;
+}
+.thumbPoductImg {
+  width: 50%;
+  height: 50%;
+}
+.thumbPoductImgContainer {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 5px;
+}
+.ThumbProdContiner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.ThumbProdContinerPArent {
+  justify-content: space-between;
+  flex-direction: column;
+}
+.thumbnail1 {
+  background: white;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 6px;
+  cursor: pointer;
+}
+@media (0<width<700px) {
+  .uploadProductImage {
+    flex-direction: column;
+  }
+  .uploadProductImage > div {
+    width: 100%;
+  }
+  .thumbPoductImg {
+    width: 100%;
+    height: 100%;
+  }
+  .thumbPoductImgContainer {
+    width: 60%;
+  }
+
+  .ThumbProdContiner {
+    flex-direction: flex-start;
+  }
+
+  .ThumbProdContinerPArent {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+}
+
 .formContainer > h1 {
   text-align: center;
   width: 100%;

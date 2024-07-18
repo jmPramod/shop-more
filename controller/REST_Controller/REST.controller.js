@@ -89,7 +89,6 @@ const resetPasswordController = async (req, res, next) => {
       _id: userExist._id,
     };
     const { resetLink } = await forgotPasswordResetLink(payload);
-    console.log("resetLink", resetLink);
     res.status(200).json({
       message: 'reset link sent successfully',
       data: null,
@@ -119,7 +118,6 @@ const putResetPasswordFromGmail = async (req, res, next) => {
   try {
     const { id, token } = req.params;
     const payload = jwt.verify(token, process.env.SECRET_KEY);
-    console.log("payload", payload);
     if (!payload) {
       return next(createError(404, 'invalid URL')); //user does not exist in database
     }
@@ -186,8 +184,7 @@ const profileUpdateController = async (req, res, next) => {
 
       }
 
-    } console.log("req.body", req.body)
-
+    }
     const userToUpdate = await SignUp.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     res.status(200).json({
       message: 'User update Successfully.',

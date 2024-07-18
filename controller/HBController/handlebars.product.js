@@ -82,7 +82,6 @@ const getProductListHB = async (req, res, next) => {
             res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true });
         }
     } catch (error) {
-        console.log("error", error);
         req.flash('Error_msg', error);
     }
 };
@@ -131,7 +130,6 @@ const editProductGetHB = async (req, res, next) => {
     try {
         const id = req.params.id
         const data = await productsSchema.findById(id).lean()
-        console.log("data", data);
         res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css" });
 
 
@@ -162,7 +160,6 @@ const editProductPostHB = async (req, res, next) => {
         let existingImages = data.images || []; // Get existing images or initialize as empty array
 
 
-        console.log("req.body.deleteImage", req.body.deleteImage);
 
 
         // Check if there are images to delete
@@ -172,13 +169,10 @@ const editProductPostHB = async (req, res, next) => {
             // Loop through images to delete
             for (let publicId of imagesToDelete) {
                 // Example of deleting image from Cloudinary
-                console.log("publicId", publicId)
                 let res = await cloudinaryImage.uploader.destroy(publicId);
-                console.log("res", res)
                 // Remove the image from the images array in the database
                 existingImages = data.images.filter(image => image.productPublicId !== publicId);
 
-                console.log("existingImages", existingImages);
             }
         }
 

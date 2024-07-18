@@ -122,16 +122,16 @@
           />
         </div>
        <div style="flex-direction: column; gap: 5px;">
-       <div style="display:flex; justify-content: space-between;">
+       <div class="CreateProductImage" style="">
 
         <h3>Images</h3>
       <label for="ProductImage" style="border: 1px solid black; display: flex;align-items: center;justify-content: center; border-radius: 5px; background-color: white; font-size: 15px; cursor: pointer;padding:4px ;">Add Image <input type="file"  name='image' id="ProductImage"  onchange="previewImages(event)" style="display: none;" multiple></label h>
        </div>
 
-<div style="width: 100%; display: flex; gap: 10px; flex-wrap: wrap;">
+<div class="uploadProductImage" style="">
   {{#each data.images}}
     {{#if this}}
-      <div style="display: flex; flex-direction: column; width: 15%; gap: 5px;">
+      <div style="">
         <img src="{{this.productUrl}}" alt="Product Image" width="70%" height="50%">
         <div>
           Delete: <input type="checkbox" name="deleteImage" value="{{this.productPublicId}}">
@@ -149,20 +149,20 @@
        
 
 
-        <div style="justify-content: space-between; flex-direction: column;">
-          <div style="display: flex; justify-content: space-between; width: 100%;">
+        <div class="ThumbProdContinerPArent">
+          <div class="ThumbProdContiner" style="">
           <label for='thumbnail'>Thumbnail</label>
 
-<label for="thumbnail1"  style=" border: 1px solid black; padding:3px ;display: flex; align-items: center;justify-content: center;border-radius: 5px;background-color: white; font-size: 15px; cursor: pointer"
+<label class="thumbnail1" for="thumbnail1"  
        >
        Change
 </label>
           </div>
          
-           <div style="display: flex; flex-direction: column ; width: 30%;gap: 5px;">
+           <div class="thumbPoductImgContainer" style="">
 
 
-            <img src="{{data.thumbnail.imageUrl}}" alt="Product Image" width="50%" height="50%" id="DisplayProductThumbnailImage">
+            <img src="{{data.thumbnail.imageUrl}}" class="thumbPoductImg" alt="Product Image"  id="DisplayProductThumbnailImage">
           
            <input type="file"   id='thumbnail1'
             name='thumbnailImg'

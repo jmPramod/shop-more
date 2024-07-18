@@ -23,7 +23,6 @@ const homeController = async (req, res) => {
 const userFetchController = async (req, res, next) => {
   try {
     let fetchedUser = await SignUp.find({});
-    console.log("fetchedUser", fetchedUser);
     res.status(200).json({ fetchedUser });
   } catch (err) {
 
@@ -106,7 +105,6 @@ const loginUserPost = async (req, res, next) => {
 
     userExist.image = await cloudinaryImage.url(userExist.image)
     req.session.user_info = userExist
-    console.log("pk", userExist);
     res.cookie("user", JSON.stringify(userExist));
 
     return res.redirect("/home")
@@ -133,7 +131,6 @@ const allUserGet = async (req, res, next) => {
   try {
 
     let AllUserData = await SignUp.find({}).lean();
-    console.log("AllUserData ", AllUserData);
     // await AllUserData.map(async (val) => {
     //   if (val.images.length === 20) {
     //     val.image = await cloudinaryImage.url(val.image)
@@ -175,7 +172,6 @@ const editProfilePost = async (req, res, next) => {
 
 
     }
-    console.log("req.body", req.body);
     const oldData = await SignUp.findOne({ _id: req.params.id }).lean();
 
     if (req.files && req.files.length > 0) {

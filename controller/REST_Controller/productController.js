@@ -230,10 +230,8 @@ const updateProducts = async (req, res, next) => {
 
 const manupulateDB = async (req, res, next) => {
   try {
-    console.log("start");
     const documents = await productsSchema.updateMany({}, { $set: { images: [] } })
 
-    console.log("end");
   } catch (error) {
     console.log("err", error);
   }
