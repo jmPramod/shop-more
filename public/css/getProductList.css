@@ -15,7 +15,7 @@
 }
 
 .tableBodyContianer > tr > td > img {
-  max-width: 65px;
+  max-width: 150px;
   padding: 10px;
 }
 
@@ -48,5 +48,9 @@
   }
   .tableBodyContianer > tr > td {
     width: 10%;
+  }
+  .tableBodyContianer > tr > td > img {
+    max-width: 65px;
+    padding: 10px;
   }
 }
