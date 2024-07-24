@@ -54,7 +54,7 @@ export default function page() {
   }, [afterDelete, dispatch, user]);
   useEffect(() => {
     // console.log('user123', Object.keys(user).length);
-    if (Object.keys(user).length <= 0) {
+    if (Object?.keys(user).length <= 0) {
       setLoginModel(true);
     } else {
       setLoginModel(false);
