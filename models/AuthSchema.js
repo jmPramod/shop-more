@@ -10,7 +10,7 @@ const SignUpSchema = new mongoose.Schema(
     role: { type: String, default: 'user', enum: ['user', 'admin', 'Super-Admin'] },
     images:
     {
-      imageUrl: { type: String, default: "https://res.cloudinary.com/dtvq8ysaj/image/upload/v1711554275/profileImage_l8dleh.png" },
+      imageUrl: { type: String, default: "https://res.cloudinary.com/dtvq8ysaj/image/upload/v1720770108/Global%20Images/profile_new-removebg-preview_motz7n.png" },
       imgPublicId: { type: String, default: null }
     }
     ,

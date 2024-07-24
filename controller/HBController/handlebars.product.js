@@ -13,37 +13,51 @@ const CreateProductHB = async (req, res, next) => {
 
 
         }
-        const {
-            id,
-            title,
-            description,
-            price,
-            discountPercentage,
-            rating,
-            stock,
-            brand,
-            category,
-            thumbnail,
-            images,
-        } = req.body;
-
-        let error = [];
-        // let newProduct = await new productsSchema({
-        //     title,
-        //     id,
-        //     description,
-        //     price,
-        //     discountPercentage,
-        //     rating,
-        //     stock,
-        //     brand,
-        //     category,
-        //     thumbnail,
-        //     images,
-        // }).save();
 
 
-        // let productList = await productsSchema.find().lean();
+        let existingImages = data.images || []; // Get existing images or initialize as empty array
+
+        if (req.files) {
+            for (let i = 0; i < req.files.length; i++) {
+                if (req.files[i].fieldname === 'thumbnailImg') {
+
+                    const urlPath = req.files[i].path
+                    const q = urlPath.split(".")[2].split("/")
+                    const PublicID = q[q.length - 2].concat("/", q[q.length - 1])
+                    req.body.thumbnail = req.body.thumbnail || {};
+                    req.body.thumbnail.imageUrl = urlPath
+                    req.body.thumbnail.imgPublicId = PublicID
+                    if (data.thumbnail.imgPublicId) {
+                        await cloudinaryImage.uploader.destroy(data.thumbnail.imgPublicId, (error, result) => {
+                            if (error) {
+                                console.error('Error deleting thumbnail image:', error);
+                            } else {
+                                console.log('Deleted thumbnail image:', result);
+                            }
+                        });
+                    }
+                }
+
+                else {
+                    const urlPath = req.files[i].path
+                    const q = urlPath.split(".")[2].split("/")
+                    const PublicID = q[q.length - 2].concat("/", q[q.length - 1])
+
+                    existingImages.push({
+                        productUrl: urlPath,
+                        productPublicId: PublicID
+                    });
+                }
+
+            }
+        }
+
+        req.body.images = existingImages;
+
+        let newProducts = await new productsSchema(req.body).save();
+
+
+        let newProduct = await productsSchema.find().lean();
 
         res.render('products/getProductList', { newProduct, style: "getProductList.css" });
 
