@@ -3,9 +3,6 @@ import CartCard from './CartCard';
 
 const CartList = (props: any) => {
   const { cartList, afterDelete, setAfterDelete } = props;
-  useEffect(() => {
-    console.log('cartList', props.cartList);
-  }, [props.cartList]);
 
   return (
     <div className="w-full md:w-[66.66%] h-full  overflow-auto p-5 ">

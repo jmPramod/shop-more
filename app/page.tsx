@@ -5,6 +5,7 @@ import { checkLocalStorageUser, userAction } from './redux/slice/loginSlice';
 import { useEffect } from 'react';
 import { AppDispatch, useAppSelector } from './redux/store';
 import Home from './(pages)/Home';
+
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
 

@@ -85,15 +85,11 @@ export const registerUser = async (payload: any) => {
 };
 export const resetPassword = async (payload: any) => {
   try {
-    console.log('payload', payload);
+  
     const response = await axios.post(
-      ` http://localhost:5900/api/forget-password`,
+      `${baseUrl}/api/forget-password`,
       payload
     );
-    // const response = await axios.post(
-    //   `${baseUrl}/api/forget-password`,
-    //   payload
-    // );
     return {
       message: response.data.message,
       data: response.data.data,
@@ -237,7 +233,7 @@ export const EnterResetPasssword = async (
 ) => {
   try {
     const response = await axios.post(
-      `http://localhost:5900/api/reset-password/${id}/${token}`,
+    `${baseUrl}/api/reset-password/${id}/${token}`,
       payload
     );
     return {

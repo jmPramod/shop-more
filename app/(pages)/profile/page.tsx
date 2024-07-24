@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSlice, userAction } from '../../../app/redux/slice/loginSlice';
 
 import * as Yup from 'yup';
-import { LoginModel } from './../../components/loginModel/LoginModel';
+// import { LoginModel } from './../../components/loginModel/LoginModel';
 import { AppDispatch } from '../../../app/redux/store';
 import { checkLocalStorageUser } from '../../../app/redux/slice/loginSlice';
 import axios from 'axios';
@@ -32,7 +32,7 @@ const page = () => {
     }
   }, [products]);
   useEffect(() => {
-    checkLocalStorageUser()
+    checkLocalStorageUser();
   }, []); // Make sure to include dispatch in the dependency array
 
   const initialValuesForRegister = {
@@ -85,7 +85,7 @@ const page = () => {
   return (
     <>
       {checkLogin ? (
-        <LoginModel />
+        <>{/* <LoginModel /> */}</>
       ) : (
         <div className="w-full h-full mt-[77px] items-center flex justify-center flex-col gap-4">
           <div className="flex w-full flex-col md:flex-row justify-center py-10 items-center bg-white gap-3">

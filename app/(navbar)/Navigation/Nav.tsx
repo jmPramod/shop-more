@@ -197,8 +197,8 @@ const Nav = (props: PropsType) => {
         {/* nav link */}
         <ul className="hidden md:flex items-center  justify-center space-x-2">
           <li className="flex text-sm sm:text-xl font-medium flex-wrap p-1 m-1 hover:text-red-600 border px-2 hover:border-red-600">
-            <Link href={'/order'} className="flex gap-1  items-center ">
-              <BsCart4 /> cart{' '}
+            <Link href={'/cart'} className="flex gap-1  items-center ">
+              <BsCart4 /> Cart{' '}
               <sup className="text-yellow-400  p-1 font-bold">
                 {products.cartList}
               </sup>

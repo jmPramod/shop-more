@@ -66,4 +66,7 @@
   body {
     @apply bg-background text-foreground;
   }
+  .react-multiple-carousel__arrow {
+    z-index: 5 !important;
+  }
 }

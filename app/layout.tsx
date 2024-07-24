@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { Barlow_Condensed } from 'next/font/google';
 import './globals.css';
 import ResponsiveNav from './(navbar)/Navigation/ResponsiveNav';
 import { ReduxProvider } from './redux/provider';
+
+import Loading from './loading';
 const Barlow = Barlow_Condensed({
   weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
@@ -37,14 +40,13 @@ export default function RootLayout({
       <body className={Barlow.className}>
         {/*  redux wrapper start */}
         <ReduxProvider>
-          <div className="fixed z-40 w-full top-0">
+          <div className="fixed z-[2000] w-full top-0 ">
             <ResponsiveNav />
           </div>
-          <div className="">{children}</div>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </ReduxProvider>
         {/*  redux wrapper end */}
       </body>
     </html>
   );
 }
-
