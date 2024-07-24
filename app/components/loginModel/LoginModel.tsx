@@ -179,7 +179,7 @@ const LoginModel = (props: any) => {
                     Loading...
                   </button>
                 )}
-
+                {/* 
                 <span
                   className="text-sm ml-2 hover:text-blue-500 cursor-pointer"
                   onClick={() => {
@@ -187,7 +187,7 @@ const LoginModel = (props: any) => {
                   }}
                 >
                   Forgot Password ?
-                </span>
+                </span> */}
               </Form>
             </Formik>
 
