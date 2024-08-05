@@ -23,7 +23,7 @@ const page = (props: any) => {
   const box: any = useRef();
 
   const handleSubmitForgot = async (values: any) => {
-    console.log(values);
+
 
     const payload = {
       password: values.password,
@@ -83,10 +83,7 @@ const page = (props: any) => {
     });
   });
 
-  // useEffect(() => {
-  //   console.log('params', params);
-  // }, [params]);
-  return (
+    return (
     <div
       className="w-full  flex items-center justify-center bg-gray-300"
       style={{ height: ' calc(100vh - 70px)' }}

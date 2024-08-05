@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import ProductImageSlider from './ProductImageSlider';
 import {
   AddToCart,
+  filterProducts,
   getSingleProducts,
   profileUpdate,
 } from './../../../../services/Api.Servicer';
@@ -22,12 +23,13 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import Login from '../../../../app/(auth)/login/page';
 import LoginModel from './../../../components/loginModel/LoginModel';
+import ProductCard from '../../PopularProduct/PopularCard';
 const SingleProduct = ({ params }: { params: { id: string } }) => {
   const [productData, setProductData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState('');
   const [showLogin, setShowLogin] = useState(false);
-
+  const [productByCategory, setProductByCategory] = useState<any>(null);
   const router = useRouter();
   const [goToCart, setGoToCart] = useState(false);
   const user = useAppSelector((state) => state.userList.user);
@@ -79,15 +81,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
     }
     setButtonLoading('');
   };
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem('User');
-
-  //   if (storedUser) {
-  //     console.log('storedUser', storedUser);
-  //     dispatch(userAction.setUser(JSON.parse(storedUser)));
-  //   }
-  // }, [dispatch]); // Make sure to include dispatch in the dependency array
-
+ 
   useEffect(() => {
     if (user?.cartAdded && user?.cartAdded.length > 0) {
       let pk = user?.cartAdded.includes(params?.id);
@@ -97,16 +91,27 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
     const fetchSingleProduct = async () => {
       if (params?.id) {
         let responce = await getSingleProducts(params?.id);
+        if (responce?.statusCode === 200) {
+          setProductData(responce?.data);
 
-        setProductData(responce?.data);
+          let response2 = await filterProducts(
+            '',
+            '',
+            `${responce?.data?.category}`,
+            '',
+            '',
+            ''
+          );
+          if (response2?.statusCode === 200) {
+            setProductByCategory(response2?.data);
+          }
+        }
       }
       setLoading(false);
     };
     fetchSingleProduct();
   }, [params?.id, user]);
-  useEffect(() => {
-    console.log('user', user);
-  }, [user]);
+
   return (
     <div className="relative">
       <div className=" w-full flex   gap-5  mt-[80px] items-center justify-center flex-col md:flex-row">
@@ -202,6 +207,11 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
           </div>
         )}
       </div>
+      <ProductCard
+        data={productByCategory}
+        title="Related Product"
+        loading={loading}
+      />
       <>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <Footer />

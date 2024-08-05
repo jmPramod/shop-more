@@ -70,7 +70,6 @@ const page = () => {
               value={initVal.min}
               onChange={(e) => {
                 e.preventDefault();
-                console.log('val', e.target.value);
                 setInitVal({...initVal,min:parseInt(e.target.value)})
               }}
               className="border w-1/2 p-1"

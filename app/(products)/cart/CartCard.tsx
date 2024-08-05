@@ -1,9 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import { AppDispatch, useAppSelector } from '../../redux/store';
 
-import { RemoveFromCart } from '../../../services/Api.Servicer';
+import { useDispatch } from 'react-redux';
+import { GetCartList, RemoveFromCart } from '../../../services/Api.Servicer';
+import { userAction } from '@/app/redux/slice/loginSlice';
 const CartCard = (props: any) => {
-  const { val, setAfterDelete ,afterDelete} = props;
+  const { val, setCartList } = props;
+  
+  const dispatch = useDispatch<AppDispatch>();
   const removeCart = async (id: any) => {
     let User: any = localStorage.getItem('User');
     if (User) {
@@ -14,10 +19,12 @@ const CartCard = (props: any) => {
         productId: id,
       };
       const res = await RemoveFromCart(payload);
-if(res&&res.statusCode===200){
-  setAfterDelete(!afterDelete)
-}
-      console.log('response', res);
+      if (res && res.statusCode === 200) {
+        const response = await GetCartList(User._id);
+        setCartList(response?.data?.cartAdded);
+        dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
+      }
+    
     }
   };
   return (

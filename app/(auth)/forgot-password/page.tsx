@@ -26,7 +26,7 @@ const Login = () => {
     setLoadingButton(true);
     const payload = { email: values.email };
     let resetLink = await resetPassword(payload);
-    console.log('resetLink', resetLink);
+ 
     if(resetLink&&resetLink.statusCode===200){
       setErrorMsg(`A Reset link is sent to your email.`)
     }else{

@@ -72,8 +72,7 @@ const Nav = (props: PropsType) => {
     ) {
       fetchCart();
     }
-    console.log('products', products);
-  }, [dispatch, products]);
+  }, [dispatch,products.user]);
 
   useEffect(() => {
     setShowProfile(false);
@@ -82,7 +81,6 @@ const Nav = (props: PropsType) => {
     const storedUser = localStorage.getItem('User');
 
     if (storedUser) {
-      console.log('storedUser', storedUser);
       dispatch(userAction.setUser(JSON.parse(storedUser)));
     }
   }, [dispatch]);
@@ -103,7 +101,7 @@ const Nav = (props: PropsType) => {
             <input
               type="text"
               placeholder="Search Items..."
-              className="outline-none flex p-1 w-full   px-1  border-none  text-black"
+              className="outline-none flex w-full  p-1  border-none  text-black"
               onChange={(e) => {
                 onSearchClick(e);
               }}
@@ -111,10 +109,10 @@ const Nav = (props: PropsType) => {
             />
             <button
               style={{ marginTop: '0px', marginBottom: '0px' }}
-              className="w-[25px] mt-0 mb-0 p-1"
+              className="w-[35px] flex items-center justify-center "
               // onClick={() => onSearchClick()}
             >
-              <FaSearch />
+              <FaSearch className="" size={20} />
             </button>
           </div>
           {searchResult && (

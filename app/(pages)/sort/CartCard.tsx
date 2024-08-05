@@ -17,7 +17,6 @@ const CartCard = (props: any) => {
 if(res&&res.statusCode===200){
   setAfterDelete(!afterDelete)
 }
-      console.log('response', res);
     }
   };
   return (

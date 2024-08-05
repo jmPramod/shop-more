@@ -10,7 +10,7 @@ const Summary = (props: any) => {
         tot = tot + val.price;
       });
       setTotal(tot);
-      console.log('res', tot);
+  
     }
   }, [cartList]);
   return (

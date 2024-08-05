@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 
@@ -16,10 +17,11 @@ import LoginModel from './../../components/loginModel/LoginModel';
 import Loading from './loading';
 export default function page() {
   const [cartList, setCartList] = useState<any>();
-  const [afterDelete, setAfterDelete] = useState(false);
+
   const dispatch = useDispatch<AppDispatch>();
   const [loginModel, setLoginModel] = useState(false);
   const user = useAppSelector((state) => state.userList.user);
+  const [cartLoading, setLoading] = useState(true);
   // const [loding];
 
   useEffect(() => {
@@ -27,20 +29,17 @@ export default function page() {
     const storedUser = localStorage.getItem('User');
 
     if (storedUser) {
-      console.log('storedUser', storedUser);
       dispatch(userAction.setUser(JSON.parse(storedUser)));
     }
-  }, [dispatch]); // Make sure to include dispatch in the dependency array
+  }, []); // Make sure to include dispatch in the dependency array
 
   useEffect(() => {
     const fetchCart = async () => {
-      let response2 = await profileUpdate({}, User._id);
-      if (response2 && response2.statusCode === 200) {
-        dispatch(userAction.setUser(response2?.data));
-        localStorage.setItem('User', JSON.stringify(response2?.data));
+      if (User && User._id) {
+        const response = await GetCartList(User._id);
+      
+        setCartList(response?.data?.cartAdded);
       }
-      const response = await GetCartList(User._id);
-      setCartList(response?.data?.cartAdded);
     };
 
     let User: any = localStorage.getItem('User');
@@ -51,15 +50,21 @@ export default function page() {
     if (User && User?._id) {
       fetchCart();
     }
-  }, [afterDelete, dispatch, user]);
+    setLoading(false);
+  }, [loginModel]);
   useEffect(() => {
-    // console.log('user123', Object.keys(user).length);
-    if (Object?.keys(user).length <= 0) {
+
+    if (user === null || (user && Object?.keys(user).length <= 0)) {
+
+
       setLoginModel(true);
     } else {
       setLoginModel(false);
     }
   }, [user, loginModel]);
+  useEffect(() => {
+
+  }, [loginModel]);
   return (
     <>
       <Suspense fallback={'loading.....'}>
@@ -71,8 +76,8 @@ export default function page() {
           <div className="flex mt-20  flex-col md:flex-row">
             <CartList
               cartList={cartList && cartList}
-              setAfterDelete={setAfterDelete}
-              afterDelete={afterDelete}
+              cartLoading={cartLoading}
+              setCartList={setCartList}
             />
             <Summary cartList={cartList && cartList} />
           </div>
