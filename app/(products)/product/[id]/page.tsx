@@ -81,7 +81,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
     }
     setButtonLoading('');
   };
- 
+
   useEffect(() => {
     if (user?.cartAdded && user?.cartAdded.length > 0) {
       let pk = user?.cartAdded.includes(params?.id);
@@ -103,7 +103,8 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
             ''
           );
           if (response2?.statusCode === 200) {
-            setProductByCategory(response2?.data);
+            let fetchData=response2?.data.filter((e: any) => e._id !== params?.id);
+            setProductByCategory(fetchData);
           }
         }
       }
