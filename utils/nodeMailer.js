@@ -141,7 +141,7 @@ const forgotPasswordResetLink = async (payload) => {
           <tbody>
             <tr>
               <td
-                align="center"
+                al  ign="center"
                 class="vervelogoplaceholder"
                 height="143"
                 style="
@@ -446,10 +446,10 @@ const forgotPasswordResetLink = async (payload) => {
                   >
                     or email
                     <a
-                      href="mailto:hello@vervewine.com"
+                      href="mailto:pramodjm4@gmail.com"
                       style="color: #a1a8ad; text-decoration: underline"
                       target="_blank"
-                      >hello@vervewine.com</a
+                      >pramodjm4@gmail.com</a
                     >
                   </p>
 
@@ -467,7 +467,7 @@ const forgotPasswordResetLink = async (payload) => {
                       line-height: 23px;
                     "
                   >
-                    © Verve Wine
+                    © Shop More
                     <span style="white-space: nowrap">24 ​Hubert S​t​</span>,
                     <span style="white-space: nowrap">Ne​w Yor​k,</span>
                     <span style="white-space: nowrap">N​Y 1​0013</span>

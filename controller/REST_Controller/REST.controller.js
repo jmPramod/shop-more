@@ -88,7 +88,9 @@ const resetPasswordController = async (req, res, next) => {
       email: userExist.email,
       _id: userExist._id,
     };
-    const { resetLink } = await forgotPasswordResetLink(payload);
+    const resetLink = await forgotPasswordResetLink(payload);
+    console.log("resetLink", resetLink);
+
     res.status(200).json({
       message: 'reset link sent successfully',
       data: null,
