@@ -16,7 +16,6 @@ export default function HomePage() {
     const storedUser = localStorage.getItem('User');
 
     if (storedUser) {
-      console.log('storedUser', storedUser);
       dispatch(userAction.setUser(JSON.parse(storedUser)));
     }
   }, [dispatch]); // Make sure to include dispatch in the dependency array
