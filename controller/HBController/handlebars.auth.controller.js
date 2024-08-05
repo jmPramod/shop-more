@@ -33,9 +33,7 @@ const userFetchController = async (req, res, next) => {
 const editUserControllerPost = async (req, res, next) => {
   try {
 
-    if (req.params.id === "668df0fcf7c96d0b6992fe2b") {
-      console.log("user test")
-    }
+   
     const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id }, { role: req.body.role });
 
     let AllUserData = await SignUp.find({}).lean();

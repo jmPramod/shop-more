@@ -89,8 +89,7 @@ const resetPasswordController = async (req, res, next) => {
       _id: userExist._id,
     };
     const resetLink = await forgotPasswordResetLink(payload);
-    console.log("resetLink", resetLink);
-
+    
     res.status(200).json({
       message: 'reset link sent successfully',
       data: null,
@@ -141,7 +140,6 @@ const putResetPasswordFromGmail = async (req, res, next) => {
       statusCode: 200,
     });
   } catch (err) {
-    console.log("err,err", err)
     next(err);
   }
 };
@@ -195,7 +193,6 @@ const profileUpdateController = async (req, res, next) => {
     });
 
   } catch (error) {
-    console.log("error", error);
     next(error)
   }
 }

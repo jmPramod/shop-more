@@ -226,29 +226,10 @@ const editProductPostHB = async (req, res, next) => {
             }
         }
 
-        // if (req.files && req.files.length > 0) {
-        //     // console.log("file123", req.files);
-
-        //     for (let file of req.files) {
-        //         if (file.fieldname != "thumbnailImg") {
-
-        //             // Upload image to Cloudinary
-        //             const result = await cloudinaryImage.uploader.upload(file.path);
-
-        //             // Push uploaded image details to images array
-        //             existingImages.push({
-        //                 productUrl: result.secure_url,
-        //                 productPublicId: result.public_id
-        //             });
-        //         }
-
-        //     }
-        // }
 
         req.body.images = existingImages;
 
 
-        // console.log("req.body.img", req.body);
         const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true });
 
         let productList = await productsSchema.find().lean();
