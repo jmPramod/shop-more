@@ -24,9 +24,7 @@ const forgotPasswordResetLink = async (payload) => {
     to: [payload.email], // list of receivers
     subject: 'Forgot Your Password? Reset Here ', // Subject line
     text: `Hello user you had requested for reset password , this link will expire in 10 min `, // plain text body
-    html: `
-    
-    <!DOCTYPE html>
+    html: `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -40,6 +38,13 @@ const forgotPasswordResetLink = async (payload) => {
     <!--<![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <!--[if !mso]><!-->
     <style type="text/css">
       @font-face {
@@ -105,9 +110,9 @@ const forgotPasswordResetLink = async (payload) => {
     "
   >
     <!--[if gte mso 9]>
-  <center>
-  <table width="600" cellpadding="0" cellspacing="0"><tr><td valign="top">
-  <![endif]-->
+<center>
+<table width="600" cellpadding="0" cellspacing="0"><tr><td valign="top">
+<![endif]-->
     <center
       style="
         width: 100%;
@@ -141,7 +146,8 @@ const forgotPasswordResetLink = async (payload) => {
           <tbody>
             <tr>
               <td
-                al  ign="center"
+                al
+                ign="center"
                 class="vervelogoplaceholder"
                 height="143"
                 style="
@@ -157,8 +163,8 @@ const forgotPasswordResetLink = async (payload) => {
                 <span
                   class="sg-image"
                   data-imagelibrary="%7B%22width%22%3A%22160%22%2C%22height%22%3A34%2C%22alt_text%22%3A%22Verve%20Wine%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/79d8f4f889362f0c7effb2c26e08814bb12f5eb31c053021ada3463c7b35de6fb261440fc89fa804edbd11242076a81c8f0a9daa443273da5cb09c1a4739499f.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"
-                  ><a href="#" target="_blank"
-                    ><img
+                  ><a href="#" target="_blank">
+                    <!-- <img
                       alt="Verve Wine"
                       height="34"
                       src="https://res.cloudinary.com/dtvq8ysaj/image/upload/v1721155503/Global%20Images/logo1_on8vn4.png"
@@ -167,8 +173,10 @@ const forgotPasswordResetLink = async (payload) => {
                         height: 56px;
                         border-radius: 5px;
                       "
-                      width="160" /></a
-                ></span>
+                      width="160" />
+                       -->
+                  </a></span
+                >
               </td>
             </tr>
             <!-- Start of Email Body-->
@@ -184,12 +192,12 @@ const forgotPasswordResetLink = async (payload) => {
                 "
               >
                 <!--[if gte mso 9]>
-                      <center>
-                      <table width="80%" cellpadding="20" cellspacing="30"><tr><td valign="top">
-                      <![endif]-->
+                  <center>
+                  <table width="80%" cellpadding="20" cellspacing="30"><tr><td valign="top">
+                  <![endif]-->
                 <table style="border-spacing: 0" width="100%">
                   <tbody>
-                    <tr>
+                    <tr style="">
                       <td
                         align="center"
                         class="inner"
@@ -198,9 +206,30 @@ const forgotPasswordResetLink = async (payload) => {
                           padding-bottom: 15px;
                           padding-right: 30px;
                           padding-left: 30px;
+
+                          position: relative;
                         "
                         valign="middle"
                       >
+                        <h1
+                          style="
+                            margin: 0;
+                            text-align: left;
+                            font-family: 'flama-condensed', 'Arial Narrow',
+                              Arial;
+                            font-weight: 100;
+                            font-size: 20px;
+                            margin-bottom: 26px;
+                            position: absolute;
+                            top: 10px;
+                            border: 1px solid;
+                            padding: 5px;
+                            border-radius: 4px;
+                          "
+                        >
+                          <i class="fab fa-battle-net" style="color: gold"></i>
+                          Shop More
+                        </h1>
                         <span
                           class="sg-image"
                           data-imagelibrary="%7B%22width%22%3A%22255%22%2C%22height%22%3A93%2C%22alt_text%22%3A%22Forgot%20Password%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/35c763626fdef42b2197c1ef7f6a199115df7ff779f7c2d839bd5c6a8c2a6375e92a28a01737e4d72f42defcac337682878bf6b71a5403d2ff9dd39d431201db.png%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"
@@ -278,7 +307,7 @@ const forgotPasswordResetLink = async (payload) => {
                           [endif]--><span
                             class="sg-image"
                             data-imagelibrary="%7B%22width%22%3A%22260%22%2C%22height%22%3A54%2C%22alt_text%22%3A%22Reset%20your%20Password%22%2C%22alignment%22%3A%22%22%2C%22border%22%3A0%2C%22src%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/c1e9ad698cfb27be42ce2421c7d56cb405ef63eaa78c1db77cd79e02742dd1f35a277fc3e0dcad676976e72f02942b7c1709d933a77eacb048c92be49b0ec6f3.png%22%2C%22link%22%3A%22%23%22%2C%22classes%22%3A%7B%22sg-image%22%3A1%7D%7D"
-                            ><a href='${resetLink}' target="_blank"
+                            ><a href="${resetLink}" target="_blank"
                               ><img
                                 alt="Reset your Password"
                                 height="54"
@@ -299,9 +328,9 @@ const forgotPasswordResetLink = async (payload) => {
                   </tbody>
                 </table>
                 <!--[if (gte mso 9)|(IE)]>
-                      </td></tr></table>
-                      </center>
-                      <![endif]-->
+                  </td></tr></table>
+                  </center>
+                  <![endif]-->
               </td>
             </tr>
             <!-- End of Email Body-->
@@ -426,7 +455,7 @@ const forgotPasswordResetLink = async (payload) => {
                         style="color: #a1a8ad; text-decoration: none"
                         target="_blank"
                         ><span style="white-space: nowrap"
-                          >212.810.2899</span
+                          >+91 9902400054</span
                         ></a
                       ></nobr
                     >
@@ -468,9 +497,9 @@ const forgotPasswordResetLink = async (payload) => {
                     "
                   >
                     © Shop More
-                    <span style="white-space: nowrap">24 ​Hubert S​t​</span>,
-                    <span style="white-space: nowrap">Ne​w Yor​k,</span>
-                    <span style="white-space: nowrap">N​Y 1​0013</span>
+                    <span style="white-space: nowrap">Banglore​</span>,
+                    <span style="white-space: nowrap">Karnataka,</span>
+                    <span style="white-space: nowrap">577202</span>
                   </p>
                 </center>
               </td>
@@ -490,13 +519,12 @@ const forgotPasswordResetLink = async (payload) => {
       </div>
     </center>
     <!--[if gte mso 9]>
-  </td></tr></table>
-  </center>
-  <![endif]-->
+</td></tr></table>
+</center>
+<![endif]-->
   </body>
 </html>
-
-    `, // html body
+`, // html body
   };
   try {
     transporter.sendMail(mailOption);
