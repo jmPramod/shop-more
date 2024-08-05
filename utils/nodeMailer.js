@@ -222,7 +222,6 @@ const forgotPasswordResetLink = async (payload) => {
                             margin-bottom: 26px;
                             position: absolute;
                             top: 10px;
-                            border: 1px solid;
                             padding: 5px;
                             border-radius: 4px;
                           "
