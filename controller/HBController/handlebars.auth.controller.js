@@ -2,18 +2,46 @@ const SignUp = require("../../models/AuthSchema");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const bcrypt = require("bcryptjs");
+const productsSchema = require("../../models/ProductSchema");
+
 const cloudinaryImage = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 const homeController = async (req, res) => {
 
   // req.flash('Loading', '');
   const token = req.cookies.access_token;
-  if (!token) {
+  // const productDetails = await productsSchema.aggregate([
+  //   {
+  //     "$group": {
+  //       "_id": "$category",
+  //       "product": { "$first": "$$ROOT" }
+  //     }
+  //   },
+  //   { "$replaceRoot": { "newRoot": "$product" } }
+  // ])
+  const cat = await productsSchema.distinct("category")
 
+  const cat2 = await productsSchema.aggregate([
+
+    { $group: { _id: "$category", count: { $sum: 1 } } }
+  ])
+  console.log(cat2);
+  const xValues = []
+  const yValues = []
+
+  cat2.forEach((e) => xValues.push(e._id))
+
+  cat2.forEach((e) => yValues.push(e.count))
+  // let yValues = cat2.forEach((e) => e.count);
+  console.log(xValues, yValues.push(0));
+
+  const
+    barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
+  if (!token) {
     req.flash('Error_msg', "Please Login for Home Page.");
 
   } else {
-    return res.render("home", { style: "home.css", showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+    return res.render("home", { xValues, yValues, barColors, style: "home.css", showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 
   }
   return res.render("users/loginUser", { style: "login.css" });
@@ -33,7 +61,7 @@ const userFetchController = async (req, res, next) => {
 const editUserControllerPost = async (req, res, next) => {
   try {
 
-   
+
     const userExist = await SignUp.findOneAndUpdate({ _id: req.params.id }, { role: req.body.role });
 
     let AllUserData = await SignUp.find({}).lean();
@@ -57,6 +85,23 @@ const loginUserGet = async (req, res) => {
   const token = req.cookies.access_token;
 
   if (token) {
+
+    const xValues = ["home-decoration", "laptops", "smartphones", "skincare", "fragrances", "groceries"];
+    const yValues = [55, 49, 44, 24, 15, 6];
+    const barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
+
+
+    new Chart("myChart", {
+      type: "bar", data: {
+        labels: xValues, datasets: [{ backgroundColor: barColors, data: yValues }]
+      },
+      options: {
+        legend: { display: false }, title: {
+          display: true, text: `Product based on Category`
+        }
+      }
+    });
+
     return res.render("home", { token, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
   } else {
     return res.render("users/loginUser", { style: "login.css" });

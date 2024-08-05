@@ -4,7 +4,9 @@ const flash = require('connect-flash');
 var cors = require('cors');
 const cookies = require('cookie-parser');
 const swaggerUI = require("swagger-ui-express")
-const { engine } = require('express-handlebars');
+const hbs = require('express-handlebars');
+
+const exphbs = require('express-handlebars');
 const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
 
 require('dotenv').config(); //to import dot env file in index.js
@@ -29,7 +31,15 @@ const createServer = () => {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use(sessionOption);
-    app.engine('handlebars', engine());
+    // Set up Handlebars with custom helpers
+    const hbs = exphbs.create({
+        helpers: {
+            json: function (context) {
+                return JSON.stringify(context);
+            },
+        },
+    });
+    app.engine('handlebars', hbs.engine);
     app.set('views', __dirname + '/views');
     app.set('view engine', 'handlebars');
     app.use(express.static(__dirname + '/public'));

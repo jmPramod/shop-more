@@ -3,7 +3,7 @@
 
 </head>
 <section id='homePage'>
-  <main class='centerMenu'>
+  {{! <main class='centerMenu'>
     <table class='userHome'>
       <thead>
         <tr><th><h1>Product Report</h1></th></tr>
@@ -40,6 +40,16 @@
       </tbody>
     </table>
 
-  </aside>
-
+  </aside> }}
+  <canvas id='myChart' style='width:100%;max-width:700px'></canvas>
 </section>
+
+<script>
+  const xValues =
+  {{{json xValues}}}; const yValues =
+  {{{json yValues}}}; const barColors =
+  {{{json barColors}}}; new Chart("myChart", { type: "bar", data: { labels:
+  xValues, datasets: [{ backgroundColor: barColors, data: yValues }] }, options:
+  { legend: { display: false }, title: { display: true, text: `Number of Product
+  V/S Product Category` }, } });
+</script>
