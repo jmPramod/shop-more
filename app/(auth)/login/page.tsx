@@ -194,7 +194,10 @@ const Login = () => {
                   Loading...
                 </button>
               )}
-
+              <div className="border opacity-50 flex items-center justify-between">
+                <div> Demo email:test@test.com </div>
+                <div> Demo password:test@123</div>
+              </div>
               <span
                 className="text-sm ml-2 hover:text-blue-500 cursor-pointer"
                 onClick={() => {
