@@ -6,6 +6,7 @@ const cloudinaryImage = require("../../utils/cloudinary");
 
 const CreateProductHB = async (req, res, next) => {
     try {
+
         if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
             res.render('products/productCreate');
@@ -13,11 +14,10 @@ const CreateProductHB = async (req, res, next) => {
 
 
         }
+        req.body.id = await productsSchema.countDocuments()
+        let existingImages = []; // Get existing images or initialize as empty array
 
-
-        let existingImages = data.images || []; // Get existing images or initialize as empty array
-
-        if (req.files) {
+        if (req.files.length > 0) {
             for (let i = 0; i < req.files.length; i++) {
                 if (req.files[i].fieldname === 'thumbnailImg') {
 
@@ -27,15 +27,6 @@ const CreateProductHB = async (req, res, next) => {
                     req.body.thumbnail = req.body.thumbnail || {};
                     req.body.thumbnail.imageUrl = urlPath
                     req.body.thumbnail.imgPublicId = PublicID
-                    if (data.thumbnail.imgPublicId) {
-                        await cloudinaryImage.uploader.destroy(data.thumbnail.imgPublicId, (error, result) => {
-                            if (error) {
-                                console.error('Error deleting thumbnail image:', error);
-                            } else {
-                                console.log('Deleted thumbnail image:', result);
-                            }
-                        });
-                    }
                 }
 
                 else {
@@ -59,9 +50,10 @@ const CreateProductHB = async (req, res, next) => {
 
         let newProduct = await productsSchema.find().lean();
 
-        res.render('products/getProductList', { newProduct, style: "getProductList.css" });
+        res.render('products/getProductList', { productList: newProduct, style: "getProductList.css" });
 
     } catch (err) {
+        console.log("error", err);
 
         req.flash('Error_msg', err);
     }
@@ -132,8 +124,12 @@ const searchProductHB = async (req, res, next) => {
 
 const getCreateProductHB = async (req, res, next) => {
     try {
+        const productCount = await productsSchema.countDocuments()
 
-        res.render('products/productCreate', { style: "createProduct.css" });
+        const productCategory = await productsSchema.distinct("category")
+
+        let data = { idCount: productCount, category: productCategory, mode: false }
+        res.render('products/productCreate', { style: "createProduct.css", data });
     }
     catch (err) {
 

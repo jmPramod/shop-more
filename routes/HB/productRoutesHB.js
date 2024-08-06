@@ -14,7 +14,7 @@ const { uploadProduct } = require('../../utils/multer');
 const productRouteHB = express.Router();
 
 productRouteHB.get('/create-product', getCreateProductHB);
-productRouteHB.post('/create-product', verifyAdminHB, CreateProductHB);
+productRouteHB.post('/create-product', verifyAdminHB, uploadProduct.any(), CreateProductHB);
 productRouteHB.get(
     '/edit-product/:id',
     verifyAdminHB,

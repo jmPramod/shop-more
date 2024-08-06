@@ -7,15 +7,13 @@
   }
 }
 
-#homePage > aside {
-  width: 50%;
+#homePage > canvas,
+#homePage > div {
+  /* width: 50% !important; */
   padding: 20px;
-}
-
-#homePage > main {
-  width: 50%;
-
-  padding: 20px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 @media (0<width<700px) {
   #homePage > main {

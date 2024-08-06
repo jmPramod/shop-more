@@ -5,12 +5,14 @@
 
   <section 
   style="width: 100%;"
-  id='createProductContainer'
+  id='createProductCont ainer'
   >
    
     <form
       class='formContainer'
       enctype='multipart/form-data'
+
+
       action="{{#if mode}}/edit-product/{{data._id}}{{else}}/create-product{{/if}}"
       method='post'
      
@@ -33,8 +35,14 @@
             id='id'
             name='id'
             placeholder='Id'
-            value='{{data.id}}'
-          />
+            
+             {{#if mode}}
+              value='{{data.id}}'
+             {{else}}
+               value='{{data.idCount}}'
+            {{/if}}
+       disabled
+         />
         </div>
         <div>
           <label for='title'>Title</label>
@@ -134,9 +142,7 @@
     {{#if this}}
       <div style=";">
         <img src="{{this.productUrl}}" alt="Product Image" width="70%" height="50%">
-        <div>
-          Delete: <input type="checkbox" name="deleteImage" value="{{this.productPublicId}}">
-        </div>
+        
       </div>
     {{/if}}
   {{/each}}
@@ -174,7 +180,9 @@
 
         </div>
        <div>
-          <label for='category'>Category</label>
+    <label for='category'>Category</label>
+         {{#if mode}}
+
           <input
             class='inputField'
             required
@@ -185,7 +193,21 @@
             value='{{data.category}}'
             placeholder='Enter Product category'
           />
-        </div>
+
+      {{else}}
+         <select
+          class='inputField'
+          required
+          id='category'
+          name='category'
+        >
+          {{#each data.category}}
+            <option value="{{this}}" >{{this}}</option>
+          {{/each}}
+        </select>
+      {{/if}}
+          
+         </div>
       </div>
 
       

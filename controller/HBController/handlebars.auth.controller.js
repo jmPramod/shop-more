@@ -7,44 +7,44 @@ const productsSchema = require("../../models/ProductSchema");
 const cloudinaryImage = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 const homeController = async (req, res) => {
+  try {
 
-  // req.flash('Loading', '');
-  const token = req.cookies.access_token;
-  // const productDetails = await productsSchema.aggregate([
-  //   {
-  //     "$group": {
-  //       "_id": "$category",
-  //       "product": { "$first": "$$ROOT" }
-  //     }
-  //   },
-  //   { "$replaceRoot": { "newRoot": "$product" } }
-  // ])
-  const cat = await productsSchema.distinct("category")
+    // req.flash('Loading', '');
+    const token = req.cookies.access_token;
 
-  const cat2 = await productsSchema.aggregate([
+    let AllUserData = await SignUp.aggregate([
+      { $group: { _id: "$role", count: { $sum: 1 } } }
+    ])
+    let userVal = [['User', 'role']]
+    AllUserData.forEach((e) => userVal.push([e._id, e.count]))
 
-    { $group: { _id: "$category", count: { $sum: 1 } } }
-  ])
-  console.log(cat2);
-  const xValues = []
-  const yValues = []
+    const cat2 = await productsSchema.aggregate([
 
-  cat2.forEach((e) => xValues.push(e._id))
+      { $group: { _id: "$category", count: { $sum: 1 } } }
+    ])
+    const xValues = []
+    const yValues = []
 
-  cat2.forEach((e) => yValues.push(e.count))
-  // let yValues = cat2.forEach((e) => e.count);
-  console.log(xValues, yValues.push(0));
+    cat2.forEach((e) => xValues.push(e._id))
 
-  const
-    barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
-  if (!token) {
-    req.flash('Error_msg', "Please Login for Home Page.");
+    cat2.forEach((e) => yValues.push(e.count))
+    yValues.push(0)
 
-  } else {
-    return res.render("home", { xValues, yValues, barColors, style: "home.css", showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+    const
+      barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
+    if (!token) {
+      req.flash('Error_msg', "Please Login for Home Page.");
+
+    } else {
+      return res.render("home", { userVal, xValues, yValues, barColors, style: "home.css", showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+
+    }
+    return res.render("users/loginUser", { style: "login.css" });
+
+  } catch (error) {
+    console.log("error", error);
 
   }
-  return res.render("users/loginUser", { style: "login.css" });
 
 };
 
