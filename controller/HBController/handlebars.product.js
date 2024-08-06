@@ -9,8 +9,10 @@ const CreateProductHB = async (req, res, next) => {
 
         if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
-            res.render('products/productCreate');
-            return req.flash('Error_msg', "Demo account can't Create the project.");
+
+
+            req.flash('Error_msg', "Demo account can't Create the project.");
+            return res.redirect('/create-product');
 
 
         }
@@ -236,6 +238,42 @@ const editProductPostHB = async (req, res, next) => {
     }
 }
 
+const deleteGetProductListHB = async (req, res, next) => {
+
+    try {
+
+        if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+
+            req.flash('Error_msg', "Demo account can't Delete the project.");
+            // return res.render('products/productCreate');
+            return res.redirect(`/get-product-list`)
+
+
+        }
+        if (req.body.deleteImage) {
+            let imagesToDelete = Array.isArray(req.body.deleteImage) ? req.body.deleteImage : [req.body.deleteImage];
+
+            // Loop through images to delete
+            for (let publicId of imagesToDelete) {
+                // Example of deleting image from Cloudinary
+                let res = await cloudinaryImage.uploader.destroy(publicId);
+                // Remove the image from the images array in the database
+                existingImages = data.images.filter(image => image.productPublicId !== publicId);
+
+            }
+        }
+        const updateData = await productsSchema.findByIdAndDelete(req.params.id);
+        let productList = await productsSchema.find().lean();
+        console.log(req.params.id, updateData)
+        req.flash('Success_msg', "Product Deleted Successfully");
+        return res.render('products/getProductList', { productList, listProduct: true });
+
+
+    } catch (error) {
+        console.log(error);
+
+    }
+}
 module.exports = {
 
     getSingleProductHB,
@@ -244,5 +282,6 @@ module.exports = {
     getCreateProductHB,
     searchProductHB,
     editProductGetHB,
-    editProductPostHB
+    editProductPostHB,
+    deleteGetProductListHB
 };

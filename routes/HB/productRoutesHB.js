@@ -6,6 +6,7 @@ const {
     CreateProductHB,
     getCreateProductHB,
     editProductGetHB,
+    deleteGetProductListHB,
     editProductPostHB,
 } = require('../../controller/HBController/handlebars.product');
 const { uploadProduct } = require('../../utils/multer');
@@ -26,8 +27,10 @@ productRouteHB.post(
     uploadProduct.any(),
     editProductPostHB
 );
-productRouteHB.get('/get-product-list', getProductListHB);
+productRouteHB.get('/get-product-list', verifyAdminHB, getProductListHB);
 
-productRouteHB.post('/get-product-list', getProductListHB);
+// productRouteHB.post('/get-product-list', getProductListHB);
+
+productRouteHB.get('/delete-product/:id', verifyAdminHB, deleteGetProductListHB);
 
 module.exports = { productRouteHB };

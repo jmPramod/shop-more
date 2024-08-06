@@ -37,8 +37,8 @@
            {{/if}}
       {{#if price}}
       <td id="actionButton" style=""> 
-        <a href='/edit-product/{{_id}}'>Edit</a>
-       <a href='' id="deleteAnker"> Delete</a>
+        <a href='/edit-product/{{_id}}' class="editLink">Edit</a>
+       <a href='/delete-product/{{_id}}' id="deleteAnker"  class="deleteLink"> Delete</a>
             {{/if}}
   </td>
 </tr>
@@ -47,3 +47,23 @@
     </tbody>
   </table>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const deleteLinks = document.querySelectorAll('.deleteLink');
+
+  deleteLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+
+      const confirmation = confirm('Are you sure you want to delete this product?');
+
+       if (!confirmation) {
+        event.preventDefault();
+      }
+    });
+  });
+});
+
+
+</script>
