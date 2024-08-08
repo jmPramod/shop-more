@@ -37,7 +37,7 @@ const homeController = async (req, res) => {
       return req.flash('Error_msg', "Please Login for Home Page.");
 
     } else {
-      return res.render("home", { userVal, xValues, yValues, barColors, style: "home.css", showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+      return res.render("home", { userVal, xValues, yValues, barColors, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 
     }
     // return res.render("users/loginUser", { style: "login.css" });
@@ -86,9 +86,29 @@ const loginUserGet = async (req, res) => {
   const token = req.cookies.access_token;
 
   if (token) {
+    let AllUserData = await SignUp.aggregate([
+      { $group: { _id: "$role", count: { $sum: 1 } } }
+    ])
+    let userVal = [['User', 'role']]
+    AllUserData.forEach((e) => userVal.push([e._id, e.count]))
+
+    const cat2 = await productsSchema.aggregate([
+
+      { $group: { _id: "$category", count: { $sum: 1 } } }
+    ])
+    const xValues = []
+    const yValues = []
+
+    cat2.forEach((e) => xValues.push(e._id))
+
+    cat2.forEach((e) => yValues.push(e.count))
+    yValues.push(0)
+
+    const
+      barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
 
 
-    return res.render("home", { token, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+    return res.render("home", { userVal, xValues, yValues, barColors, token, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
   } else {
     return res.render("users/loginUser", { style: "login.css" });
   }
