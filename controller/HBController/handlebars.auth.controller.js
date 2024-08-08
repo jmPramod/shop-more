@@ -33,13 +33,14 @@ const homeController = async (req, res) => {
     const
       barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
     if (!token) {
-      req.flash('Error_msg', "Please Login for Home Page.");
+      res.render("users/loginUser");
+      return req.flash('Error_msg', "Please Login for Home Page.");
 
     } else {
       return res.render("home", { userVal, xValues, yValues, barColors, style: "home.css", showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 
     }
-    return res.render("users/loginUser", { style: "login.css" });
+    // return res.render("users/loginUser", { style: "login.css" });
 
   } catch (error) {
     console.log("error", error);
@@ -86,21 +87,6 @@ const loginUserGet = async (req, res) => {
 
   if (token) {
 
-    const xValues = ["home-decoration", "laptops", "smartphones", "skincare", "fragrances", "groceries"];
-    const yValues = [55, 49, 44, 24, 15, 6];
-    const barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
-
-
-    new Chart("myChart", {
-      type: "bar", data: {
-        labels: xValues, datasets: [{ backgroundColor: barColors, data: yValues }]
-      },
-      options: {
-        legend: { display: false }, title: {
-          display: true, text: `Product based on Category`
-        }
-      }
-    });
 
     return res.render("home", { token, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
   } else {

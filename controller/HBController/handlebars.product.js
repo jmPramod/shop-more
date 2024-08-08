@@ -250,21 +250,20 @@ const deleteGetProductListHB = async (req, res, next) => {
 
 
         }
-        if (req.body.deleteImage) {
-            let imagesToDelete = Array.isArray(req.body.deleteImage) ? req.body.deleteImage : [req.body.deleteImage];
 
-            // Loop through images to delete
-            for (let publicId of imagesToDelete) {
-                // Example of deleting image from Cloudinary
-                let res = await cloudinaryImage.uploader.destroy(publicId);
-                // Remove the image from the images array in the database
-                existingImages = data.images.filter(image => image.productPublicId !== publicId);
-
+        let productFound = await productsSchema.findById(req.params.id)
+        if (productFound.images.length > 0) {
+            let images = productFound.images
+            for (let img of images) {
+                if (productFound.thumbnail.imgPublicId) {
+                    let thumbnail = await cloudinaryImage.uploader.destroy(productFound.thumbnail.imgPublicId);
+                }
+                let res = await cloudinaryImage.uploader.destroy(img.productPublicId);
             }
         }
         const updateData = await productsSchema.findByIdAndDelete(req.params.id);
         let productList = await productsSchema.find().lean();
-        console.log(req.params.id, updateData)
+
         req.flash('Success_msg', "Product Deleted Successfully");
         return res.render('products/getProductList', { productList, listProduct: true });
 
