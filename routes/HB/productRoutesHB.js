@@ -29,7 +29,7 @@ productRouteHB.post(
 );
 productRouteHB.get('/get-product-list', verifyAdminHB, getProductListHB);
 
-// productRouteHB.post('/get-product-list', getProductListHB);
+productRouteHB.post('/get-product-list', getProductListHB);
 
 productRouteHB.get('/delete-product/:id', verifyAdminHB, deleteGetProductListHB);
 
