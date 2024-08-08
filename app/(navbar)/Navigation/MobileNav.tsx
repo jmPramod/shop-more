@@ -36,11 +36,7 @@ const MobileNav = (props: PropType) => {
   };
   const navStyle = mobileView ? 'translate-x-0' : 'translate-x-[-100%]';
   return (
-    <div
-      id="one"
-      onClick={closeMobView}
-      className={`fixed ${navStyle} bg-black bg-opacity-50 h-screen top-0 w-full z-10 `}
-    >
+    <div id="one" onClick={closeMobView} className={`fixed ${navStyle} C `}>
       <div
         className={`fixed ${navStyle}  h-screen top-0 w-[80%] z-10 transition-all duration-500 delay-200`}
       >
@@ -74,10 +70,7 @@ const MobileNav = (props: PropType) => {
             )}
 
           <li className="text-sm sm:text-xl font-medium text-white  ">
-            <Link
-              href={'/cart'}
-              className="flex gap-1  items-center text-3xl "
-            >
+            <Link href={'/cart'} className="flex gap-1  items-center text-3xl ">
               <BsCart4 /> Cart{' '}
               <sup className="text-yellow-400  p-1 font-bold">
                 {products.cartList}
