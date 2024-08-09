@@ -54,7 +54,7 @@ const page = () => {
       title: 'Contact Us',
 
       description:
-        'If you have any questions or concerns about this Privacy Policy, please contact us at [contact email].',
+        'If you have any questions or concerns about this Privacy Policy, please contact us at helpcustomer94@gmail.com.',
     },
   ];
   function TextDecorator(str: string) {
