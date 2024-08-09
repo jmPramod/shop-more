@@ -14,7 +14,7 @@ const Footer = () => {
               <h1 className="text-sm sm:text-2xl font-bold">Shop More</h1>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+            <div className="grid  gap-8 sm:ga p-6 grid-cols-3">
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   Follow us
@@ -28,14 +28,14 @@ const Footer = () => {
                       Github
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a
                       href="https://discord.gg/4eeurUVvTy"
                       className="hover:underline"
                     >
                       Discord
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               <div>
@@ -71,7 +71,7 @@ const Footer = () => {
                     </a>
                   </li>
                   <li className="mb-4">
-                    <a href="#" className="hover:underline">
+                    <a href="/contact" className="hover:underline">
                       Contact Us{' '}
                     </a>
                   </li>
