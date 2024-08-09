@@ -37,7 +37,7 @@ export default function page() {
     const fetchCart = async () => {
       if (User && User._id) {
         const response = await GetCartList(User._id);
-      
+
         setCartList(response?.data?.cartAdded);
       }
     };
@@ -53,18 +53,13 @@ export default function page() {
     setLoading(false);
   }, [loginModel]);
   useEffect(() => {
-
     if (user === null || (user && Object?.keys(user).length <= 0)) {
-
-
       setLoginModel(true);
     } else {
       setLoginModel(false);
     }
   }, [user, loginModel]);
-  useEffect(() => {
-
-  }, [loginModel]);
+  useEffect(() => {}, [loginModel]);
   return (
     <>
       <Suspense fallback={'loading.....'}>

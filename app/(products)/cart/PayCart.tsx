@@ -12,14 +12,16 @@ const CartList = (props: any) => {
       ) : (
         <>
           {' '}
-          {cartList && cartList.length > 0
-            ? cartList &&
-              cartList.map((val: any, index: number) => (
-                <div key={index}>
-                  <CartCard setCartList={setCartList} val={val} />
-                </div>
-              ))
-            : 'No product in cart'}
+          {cartList && cartList.length > 0 ? (
+            cartList &&
+            cartList.map((val: any, index: number) => (
+              <div key={index}>
+                <CartCard setCartList={setCartList} val={val} />
+              </div>
+            ))
+          ) : (
+            <div className="text-2xl">No product in Cart.</div>
+          )}
         </>
       )}
     </div>
