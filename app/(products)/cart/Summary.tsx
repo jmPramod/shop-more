@@ -60,7 +60,7 @@ const Summary = (props: any) => {
         </div>
         <button className="w-[100%] p-2 mt-3  border bg-[#fb641b] text-white text-2xl">
           {' '}
-          {cartList.length > 0 ? 'Buy now' : 'Add Product to Buy'}
+          {cartList && cartList?.length > 0 ? 'Buy now' : 'Add Product to Buy'}
         </button>
       </div>
     </div>
