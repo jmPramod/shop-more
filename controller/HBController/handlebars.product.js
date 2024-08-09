@@ -16,7 +16,8 @@ const CreateProductHB = async (req, res, next) => {
 
 
         }
-        req.body.id = await productsSchema.countDocuments()
+        const productCount = await productsSchema.distinct("id")
+        req.body.id = eval(productCount.pop() + 1)
         let existingImages = []; // Get existing images or initialize as empty array
 
         if (req.files.length > 0) {
@@ -48,11 +49,12 @@ const CreateProductHB = async (req, res, next) => {
         req.body.images = existingImages;
 
         let newProducts = await new productsSchema(req.body).save();
+        console.log("newProducts", newProducts);
 
 
         let newProduct = await productsSchema.find().lean();
 
-        res.render('products/getProductList', { productList: newProduct, style: "getProductList.css" });
+        res.render('products/getProductList', { productList: newProduct, style: "getProductList.css", user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 
     } catch (err) {
         console.log("error", err);
@@ -79,7 +81,7 @@ const getProductListHB = async (req, res, next) => {
                 }]
 
             }
-            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, filterValue: req.body.filter });
+            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, filterValue: req.body.filter, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 
 
         }
@@ -87,7 +89,7 @@ const getProductListHB = async (req, res, next) => {
 
             let productList = await productsSchema.find().lean();
 
-            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true });
+            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
         }
     } catch (error) {
         req.flash('Error_msg', error);
@@ -126,15 +128,18 @@ const searchProductHB = async (req, res, next) => {
 
 const getCreateProductHB = async (req, res, next) => {
     try {
-        const productCount = await productsSchema.countDocuments()
+
+
+        const productCount = await productsSchema.distinct("id")
+
 
         const productCategory = await productsSchema.distinct("category")
-
-        let data = { idCount: productCount, category: productCategory, mode: false }
-        res.render('products/productCreate', { style: "createProduct.css", data });
+        console.log("productCount", productCount)
+        let data = { idCount: eval(productCount.pop() + 1), category: productCategory, mode: false, showSideBar: true }
+        res.render('products/productCreate', { user_info: req.cookies.user && JSON.parse(req.cookies.user), data });
     }
     catch (err) {
-
+        console.log("error", err)
         req.flash('Error_msg', err);
     }
 }
@@ -142,7 +147,7 @@ const editProductGetHB = async (req, res, next) => {
     try {
         const id = req.params.id
         const data = await productsSchema.findById(id).lean()
-        res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css" });
+        res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css", showSideBar: true });
 
 
     } catch (error) {
@@ -231,7 +236,7 @@ const editProductPostHB = async (req, res, next) => {
         const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true });
 
         let productList = await productsSchema.find().lean();
-        res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true });
+        res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, showSideBar: true });
 
     } catch (error) {
         next(error);
@@ -245,7 +250,7 @@ const deleteGetProductListHB = async (req, res, next) => {
         if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
             req.flash('Error_msg', "Demo account can't Delete the project.");
-            // return res.render('products/productCreate');
+
             return res.redirect(`/get-product-list`)
 
 
@@ -265,7 +270,7 @@ const deleteGetProductListHB = async (req, res, next) => {
         let productList = await productsSchema.find().lean();
 
         req.flash('Success_msg', "Product Deleted Successfully");
-        return res.render('products/getProductList', { productList, listProduct: true });
+        return res.render('products/getProductList', { productList, listProduct: true, showSideBar: true });
 
 
     } catch (error) {

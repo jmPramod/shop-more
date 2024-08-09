@@ -20,7 +20,8 @@ const homeController = async (req, res) => {
 
     const cat2 = await productsSchema.aggregate([
 
-      { $group: { _id: "$category", count: { $sum: 1 } } }
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+      { $sort: { "count": 1 } }
     ])
     const xValues = []
     const yValues = []
@@ -31,7 +32,7 @@ const homeController = async (req, res) => {
     yValues.push(0)
 
     const
-      barColors = ["red", "green", "blue", "orange", "brown", "yellow"];
+      barColors = ["red", "green", "blue", "orange", "brown", "yellow", "pink"];
     if (!token) {
       res.render("users/loginUser");
       return req.flash('Error_msg', "Please Login for Home Page.");
@@ -79,7 +80,7 @@ const editUserControllerPost = async (req, res, next) => {
 
 const editUserControllerGet = async (req, res, next) => {
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-  return res.render("users/createUsers", { userExist: userExist, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+  return res.render("users/createUsers", { userExist: userExist, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 };
 const loginUserGet = async (req, res) => {
 
@@ -180,17 +181,13 @@ const allUserGet = async (req, res, next) => {
   try {
 
     let AllUserData = await SignUp.find({}).lean();
-    // await AllUserData.map(async (val) => {
-    //   if (val.images.length === 20) {
-    //     val.image = await cloudinaryImage.url(val.image)
-    //   }
-    // })
+
     if (AllUserData) {
       let superAdmin = false
       if (req.user_info.role === "Super-Admin") {
         superAdmin = true
       }
-      return res.render("users/listOfUsers", { AllUserData: AllUserData, style: "listOfUsers.css", superAdmin: superAdmin, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+      return res.render("users/listOfUsers", { AllUserData: AllUserData, showSideBar: true, style: "listOfUsers.css", superAdmin: superAdmin, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
     }
   }
   catch (err) {
@@ -203,7 +200,7 @@ const editProfileGet = async (req, res, next) => {
 
     const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
 
-    return res.render("users/profile", { userExist: userExist, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+    return res.render("users/profile", { userExist: userExist, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
   } catch (error) {
     req.flash('Error_msg', error);
   }

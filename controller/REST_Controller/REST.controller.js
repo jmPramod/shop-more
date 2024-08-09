@@ -89,7 +89,7 @@ const resetPasswordController = async (req, res, next) => {
       _id: userExist._id,
     };
     const resetLink = await forgotPasswordResetLink(payload);
-    
+
     res.status(200).json({
       message: 'reset link sent successfully',
       data: null,
@@ -109,7 +109,7 @@ const getResetPasswordFromGmail = async (req, res, next) => {
       return next(createError(404, 'invalid URL')); //user does not exist in database
     }
     if (payload) {
-      res.render('users/resetPassword', { id: id, token: token, payload });
+      res.render('users/resetPassword', { id: id, token: token, payload, showSideBar: true });
     }
   } catch (err) {
     next(err);
