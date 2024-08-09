@@ -25,7 +25,8 @@ const Summary = (props: any) => {
                 {cartList &&
                   cartList.map((val: any, i: number) => (
                     <li key={i}>
-                      {i + 1}{"."}
+                      {i + 1}
+                      {'.'}
                       {val.title}
                     </li>
                   ))}
@@ -57,6 +58,10 @@ const Summary = (props: any) => {
             </div>
           </div>
         </div>
+        <button className="w-[100%] p-2 mt-3  border bg-[#fb641b] text-white text-2xl">
+          {' '}
+          {cartList.length > 0 ? 'Buy now' : 'Add Product to Buy'}
+        </button>
       </div>
     </div>
   );
