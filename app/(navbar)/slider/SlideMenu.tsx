@@ -77,11 +77,11 @@ const SlideMenu = () => {
         <Carousel
           responsive={responsive}
           swipeable={true}
-          draggable={false}
+          draggable={true}
           showDots={true}
           ssr={true} // means to render carousel on server-side.
           infinite={true}
-          autoPlay={false} //
+          autoPlay={true} //
           autoPlaySpeed={5000}
           keyBoardControl={true}
           customTransition="all .5"
