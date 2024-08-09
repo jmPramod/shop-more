@@ -36,7 +36,11 @@ const MobileNav = (props: PropType) => {
   };
   const navStyle = mobileView ? 'translate-x-0' : 'translate-x-[-100%]';
   return (
-    <div id="one" onClick={closeMobView} className={`fixed ${navStyle} C `}>
+    <div
+      id="one"
+      onClick={closeMobView}
+      className={`fixed ${navStyle} bg-black bg-opacity-50 h-screen top-0 w-full z-10 `}
+    >
       <div
         className={`fixed ${navStyle}  h-screen top-0 w-[80%] z-10 transition-all duration-500 delay-200`}
       >
