@@ -212,9 +212,9 @@ const editProfilePost = async (req, res, next) => {
   try {
     // if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
-    req.flash('Error_msg', "You cant Update Profile in demo account.");
+    // req.flash('Error_msg', "You cant Update Profile in demo account.");
     // return res.render('products/productCreate');
-    return res.redirect(`/profile/${req.params.id}`)
+    // return res.redirect(`/profile/${req.params.id}`)
 
 
     // }
