@@ -140,8 +140,15 @@
 <div class="uploadProductImage" style="">
   {{#each data.images}}
     {{#if this}}
-      <div style=";">
+       <div style=";">
         <img src="{{this.productUrl}}" alt="Product Image" width="70%" height="50%">
+      {{#if mode}}
+
+      {{else}}
+      <div>
+          Delete: <input type="checkbox" name="deleteImage" value="{{this.productPublicId}}">
+        </div>
+      {{/if}}
         
       </div>
     {{/if}}
