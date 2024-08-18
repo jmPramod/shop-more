@@ -210,14 +210,14 @@ const editProfileGet = async (req, res, next) => {
 }
 const editProfilePost = async (req, res, next) => {
   try {
-    if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+    // if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
-      req.flash('Error_msg', "You cant Update Profile in demo account.");
-      // return res.render('products/productCreate');
-      return res.redirect(`/profile/${req.params.id}`)
+    req.flash('Error_msg', "You cant Update Profile in demo account.");
+    // return res.render('products/productCreate');
+    return res.redirect(`/profile/${req.params.id}`)
 
 
-    }
+    // }
     const oldData = await SignUp.findOne({ _id: req.params.id }).lean();
 
     if (req.files && req.files.length > 0) {

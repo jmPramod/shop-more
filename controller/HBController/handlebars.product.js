@@ -7,15 +7,15 @@ const cloudinaryImage = require("../../utils/cloudinary");
 const CreateProductHB = async (req, res, next) => {
     try {
 
-        if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+        // if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
 
 
-            req.flash('Error_msg', "Demo account can't Create the project.");
-            return res.redirect('/create-product');
+        req.flash('Error_msg', "Demo account can't Create the project.");
+        return res.redirect('/create-product');
 
 
-        }
+        // }
         const productCount = await productsSchema.distinct("id")
         req.body.id = eval(productCount.pop() + 1)
         let existingImages = []; // Get existing images or initialize as empty array
@@ -162,14 +162,14 @@ const editProductPostHB = async (req, res, next) => {
 
     try {
 
-        if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+        // if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
-            req.flash('Error_msg', "Demo account can't Update the project.");
-            // return res.render('products/productCreate');
-            return res.redirect(`/edit-product/${req.params.id}`)
+        req.flash('Error_msg', "Demo account can't Update the project.");
+        // return res.render('products/productCreate');
+        return res.redirect(`/edit-product/${req.params.id}`)
 
 
-        }
+        // }
         const { id } = req.params;
         const data = await productsSchema.findById(id)
 
@@ -247,14 +247,14 @@ const deleteGetProductListHB = async (req, res, next) => {
 
     try {
 
-        if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
+        // if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
-            req.flash('Error_msg', "Demo account can't Delete the project.");
+        req.flash('Error_msg', "Demo account can't Delete the project.");
 
-            return res.redirect(`/get-product-list`)
+        return res.redirect(`/get-product-list`)
 
 
-        }
+        // }
 
         let productFound = await productsSchema.findById(req.params.id)
         if (productFound.images.length > 0) {
