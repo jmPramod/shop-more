@@ -27,12 +27,17 @@ const signUpController = async (req, res, next) => {
     if (userPhoneExist) {
       return next(createError(404, 'Account Exist for this Phone Number'));
     }
-
+    // const userExist = await SignUp.findOne({ email: email });
     signUpData = await data.save();
+    const token = jwt.sign(
+      { email: signUpData.email, role: signUpData.role, id: signUpData._id },
+      process.env.SECRET_KEY
+    );
     res.status(200).json({
       message: 'User Created Successfully.',
       data: signUpData,
       statusCode: 200,
+      token: token
     });
   } catch (err) {
     next(err);
@@ -89,7 +94,7 @@ const resetPasswordController = async (req, res, next) => {
       _id: userExist._id,
     };
     const resetLink = await forgotPasswordResetLink(payload);
-
+    console.log("resetLink", resetLink)
     res.status(200).json({
       message: 'reset link sent successfully',
       data: null,
