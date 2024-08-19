@@ -1,11 +1,30 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { profileUpdate } from './../../../services/Api.Servicer';
+interface UserData {
+  _id: string;
+  name: string;
+  secondName: string;
+  email: string;
+  phone: number;
+  password: string;
+  role: string;
+  cloudinaryPublicId: string | null;
+  address: string;
+  pinCode: number;
+  cartAdded: string[];
+  createdAt: string;
+  updatedAt: string;
+  images: {
+    imageUrl: string;
+    imgPublicId: string;
+  };
+}
 
-const fetchInitialUser = createAsyncThunk<any, string>(
+const fetchInitialUser = createAsyncThunk<UserData, string>(
   'fetch/initialUser',
-  async (body, thunkApi) => {
+  async (id: string, thunkApi) => {
     try {
-      let response2 = await profileUpdate({}, body);
+      let response2 = await profileUpdate({}, id);
       return response2?.data;
     } catch (err: any) {
       return thunkApi.rejectWithValue(
