@@ -64,10 +64,7 @@ export const login = async (payload: any) => {
 
 export const registerUser = async (payload: any) => {
   try {
-    const response = await axios.post(
-      `http://localhost:5900/api/register`,
-      payload
-    );
+    const response = await axios.post(`${baseUrl}/api/register`, payload);
     console.log('response_token', response);
     if (response?.data?.token) {
       localStorage.setItem('token', JSON.stringify(response?.data?.token));
