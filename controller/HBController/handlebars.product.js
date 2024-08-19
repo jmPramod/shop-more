@@ -11,8 +11,8 @@ const CreateProductHB = async (req, res, next) => {
 
 
 
-        req.flash('Error_msg', "Demo account can't Create the project.");
-        return res.redirect('/create-product');
+            req.flash('Error_msg', "Demo account can't Create the project.");
+            return res.redirect('/create-product');
 
 
         }
@@ -164,9 +164,9 @@ const editProductPostHB = async (req, res, next) => {
 
         if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
-        req.flash('Error_msg', "Demo account can't Update the project.");
-        return res.render('products/productCreate');
-        return res.redirect(`/edit-product/${req.params.id}`)
+            req.flash('Error_msg', "Demo account can't Update the project.");
+
+            return res.redirect(`/edit-product/${req.params.id}`)
 
 
         }
@@ -249,9 +249,9 @@ const deleteGetProductListHB = async (req, res, next) => {
 
         if (req.user_info.id === "668df0fcf7c96d0b6992fe2b") {
 
-        req.flash('Error_msg', "Demo account can't Delete the project.");
+            req.flash('Error_msg', "Demo account can't Delete the project.");
 
-        return res.redirect(`/get-product-list`)
+            return res.redirect(`/get-product-list`)
 
 
         }
