@@ -11,7 +11,10 @@ import { FaSearch } from 'react-icons/fa';
 import { BsCart4 } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../app/redux/store';
-import { userAction } from '../../../app/redux/slice/loginSlice';
+import {
+  fetchInitialUser,
+  userAction,
+} from '../../../app/redux/slice/loginSlice';
 import { GetCartList, SearchProducts } from '../../../services/Api.Servicer';
 interface PropsType {
   openMobView: () => void;
@@ -20,7 +23,7 @@ const Nav = (props: PropsType) => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
-  const products = useAppSelector((state) => state.userList);
+  const products = useAppSelector((state) => state.persistedReducer.userList);
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchText, setSearchText] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
@@ -72,17 +75,22 @@ const Nav = (props: PropsType) => {
     ) {
       fetchCart();
     }
-  }, [dispatch,products.user]);
+  }, [dispatch, products.user]);
 
   useEffect(() => {
     setShowProfile(false);
   }, [pathname]);
   useEffect(() => {
-    const storedUser = localStorage.getItem('User');
+    const fetchUser = async () => {
+      const storedUser = localStorage.getItem('User');
 
-    if (storedUser) {
-      dispatch(userAction.setUser(JSON.parse(storedUser)));
-    }
+      if (storedUser) {
+        let id = JSON.parse(storedUser);
+        await dispatch(fetchInitialUser(id)).unwrap();
+
+        ////dispatch(userAction.setUser(JSON.parse(storedUser)));
+      }
+    };
   }, [dispatch]);
   return (
     <div className="h-[80px] bg-[#212121] text-white z-2000 w-full">

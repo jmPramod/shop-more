@@ -4,10 +4,13 @@ import { AppDispatch, useAppSelector } from '../../redux/store';
 
 import { useDispatch } from 'react-redux';
 import { GetCartList, RemoveFromCart } from '../../../services/Api.Servicer';
-import { userAction } from '@/app/redux/slice/loginSlice';
+import { userAction } from '../../../app/redux/slice/loginSlice';
+import { ProductAction } from '../../../app/redux/slice/productSlice';
 const CartCard = (props: any) => {
-  const { val, setCartList } = props;
-  
+  const { val, 
+    // setCartList
+   } = props;
+
   const dispatch = useDispatch<AppDispatch>();
   const removeCart = async (id: any) => {
     let User: any = localStorage.getItem('User');
@@ -21,10 +24,11 @@ const CartCard = (props: any) => {
       const res = await RemoveFromCart(payload);
       if (res && res.statusCode === 200) {
         const response = await GetCartList(User._id);
-        setCartList(response?.data?.cartAdded);
+
+        // setCartList(response?.data?.cartAdded);
+        dispatch(ProductAction.setProduct(response?.data?.cartAdded));
         dispatch(userAction.AddCartProduct(response?.data?.cartAdded?.length));
       }
-    
     }
   };
   return (

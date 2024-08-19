@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import CartCard from './CartCard';
 
 const CartList = (props: any) => {
-  const { cartList, cartLoading, setCartList } = props;
+  const { cartList, cartLoading, 
+    // setCartList
+   } = props;
 
   return (
     <div className="w-full md:w-[66.66%] h-full  overflow-auto p-5 ">
@@ -16,7 +18,9 @@ const CartList = (props: any) => {
             cartList &&
             cartList.map((val: any, index: number) => (
               <div key={index}>
-                <CartCard setCartList={setCartList} val={val} />
+                <CartCard 
+                // setCartList={setCartList}
+                 val={val} />
               </div>
             ))
           ) : (

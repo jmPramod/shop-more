@@ -16,7 +16,7 @@ const Register = () => {
 
   const [erroMsg, setErrorMsg] = useState('');
   const [loadingButton, setLoadingButton] = useState(false);
-  const products = useSelector((state: any) => state.userList);
+  const products = useSelector((state: any) => state.persistedReducer.userList);
   const router = useRouter();
   const initialValuesForRegister = {
     name: '',
@@ -45,26 +45,24 @@ const Register = () => {
   });
 
   const handleSubmitForRegiter = async (values: any) => {
-    let { reEnterPassword, ...a } = values;
-
-    const payload = {
-      name: 'string',
-      secondName: 'string',
-      email: 'string',
-      phone: 'string',
-      password: 'string',
-    };
-
+    // let { reEnterPassword, ...a } = values;
+    console.log('values', values);
     setLoadingButton(true);
     let user = await registerUser(values);
 
     if (user && Object.keys(user?.data).length !== 0) {
+      console.log('user?.data', user?.data);
+
       dispatch(userAction.setUser(user?.data));
       localStorage.setItem('User', JSON.stringify(user?.data));
       router.push('/');
     } else {
-      setErrorMsg(user?.message?.response?.data?.message);
+      setErrorMsg(user?.message);
+      console.log('user', user, user?.message);
     }
+    // if (user && user.statusCode != 200) {
+    //   setErrorMsg(user?.message);
+    // }
     setLoadingButton(false);
   };
 
@@ -365,6 +363,8 @@ const Register = () => {
               </button>
             </Form>
           </Formik>
+
+          <h1 className="text-red-500">{erroMsg}</h1>
         </div>
         <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
           <div className="absolute z-100 text-white border rounded-md p-1 top-[6%] left-[7%]">

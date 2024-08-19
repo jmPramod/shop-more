@@ -15,11 +15,11 @@ import { useAppSelector, AppDispatch } from '../../../app/redux/store';
 
 const baseUrl = process.env.NEXT_PUBLIC_Base_url;
 const LoginModel = (props: any) => {
-  const { setShowLogin } = props;
+  const { setShowLogin, title } = props;
   const [erroMsg, setErrorMsg] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const products = useAppSelector((state) => state.userList);
+  const products = useAppSelector((state) => state.persistedReducer.userList);
   const [loadingButton, setLoadingButton] = useState(false);
   const [forgetPassword, setForgetPassword] = useState(false);
   const initialValuesForForgetPassword = {
@@ -61,7 +61,7 @@ const LoginModel = (props: any) => {
   return (
     <>
       <div className=" h-[100%] flex items-center justify-center bg-black bg-opacity-50  absolute w-[100%]  top-0 z-[1500] pointer">
-        <div className=" relative w-[90%] md:w-[40%] md:max-h-[100%] max-h-[30%] bg-white px-4 py-6">
+        <div className=" relative w-[90%] md:w-[40%] md:max-h-[100%] bg-white px-4 py-6">
           <div
             className="absolute top-2 right-4 text-right  text-2xl cursor-pointer font-bold "
             onClick={() => {
@@ -79,7 +79,7 @@ const LoginModel = (props: any) => {
             >
               <Form className="bg-white w-full">
                 <h1 className="text-gray-800 font-bold text-2xl mb-1 ">
-                  Please login to {props.title}
+                  Please login to {title}
                 </h1>
                 <p className="text-lg font-normal text-gray-600 mb-7">
                   Don't have an account yet?

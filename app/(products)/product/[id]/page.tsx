@@ -14,10 +14,7 @@ import { BiSolidStar } from 'react-icons/bi';
 import { BiSolidStarHalf } from 'react-icons/bi';
 import { BiStar } from 'react-icons/bi';
 import { useAppSelector } from '../../../../app/redux/store';
-import {
-  checkLocalStorageUser,
-  userAction,
-} from '../../../../app/redux/slice/loginSlice';
+import { userAction } from '../../../../app/redux/slice/loginSlice';
 import { useDispatch } from 'react-redux';
 
 import { useRouter } from 'next/navigation';
@@ -32,7 +29,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
   const [productByCategory, setProductByCategory] = useState<any>(null);
   const router = useRouter();
   const [goToCart, setGoToCart] = useState(false);
-  const user = useAppSelector((state) => state.userList.user);
+  const user = useAppSelector((state) => state.persistedReducer.userList.user);
   const dispatch = useDispatch();
   const renderStars = (rating: number) => {
     const stars = [];
@@ -74,7 +71,7 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
         dispatch(userAction.setUser(response2?.data));
         localStorage.setItem('User', JSON.stringify(response2?.data));
       }
-      // localStorage.setItem('User', JSON.stringify(response?.data));
+      localStorage.setItem('User', JSON.stringify(response?.data));
       setGoToCart(true);
     } else {
       setShowLogin(true);
@@ -103,7 +100,9 @@ const SingleProduct = ({ params }: { params: { id: string } }) => {
             ''
           );
           if (response2?.statusCode === 200) {
-            let fetchData=response2?.data.filter((e: any) => e._id !== params?.id);
+            let fetchData = response2?.data.filter(
+              (e: any) => e._id !== params?.id
+            );
             setProductByCategory(fetchData);
           }
         }

@@ -23,8 +23,6 @@ const page = (props: any) => {
   const box: any = useRef();
 
   const handleSubmitForgot = async (values: any) => {
-
-
     const payload = {
       password: values.password,
     };
@@ -83,7 +81,7 @@ const page = (props: any) => {
     });
   });
 
-    return (
+  return (
     <div
       className="w-full  flex items-center justify-center bg-gray-300"
       style={{ height: ' calc(100vh - 70px)' }}

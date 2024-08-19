@@ -12,28 +12,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSlice, userAction } from '../../../app/redux/slice/loginSlice';
 
 import * as Yup from 'yup';
-// import { LoginModel } from './../../components/loginModel/LoginModel';
-import { AppDispatch } from '../../../app/redux/store';
-import { checkLocalStorageUser } from '../../../app/redux/slice/loginSlice';
+import LoginModel from './../../components/loginModel/LoginModel';
+import { AppDispatch, useAppSelector } from '../../../app/redux/store';
 import axios from 'axios';
 import { profileUpdate } from './../../../services/Api.Servicer';
-const page = () => {
+  const page = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [selectedImage, setSelectedImage] = useState<any>(); // State to hold selected image file
-
-  const [checkLogin, setCheckLogin] = useState(false);
-
-  const products = useSelector((state: any) => state.userList.user);
-  useEffect(() => {
-    if (products && Object?.keys(products)?.length === 0) {
-      setCheckLogin(true);
-    } else {
-      setCheckLogin(false);
-    }
-  }, [products]);
-  useEffect(() => {
-    checkLocalStorageUser();
-  }, []); // Make sure to include dispatch in the dependency array
+  const [loginModel, setLoginModel] = useState(false);
+  const user = useAppSelector((state) => state.persistedReducer.userList.user);
+  const [erroMsg, setErrorMsg] = useState('');
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const products = useSelector(
+    (state: any) => state.persistedReducer.userList.user
+  );
 
   const initialValuesForRegister = {
     name: (products && products.name) || '',
@@ -54,6 +46,7 @@ const page = () => {
     reEnterPassword: Yup.string(),
   });
   const handleUpdateUser = async (values: any) => {
+    setLoading(true);
     let User: any = localStorage.getItem('User');
     const formData = new FormData();
     Object.keys(values).forEach((key) => {
@@ -68,12 +61,14 @@ const page = () => {
       User = JSON.parse(User);
       let response = await profileUpdate(formData, User._id);
       if (response && response.statusCode === 200) {
+        setErrorMsg(response?.message);
         dispatch(userAction.setUser(response?.data));
         localStorage.setItem('User', JSON.stringify(response?.data));
       } else {
-        // setErrorMsg(user?.message?.response?.data?.message);
+        setErrorMsg(response?.message);
       }
     }
+    setLoading(false);
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,10 +77,18 @@ const page = () => {
       setSelectedImage(file);
     }
   };
+
+  useEffect(() => {
+    if (user === null || (user && Object?.keys(user).length <= 0)) {
+      setLoginModel(true);
+    } else {
+      setLoginModel(false);
+    }
+  }, [user, loginModel]);
   return (
     <>
-      {checkLogin ? (
-        <>{/* <LoginModel /> */}</>
+      {loginModel ? (
+        <LoginModel setShowLogin={setLoginModel} title="View Profile" />
       ) : (
         <div className="w-full h-full mt-[77px] items-center flex justify-center flex-col gap-4">
           <div className="flex w-full flex-col md:flex-row justify-center py-10 items-center bg-white gap-3">
@@ -248,7 +251,7 @@ const page = () => {
                   name="pinCode"
                   component="div"
                 />
-                <>
+                {/* <>
                   <div className="flex items-center border-2 py-2 px-3 rounded-2xl  mt-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +269,7 @@ const page = () => {
                       type="text"
                       id="first_name"
                       className="pl-2  w-full outline-none border-none  "
-                      placeholder="Enter password"
+                      placeholder="Enter Old password"
                       name="password"
                     />
                   </div>
@@ -294,7 +297,7 @@ const page = () => {
                       type="text"
                       id="first_name"
                       className="pl-2  w-full outline-none border-none  "
-                      placeholder="Re-enter password"
+                      placeholder="Enter New password"
                       name="reEnterPassword"
                     />
                   </div>
@@ -303,19 +306,20 @@ const page = () => {
                     name="reEnterPassword"
                     component="div"
                   />
-                </>
+                </> */}
 
                 <button
                   type="submit"
                   className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
                 >
-                  Update
+                  {loading ? 'Loading....' : 'Update'}
                 </button>
+                {erroMsg && <h1 className="text-red-500">{erroMsg}</h1>}
               </Form>
             </Formik>
           </div>
         </div>
-      )}{' '}
+      )}
     </>
   );
 };

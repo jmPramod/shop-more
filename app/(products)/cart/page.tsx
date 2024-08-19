@@ -9,36 +9,43 @@ import { GetCartList, profileUpdate } from '../../../services/Api.Servicer';
 import { AppDispatch, useAppSelector } from '../../redux/store';
 
 import {
-  checkLocalStorageUser,
+  fetchInitialUser,
   userAction,
 } from '../../redux/slice/loginSlice';
 import { useDispatch } from 'react-redux';
 import LoginModel from './../../components/loginModel/LoginModel';
 import Loading from './loading';
+import { fetchCartProduct } from '../../redux/slice/productSlice';
 export default function page() {
-  const [cartList, setCartList] = useState<any>();
+  // const [cartList, setCartList] = useState<any>();
 
   const dispatch = useDispatch<AppDispatch>();
   const [loginModel, setLoginModel] = useState(false);
-  const user = useAppSelector((state) => state.userList.user);
+  const user = useAppSelector((state) => state.persistedReducer.userList.user);
+
+  const cartList = useAppSelector(
+    (state) => state.persistedReducer.productList.Product
+  );
   const [cartLoading, setLoading] = useState(true);
   // const [loding];
 
   useEffect(() => {
-    checkLocalStorageUser();
     const storedUser = localStorage.getItem('User');
-
     if (storedUser) {
-      dispatch(userAction.setUser(JSON.parse(storedUser)));
+      let id = JSON.parse(storedUser);
+      dispatch(fetchInitialUser(id._id));
+
+      ////dispatch(userAction.setUser(JSON.parse(storedUser)));
     }
   }, []); // Make sure to include dispatch in the dependency array
 
   useEffect(() => {
     const fetchCart = async () => {
       if (User && User._id) {
-        const response = await GetCartList(User._id);
+        dispatch(fetchCartProduct(User._id));
+        // const response = await GetCartList(User._id);
 
-        setCartList(response?.data?.cartAdded);
+        // setCartList(response?.data?.cartAdded);
       }
     };
 
@@ -72,7 +79,7 @@ export default function page() {
             <CartList
               cartList={cartList && cartList}
               cartLoading={cartLoading}
-              setCartList={setCartList}
+              // setCartList={setCartList}
             />
             <Summary cartList={cartList && cartList} />
           </div>

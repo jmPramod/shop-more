@@ -1,5 +1,19 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { profileUpdate } from './../../../services/Api.Servicer';
 
+const fetchInitialUser = createAsyncThunk<any, string>(
+  'fetch/initialUser',
+  async (body, thunkApi) => {
+    try {
+      let response2 = await profileUpdate({}, body);
+      return response2?.data;
+    } catch (err: any) {
+      return thunkApi.rejectWithValue(
+        err.message || 'Failed to fetch user data'
+      );
+    }
+  }
+);
 interface LoginState {
   user: any;
   loading: boolean;
@@ -42,16 +56,13 @@ const loginSlice = createSlice({
       state.cartList = 0;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchInitialUser.fulfilled, (state, action) => {
+      console.log('action.payload', action.payload);
+      state.loading = false;
+      state.user = action.payload;
+    });
+  },
 });
 const userAction = loginSlice.actions;
-const checkLocalStorageUser = () => {
-  return (dispatch: any) => {
-    const storedUser = localStorage.getItem('User');
-
-    if (storedUser) {
-      dispatch(userAction.setUser(JSON.parse(storedUser)));
-    }
-  };
-};
-
-export { userAction, loginSlice, checkLocalStorageUser };
+export { userAction, loginSlice, fetchInitialUser };

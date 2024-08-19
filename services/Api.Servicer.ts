@@ -64,20 +64,25 @@ export const login = async (payload: any) => {
 
 export const registerUser = async (payload: any) => {
   try {
-    const response = await axios.post(`${baseUrl}/api/register`, payload);
+    const response = await axios.post(
+      `http://localhost:5900/api/register`,
+      payload
+    );
+    console.log('response_token', response);
     if (response?.data?.token) {
       localStorage.setItem('token', JSON.stringify(response?.data?.token));
     }
     return {
       message: response.data.message,
       data: response.data.data,
-      // statusCode: response.data.statusCode,
+      statusCode: response.data.statusCode,
     };
   } catch (error: any) {
+    console.log('error:', error);
     if (error) {
       return {
-        // statusCode: error.response.data?.status,
-        message: error,
+        statusCode: error.response.data?.statusCode,
+        message: error.response.data?.message,
         data: {},
       };
     }
@@ -85,7 +90,6 @@ export const registerUser = async (payload: any) => {
 };
 export const resetPassword = async (payload: any) => {
   try {
-  
     const response = await axios.post(
       `${baseUrl}/api/forget-password`,
       payload
@@ -96,7 +100,7 @@ export const resetPassword = async (payload: any) => {
       statusCode: response.data.statusCode,
     };
   } catch (error: any) {
-    console.log(error )
+    console.log(error);
     if (error) {
       return {
         statusCode: error.response.data?.statusCode,
@@ -233,7 +237,7 @@ export const EnterResetPasssword = async (
 ) => {
   try {
     const response = await axios.post(
-    `${baseUrl}/api/reset-password/${id}/${token}`,
+      `${baseUrl}/api/reset-password/${id}/${token}`,
       payload
     );
     return {

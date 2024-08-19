@@ -18,7 +18,7 @@ const MobileNav = (props: PropType) => {
 
   const [showProfile, setShowProfile] = useState(false);
   const { mobileView, closeMobView } = props;
-  const products = useAppSelector((state) => state.userList);
+  const products = useAppSelector((state) => state.persistedReducer.userList);
   const handleLogout = () => {
     if (
       products.user != null &&
