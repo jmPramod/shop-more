@@ -526,7 +526,17 @@ const forgotPasswordResetLink = async (payload) => {
 `, // html body
   };
   try {
-    transporter.sendMail(mailOption);
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(mailOption, (err, info) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          resolve(info);
+        }
+      });
+    });
+    // transporter.sendMail(mailOption);
   } catch (err) {
     console.log('error in sending email', err);
   }
