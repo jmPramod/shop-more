@@ -1,38 +1,29 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-"use client";
-import React, { useState, useEffect } from "react";
+/* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { BiStar } from 'react-icons/bi';
 import MultiRangeSlider from "multi-range-slider-react";
-import {
-  filterProducts,
-  getProductsCategory,
-} from "../../../../services/Api.Servicer";
-import { ProductType } from "../../../utils/types";
-import SortCard from "../SortCard";
-import LoadingSkeliton from "../LoadingSkeliton";
-import { useRouter } from "next/navigation";
-import FilterMenu from "./FilterMenu";
-const page = ({ params }: { params: { category: string } }) => {
-  console.log("params?.category",params?.category);
+import { BsCart4 } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { AiOutlineClose } from 'react-icons/ai';
+interface PropType {
+  mobileView: boolean;
+  closeMobView: () => void;
+  initVal:any
+  setInitVal:any
+  categoryList:any
+  handleInput:any
+
+}
+const FilterMenu = (props: PropType) => {
+
+
+   const { mobileView, closeMobView ,initVal,setInitVal,categoryList} = props;
+  const handleLogout = () => {}
+  const navStyle = mobileView ? 'translate-y-0' : 'translate-y-[100%]';
   
-  const [initVal, setInitVal] = useState({
-    category: params?.category,
-    max: 1000000,
-    min: 0,
-    rating: 0,
-  });
-  const [loading, setLoading] = useState(true);
-  const [maxValue, set_maxValue] = useState(100000);
-
-  const [mobileView, setMobileView] = useState(false);
-  const openMobView = () => setMobileView(!mobileView);
-  const closeMobView = () => setMobileView(!mobileView);
-  const router = useRouter();
-  const [ProductList, setProductList] = useState([] as ProductType[]);
-
-const [rate,setRating]=useState(5)
-  const [categoryList, setCategoryList] = useState([] as ProductType[]);
   const handleInput = (e: any) => {
     setInitVal({ ...initVal, min: parseInt(e.minValue) });
     
@@ -41,57 +32,26 @@ const [rate,setRating]=useState(5)
     // set_minValue(e.minValue);
     // set_maxValue(e.maxValue);
   };
-  let data = { categoty: "abc" };
-
-  useEffect(() => {
-    setLoading(true)
-   
-    const fetchData = async () => {
-      const response = await getProductsCategory();
-      if (response) {
-        setCategoryList(response.data);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    
-    setLoading(true)
-    const fetchData = async () => {
-      const res = await filterProducts(initVal.min, initVal.max, initVal.category, initVal.rating, "", "");
-      console.log(res);
-      if (res?.statusCode == 200) {
-        setProductList(res.data);
-      }
-      
-      setLoading(false);
-    };
-    if (initVal.category != "") {
-      fetchData();
-    }
-  }, [initVal.min, initVal.max, initVal.category, initVal.rating,params?.category]);
-useEffect(()=>{
-
-  if(initVal.category!==""){
-    router.push(`/sort/${initVal.category}`)
-  }
-},[
-  initVal.category
-])
   return (
     <div
-      style={{ height: "calc(100vh - 81px)" }}
-      className="flex gap-3 w-full  mt-[81px] p-4 relative"
+      id="one"
+      // onClick={closeMobView}
+      className={`fixed ${navStyle} bg-black bg-opacity-50 h-screen top-0 left-0 w-full z-10 md:hidden block`}
     >
-      {/* mobile left */}
-      <FilterMenu handleInput={handleInput} initVal={initVal} categoryList={categoryList} setInitVal={setInitVal} mobileView={mobileView} closeMobView={closeMobView} />
-    
-      {/* left Menu */}
-      <div className="border w-[20%]  h-full p-2 fixed z-10 md:block hidden" >
+      <div
+        className={`fixed ${navStyle}  inset-0 bg-black bg-opacity-50 backdrop-blur-sm  h-screen top-0 left-0 w-[100%] z-10 transition-all duration-500 delay-200`}
+      >
+        
+        {/* nav links */}
+        <div className="border w-[80%] right-[10%]  fixed z-10 top-52 p-5 bg-white" >
+        <AiOutlineClose
+        color='black'
+          className="text-white absolute right-4 top-3 text-2xl"
+          onClick={closeMobView}
+        />
+          <h1  className="w-full text-[20px] font-semibold flex flex-wrap">Filter </h1>
         <div className="w-full">
-          <h1 className="w-full text-[20px] font-semibold flex flex-wrap">
+          <h1>
             Category is :{" "}
             <select
               name=""
@@ -211,26 +171,9 @@ useEffect(()=>{
   </div>
 </div>
       </div>
-      {/* Right Filter */}
-      <div className="border w-full md:w-[78%] h-full absolute right-0 grid grid-cols-1 md:grid-cols-2  gap-6  p-5">
-      <div className="flex items-center justify-between md:hidden">
-        
-        <div className="border p-3 "  onClick={()=>setMobileView(!mobileView)}>Filter</div>
-      </div>
-        {!loading?ProductList.map((val, i) => (
-          <div key={i}>
-            <SortCard val={val} />
-          </div>
-        )): Array.from({ length: 5 }).map((_, index) => (
-          <LoadingSkeliton key={index} />
-        ))}
-        {
-          ProductList.length==0&&!loading
-          &&" No Product Found"
-        }
       </div>
     </div>
   );
 };
 
-export default page;
+export default FilterMenu;
