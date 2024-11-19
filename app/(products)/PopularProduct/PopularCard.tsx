@@ -6,7 +6,10 @@ import Card from './Card';
 import CardSkeliton from './CardSkeliton';
 import { ProductType } from './../../utils/types';
 import { useScroll, motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 const ProductCard = (props: any) => {
+  
+  const router = useRouter();
   const { data, title, loading } = props;
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -44,9 +47,13 @@ const ProductCard = (props: any) => {
       //   opacity: scrollYProgress,
       // }}
       // ref={ref}
-      className="w-[97%] px-5 mx-auto bg-[#f1f4f9]"
+      className="w-[97%] px-5 my-5 py-3 mx-auto bg-[#f1f4f9] border"
     >
-      <h1 className="my-5 text-3xl font-bold">{title}</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="my-5 text-3xl font-bold ">{title}</h1>
+       {title!=="Most Popular Product"&& <h3 className='text-1xl' onClick={ ()=>router.push(`/sort/${data[0].category}`)}> <u>
+        All {title}  </u> </h3>}
+        </div>
       {loading ? (
         <>
           <div className="md:flex gap-[10px] hidden mx-[10px] items-center justify-between w-full">

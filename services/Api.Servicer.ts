@@ -108,7 +108,7 @@ export const resetPassword = async (payload: any) => {
   }
 };
 export const filterProducts = async (
-  minPrice?: string,
+  minPrice?: string|number,
   maxPrice?: number | string,
   category?: string,
   minRating?: number | string,

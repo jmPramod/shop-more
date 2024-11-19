@@ -104,6 +104,8 @@ const SlideMenu = () => {
                 // animate={{ scale: 1 }}
                 // initial={{ scale: 0.9 }}
                 // transition={{ delay: 1 }}
+                onClick={() => router.push(`/sort/${val.category}`)}
+   
                 key={index}
                 className="w-full h-[71vh] flex items-center justify-center gap-5  bg-blue-950 mt-[80px] p-7 flex-col md:flex-row"
               >
@@ -144,7 +146,7 @@ const SlideMenu = () => {
                   <button
                     className="mt-3 px-8 py-3 text-xl bg-green-500 transition-all duration-200 space-x-2 text-white rounded-lg"
                     onClick={() => {
-                      router.push(`/product/${val._id}`);
+                      router.push(`/sort/${val.category}`);
                       setButtonLoading(true);
                     }}
                   >
