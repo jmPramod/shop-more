@@ -17,7 +17,7 @@ const page = ({ params }: { params: { category: string } }) => {
   
   const [initVal, setInitVal] = useState({
     category: params?.category,
-    max: 100000,
+    max: 1000000,
     min: 0,
     rating: 0,
   });
@@ -31,6 +31,8 @@ const [rate,setRating]=useState(5)
   const [categoryList, setCategoryList] = useState([] as ProductType[]);
   const handleInput = (e: any) => {
     setInitVal({ ...initVal, min: parseInt(e.minValue) });
+    
+    setInitVal({ ...initVal, max: parseInt(e.maxValue) });
 
     // set_minValue(e.minValue);
     // set_maxValue(e.maxValue);
@@ -113,12 +115,12 @@ useEffect(()=>{
               {initVal.min}
             </div>
 
-            <div>Max Price: {initVal.max == 100000 ? "100000+" : initVal.max}</div>
+            <div>Max Price: {initVal.max == 1000000 ? "1000000+" : initVal.max}</div>
           </div>
 
           <MultiRangeSlider
             min={0}
-            max={100000}
+            max={1000000}
             minValue={initVal.min}
             maxValue={initVal.max}
             canMinMaxValueSame={true}
