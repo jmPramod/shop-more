@@ -1,83 +1,118 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const flash = require('connect-flash');
-var cors = require('cors');
-const cookies = require('cookie-parser');
-const swaggerUI = require("swagger-ui-express")
-const hbs = require('express-handlebars');
+const flash = require("connect-flash");
+var cors = require("cors");
+const cookies = require("cookie-parser");
+const swaggerUI = require("swagger-ui-express");
+const hbs = require("express-handlebars");
+const helmet = require("helmet");
 
-const exphbs = require('express-handlebars');
-const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
+const exphbs = require("express-handlebars");
+const {
+  SwaggerUIBundle,
+  SwaggerUIStandalonePreset,
+} = require("swagger-ui-dist");
 
-require('dotenv').config(); //to import dot env file in index.js
+require("dotenv").config(); //to import dot env file in index.js
 
 const port = process.env.PORT;
-const { globalStorage, corsOption, sessionOption, handelbarIfHelper } = require('./config/optionsHelper');//don't remove this important line it gives error after hosting 
-const { connectMongooseDB } = require('./config/db.connect');
-const { swaggerSpec, CSS_URL } = require('./config/swaggerFiles');
-const { adminAuthHB } = require('./routes/HB/adminAuthHB');
-const { authRoute } = require('./routes/REST/userAuth');
-const { productRouteRest } = require('./routes/REST/productRoute');
-const { productRouteHB } = require('./routes/HB/productRoutesHB');
-const { paymentRouteRest } = require('./routes/REST/paymentRoutes');
-
+const {
+  globalStorage,
+  corsOption,
+  sessionOption,
+  handelbarIfHelper,
+} = require("./config/optionsHelper"); //don't remove this important line it gives error after hosting
+const { connectMongooseDB } = require("./config/db.connect");
+const { swaggerSpec, CSS_URL } = require("./config/swaggerFiles");
+const { adminAuthHB } = require("./routes/HB/adminAuthHB");
+const { authRoute } = require("./routes/REST/userAuth");
+const { productRouteRest } = require("./routes/REST/productRoute");
+const { productRouteHB } = require("./routes/HB/productRoutesHB");
+const { paymentRouteRest } = require("./routes/REST/paymentRoutes");
 
 // handelbarIfHelper
 // app.use(cors(corsOption));
 const createServer = () => {
-
-    app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL }))
-    app.use(cookies());
-    app.use(express.urlencoded({ extended: true }));
-    app.use(express.json());
-    app.use(sessionOption);
-    // Set up Handlebars with custom helpers
-    const hbs = exphbs.create({
-        helpers: {
-            json: function (context) {
-                return JSON.stringify(context);
-            },
+  app.use(
+    "/api-docs",
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL })
+  );
+  app.use(cookies());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
+  app.use(sessionOption);
+  // Set up Handlebars with custom helpers
+  const hbs = exphbs.create({
+    helpers: {
+      json: function (context) {
+        return JSON.stringify(context);
+      },
+    },
+  });
+  app.engine("handlebars", hbs.engine);
+  app.set("views", __dirname + "/views");
+  app.set("view engine", "handlebars");
+  app.use(express.static(__dirname + "/public"));
+  app.use(flash());
+  app.use(globalStorage);
+  //----------------------------------------------------
+  // Configure Helmet for security headers
+ // Configure Helmet for security headers
+app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "'unsafe-inline'"], // Example for specific script sources
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          imgSrc: ["'self'", 'data:'],
         },
-    });
-    app.engine('handlebars', hbs.engine);
-    app.set('views', __dirname + '/views');
-    app.set('view engine', 'handlebars');
-    app.use(express.static(__dirname + '/public'));
-    app.use(flash())
-    app.use(globalStorage);
-    //----------------------------------------------------
-    app.use(cors({
-            origin: ["https://shop-more-fe.netlify.app",'http://localhost:3000'],
-        credentials: true,
-    }))
-    // Handle preflight requests
-app.options('*', cors());
-    //---------------------------------------------------
-    app.use('/', adminAuthHB);
+      },
+      frameguard: { action: 'deny' }, // Sets X-Frame-Options to DENY
+      hsts: {
+        maxAge: 31536000, // One year in seconds
+        includeSubDomains: true, // Include subdomains
+        preload: true,
+      },
+    })
+  );
+  
+  //----------------------------------------------------
+  app.use(
+    cors({
+      origin: ["https://shop-more-fe.netlify.app", "http://localhost:3000"],
+      credentials: true,
+    })
+  );
+  // Handle preflight requests
+  app.options("*", cors());
+  //---------------------------------------------------
+  app.use("/", adminAuthHB);
 
-    //REST API routes
-    app.use('/', authRoute);
-    app.use('/', productRouteRest);
-    app.use('/', productRouteHB);
-    app.use("/", paymentRouteRest)
-    //404 page for handlebars
-    app.get('*', function (req, res) {
-        res.status(404).render("404Error")
-    });
-    //! Error handing  middleware
-    app.use((err, req, res, next) => {
-        const statusCode = err.statusCode || 500;
-        const errorMessage = err.message || 'Something went wrong!!!!';
+  //REST API routes
+  app.use("/", authRoute);
+  app.use("/", productRouteRest);
+  app.use("/", productRouteHB);
+  app.use("/", paymentRouteRest);
+  //404 page for handlebars
+  app.get("*", function (req, res) {
+    res.status(404).render("404Error");
+  });
+  //! Error handing  middleware
+  app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const errorMessage = err.message || "Something went wrong!!!!";
 
-        return res.status(statusCode).json({
-            data: null,
-            Success: false,
-            statusCode: statusCode,
-            message: errorMessage,
-            stacks: err.stack,
-        });
+    return res.status(statusCode).json({
+      data: null,
+      Success: false,
+      statusCode: statusCode,
+      message: errorMessage,
+      stacks: err.stack,
     });
-    return app
-}
+  });
+  return app;
+};
 
-module.exports = { app, createServer }
+module.exports = { app, createServer };

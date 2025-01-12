@@ -151,11 +151,21 @@ const loginUserPost = async (req, res, next) => {
       { email: userExist.email, role: userExist.role, id: userExist._id },
       process.env.SECRET_KEY
     );
-    res.cookie("access_token", token);
+    res.cookie("access_token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'Strict',
+    });
 
     userExist.image = await cloudinaryImage.url(userExist.image)
     req.session.user_info = userExist
-    res.cookie("user", JSON.stringify(userExist));
+    res.cookie("user", JSON.stringify(userExist), {
+     
+      httpOnly: true,
+      sameSite: 'strict',
+      path: "/",
+      secure: true,
+    });
 
     return res.redirect("/home")
 
