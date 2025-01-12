@@ -48,7 +48,7 @@ const createServer = () => {
     //----------------------------------------------------
     app.use(cors({
         // origin: ["https://shop-more.vercel.app", "http://localhost:3000", "https://shop-more-fe.netlify.app"],
-        origin: "*",
+        origin: "https://shop-more-fe.netlify.app/",
         credentials: true,
     }))
     //---------------------------------------------------
