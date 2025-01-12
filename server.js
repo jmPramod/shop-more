@@ -47,7 +47,7 @@ const createServer = () => {
     app.use(globalStorage);
     //----------------------------------------------------
     app.use(cors({
-            origin: "https://shop-more-fe.netlify.app/",
+            origin: "https://shop-more-fe.netlify.app",
         credentials: true,
     }))
     // Handle preflight requests
