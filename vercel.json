@@ -1,25 +1,6 @@
 {
     "version": 2,
     "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
-    
-    "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "https://shop-more-fe.netlify.app",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Credentials": "true"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/",
-      "methods": ["OPTIONS"],
-      "status": 204
-    }
-  ]
+    "routes": [{ "src": "/(.*)", "dest": "/" }]
   }
   
