@@ -81,7 +81,9 @@ const getProductListHB = async (req, res, next) => {
                 }]
 
             }
-            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, filterValue: req.body.filter, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, filterValue: req.body.filter, 
+                // showSideBar: true,
+                 user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 
 
         }
@@ -89,7 +91,9 @@ const getProductListHB = async (req, res, next) => {
 
             let productList = await productsSchema.find().lean();
 
-            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+            res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, 
+                // showSideBar: true,
+                 user_info: req.cookies.user && JSON.parse(req.cookies.user) });
         }
     } catch (error) {
         req.flash('Error_msg', error);
@@ -135,7 +139,9 @@ const getCreateProductHB = async (req, res, next) => {
 
         const productCategory = await productsSchema.distinct("category")
         console.log("productCount", productCount)
-        let data = { idCount: eval(productCount.pop() + 1), category: productCategory, mode: false, showSideBar: true }
+        let data = { idCount: eval(productCount.pop() + 1), category: productCategory, mode: false, 
+            // showSideBar: true
+         }
         res.render('products/productCreate', { user_info: req.cookies.user && JSON.parse(req.cookies.user), data });
     }
     catch (err) {
@@ -147,7 +153,9 @@ const editProductGetHB = async (req, res, next) => {
     try {
         const id = req.params.id
         const data = await productsSchema.findById(id).lean()
-        res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css", showSideBar: true });
+        res.render('products/productCreate', { mode: 'edit', data: data, style: "createProduct.css", 
+            // showSideBar: true 
+        });
 
 
     } catch (error) {
@@ -236,7 +244,9 @@ const editProductPostHB = async (req, res, next) => {
         const updateData = await productsSchema.findByIdAndUpdate(id, req.body, { new: true });
 
         let productList = await productsSchema.find().lean();
-        res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, showSideBar: true });
+        res.render('products/getProductList', { productList, style: "getProductList.css", listProduct: true, 
+            // showSideBar: true 
+        });
 
     } catch (error) {
         next(error);
@@ -270,7 +280,9 @@ const deleteGetProductListHB = async (req, res, next) => {
         let productList = await productsSchema.find().lean();
 
         req.flash('Success_msg', "Product Deleted Successfully");
-        return res.render('products/getProductList', { productList, listProduct: true, showSideBar: true });
+        return res.render('products/getProductList', { productList, listProduct: true, 
+            // showSideBar: true 
+        });
 
 
     } catch (error) {

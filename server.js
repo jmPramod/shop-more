@@ -58,18 +58,32 @@ const createServer = () => {
   app.use(globalStorage);
   //----------------------------------------------------
   // Configure Helmet for security headers
- // Configure Helmet for security headers
-app.use(
+  // Configure Helmet for security headers
+  app.use(
     helmet({
       contentSecurityPolicy: {
         directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "'unsafe-inline'"], // Example for specific script sources
-          styleSrc: ["'self'", "'unsafe-inline'"],
-          imgSrc: ["'self'", 'data:'],
+          defaultSrc: ["'self'", "'unsafe-inline'",],
+          scriptSrc: [
+            "'self'",
+            "'unsafe-inline'", 
+            "https://www.gstatic.com", // Allow Google Charts
+            "https://cdnjs.cloudflare.com", // Allow CDNJS (for Font Awesome, Chart.js, etc.)
+            "https://cdn.jsdelivr.net", // Allow JSDelivr for Bootstrap, GSAP, etc.
+            
+          ], // Example for specific script sources
+          styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", // Allow external styles like Font Awesome
+            "https://cdn.jsdelivr.net", // Allow Bootstrap from JSDelivr
+            "https://fonts.googleapis.com", // Allow Google Fonts
+            "https://www.gstatic.com",// Allow Google Charts CDN
+        ],
+          imgSrc: ["'self'", "data:", "https://raw.githubusercontent.com", "https://cdn.dribbble.com",   "https://res.cloudinary.com", 
+          ],
+          connectSrc: ["'self'"], // Restrict to same-origin requests (you can adjust if using APIs)
+          objectSrc: ["'none'"], // Disallow objects and embeds
         },
       },
-      frameguard: { action: 'deny' }, // Sets X-Frame-Options to DENY
+      frameguard: { action: "deny" }, // Sets X-Frame-Options to DENY
       hsts: {
         maxAge: 31536000, // One year in seconds
         includeSubDomains: true, // Include subdomains
@@ -77,7 +91,7 @@ app.use(
       },
     })
   );
-  
+
   //----------------------------------------------------
   app.use(
     cors({

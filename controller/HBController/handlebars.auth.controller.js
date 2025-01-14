@@ -80,7 +80,9 @@ const editUserControllerPost = async (req, res, next) => {
 
 const editUserControllerGet = async (req, res, next) => {
   const userExist = await SignUp.findOne({ _id: req.params.id }).lean();
-  return res.render("users/createUsers", { userExist: userExist, showSideBar: true, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+  return res.render("users/createUsers", { userExist: userExist,
+    //  showSideBar: true, 
+     user_info: req.cookies.user && JSON.parse(req.cookies.user) });
 };
 const loginUserGet = async (req, res) => {
 
@@ -197,7 +199,9 @@ const allUserGet = async (req, res, next) => {
       if (req.user_info.role === "Super-Admin") {
         superAdmin = true
       }
-      return res.render("users/listOfUsers", { AllUserData: AllUserData, showSideBar: true, style: "listOfUsers.css", superAdmin: superAdmin, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
+      return res.render("users/listOfUsers", { AllUserData: AllUserData,
+        //  showSideBar: true,
+          style: "listOfUsers.css", superAdmin: superAdmin, user_info: req.cookies.user && JSON.parse(req.cookies.user) });
     }
   }
   catch (err) {
