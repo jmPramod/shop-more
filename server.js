@@ -38,6 +38,7 @@ const createServer = () => {
     swaggerUI.serve,
     swaggerUI.setup(swaggerSpec, { customCssUrl: CSS_URL })
   );
+  // app.use("/api-docs", swaggerui.serve, swaggerui.setup(swaggerDocument, { customCssUrl: CSS_URL }));//rohit solution
   app.use(cookies());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
